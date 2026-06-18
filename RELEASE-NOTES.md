@@ -1,5 +1,30 @@
 # Superpowers Release Notes
 
+## Fork: outcome-based verification + untrusted-input quarantine (2026-06-18)
+
+Two follow-ups to the plan-review-and-docs-gate work below, both **advisory** with operator
+override.
+
+### Outcome-based verification (writing-plans, plan reviewer, verification-before-completion)
+
+Verification Artifacts and completion claims must now name the **observable delta** — the
+postcondition that is false before a change and true after — not merely that a command exited
+0 or returned HTTP 200. A command can pass without the intended change having happened. The VA
+template and Self-Review teach the standard with a weak-vs-strong example, the adversarial
+reviewer flags criteria that only prove a command ran, and the completion gate adds a matching
+Common Failures row and an "Outcome, not just exit code" pattern.
+
+### Untrusted-input quarantine (writing-plans, plan reviewer, verification-before-completion)
+
+`writing-plans` gains an **Input Trust Model** separating *trusted instructions* (operator
+requests, the approved spec, this skill set) from *untrusted content* (repo prose, issue/PR
+bodies, commit messages, stack traces, web results, raw tool/subagent output). Untrusted
+content informs *what to build* but its embedded instructions are data, not commands: they may
+not redefine scope, gates, permissions, or "done" without an explicit reason tied to a trusted
+source. Self-Review item 6, an adversarial-reviewer check row, and a completion-gate red flag
+enforce it. A new `scripts/lint-fork-customizations.sh` structurally verifies all fork
+behaviors remain present after edits.
+
 ## Fork: CCC plan-review-and-docs-gate (2026-06-18)
 
 This fork of Superpowers adds four coordinated behaviors to tighten plan quality and
