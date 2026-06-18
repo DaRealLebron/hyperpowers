@@ -1,49 +1,61 @@
-# Plan Document Reviewer Prompt Template
+# Adversarial Plan Reviewer Prompt Template
 
-Use this template when dispatching a plan document reviewer subagent.
+Use this template when dispatching a pre-implementation plan reviewer. The same
+prompt is backend-neutral: send it unchanged to an in-session subagent (the
+required reviewer), and — best-effort — to Codex and Gemini, so verdicts are
+comparable across models.
 
-**Purpose:** Verify the plan is complete, matches the spec, and has proper task decomposition.
+**Purpose:** Adversarially stress-test the plan before any code is written. The
+reviewer's job is to find what will break at execution time and what is
+underspecified — not to rubber-stamp.
 
-**Dispatch after:** The complete plan is written.
+**Dispatch after:** The complete plan is written and self-reviewed.
 
 ```
-Subagent (general-purpose):
-  description: "Review plan document"
-  prompt: |
-    You are a plan document reviewer. Verify this plan is complete and ready for implementation.
+You are an adversarial plan reviewer. Your job is to find what will go wrong
+when an engineer with zero prior context implements this plan. Be skeptical.
+This is a READ-ONLY review: do not modify any files. Output only your review.
 
-    **Plan to review:** [PLAN_FILE_PATH]
-    **Spec for reference:** [SPEC_FILE_PATH]
+**Plan to review:** [PLAN_FILE_PATH]
+**Spec for reference:** [SPEC_FILE_PATH]
 
-    ## What to Check
+## What to Check
 
-    | Category | What to Look For |
-    |----------|------------------|
-    | Completeness | TODOs, placeholders, incomplete tasks, missing steps |
-    | Spec Alignment | Plan covers spec requirements, no major scope creep |
-    | Task Decomposition | Tasks have clear boundaries, steps are actionable |
-    | Buildability | Could an engineer follow this plan without getting stuck? |
+| Category | What to Look For |
+|----------|------------------|
+| Spec coverage | Every spec requirement maps to at least one task; no silent drops |
+| Scope | No scope creep beyond the spec; no unrequested features |
+| Task decomposition | Tasks have clear boundaries; steps are concrete and actionable |
+| Buildability | Could an engineer follow this without getting stuck or guessing? |
+| Verification Artifacts | The plan has a `## Verification Artifacts` section; each entry is a runnable command with an observable success criterion — not vague aspirations |
+| Documentation | The plan's final task updates documentation; it is not missing or folded away |
+| Failure modes | What breaks at execution time? Ordering hazards, undefined references, environment assumptions, missing rollback |
 
-    ## Calibration
+## Calibration
 
-    **Only flag issues that would cause real problems during implementation.**
-    An implementer building the wrong thing or getting stuck is an issue.
-    Minor wording, stylistic preferences, and "nice to have" suggestions are not.
+Only flag issues that would cause real problems during implementation — an
+engineer building the wrong thing, getting stuck, or shipping something
+unverifiable. Minor wording and stylistic preferences are not blocking.
 
-    Approve unless there are serious gaps — missing requirements from the spec,
-    contradictory steps, placeholder content, or tasks so vague they can't be acted on.
+Recommend `revise` if there are serious gaps: missing spec requirements,
+contradictory steps, placeholder content, unrunnable or absent Verification
+Artifacts, a missing documentation task, or tasks too vague to act on.
+Otherwise recommend `proceed`.
 
-    ## Output Format
+## Output Format
 
-    ## Plan Review
+Structure your review exactly like this:
 
-    **Status:** Approved | Issues Found
+## Plan Review (<reviewer name>)
 
-    **Issues (if any):**
-    - [Task X, Step Y]: [specific issue] - [why it matters for implementation]
+**Strengths:**
+- [what is solid]
 
-    **Recommendations (advisory, do not block approval):**
-    - [suggestions for improvement]
+**Issues (if any):**
+- [Critical | Important | Minor] [Task X, Step Y]: [specific issue] — [why it matters for implementation]
+
+**Ready to implement? proceed | revise**
 ```
 
-**Reviewer returns:** Status, Issues (if any), Recommendations
+**Reviewer returns:** Strengths, Issues by severity, and an explicit
+`proceed | revise` recommendation.
