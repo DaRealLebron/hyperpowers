@@ -202,8 +202,8 @@ Insert these two items immediately BEFORE that line (after the existing "**3. Ty
 
 - [ ] **Step 4: Verify all three edits landed**
 
-Run: `grep -c "## Verification Artifacts" skills/writing-plans/SKILL.md`
-Expected: `1`
+Run: `grep -c "^## Verification Artifacts$" skills/writing-plans/SKILL.md`
+Expected: `1` (anchored to the heading line; Self-Review item 4's inline mention is excluded)
 
 Run: `grep -c "Mandatory Final Task: Update Documentation" skills/writing-plans/SKILL.md`
 Expected: `1`
@@ -452,7 +452,7 @@ git commit -m "docs: document adversarial plan review, mandatory docs task, and 
 
 - `grep -c "proceed | revise" skills/writing-plans/plan-document-reviewer-prompt.md` — returns `2`.
 - `grep -c "## Adversarial Plan Review" skills/writing-plans/SKILL.md` — returns `1`.
-- `grep -c "## Verification Artifacts" skills/writing-plans/SKILL.md` — returns `1`.
+- `grep -c "^## Verification Artifacts$" skills/writing-plans/SKILL.md` — returns `1`.
 - `grep -c "Mandatory Final Task: Update Documentation" skills/writing-plans/SKILL.md` — returns `1`.
 - `grep -c "Docs updated" skills/verification-before-completion/SKILL.md` — returns `1`.
 - `grep -c "## Verification Artifacts" /tmp/sample-plan.md` (Task 5) — returns `1`; subagent-produced plan also ends in an "Update documentation" task.
