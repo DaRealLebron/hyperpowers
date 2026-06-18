@@ -48,6 +48,7 @@ Skip any step = lying, not verifying
 | Regression test works | Red-green cycle verified | Test passes once |
 | Agent completed | VCS diff shows changes | Agent reports "success" |
 | Requirements met | Line-by-line checklist | Tests passing |
+| Docs updated | VCS diff shows the doc changes | "Code is self-explanatory", "will document later" |
 
 ## Red Flags - STOP
 
@@ -121,6 +122,7 @@ From 24 failure memories:
 - ANY expression of satisfaction
 - ANY positive statement about work state
 - Committing, PR creation, task completion
+- Completing a task whose plan included a documentation task
 - Moving to next task
 - Delegating to agents
 
