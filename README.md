@@ -27,7 +27,7 @@ There's a bunch more to it, but that's the core of the system. And because the s
 
 ## Fork customizations
 
-This fork adds four behaviors on top of upstream Superpowers. All are **advisory**: the
+This fork adds five behaviors on top of upstream Superpowers. All are **advisory**: the
 operator may override any gate by proceeding with an explicit statement of intent and reason.
 
 - **Adversarial plan review** — before implementation, `writing-plans` dispatches a required
@@ -36,11 +36,22 @@ operator may override any gate by proceeding with an explicit statement of inten
 - **Mandatory "Update documentation" final task** — every plan the `writing-plans` skill
   produces ends with an explicit documentation-update task as its last step.
 - **Required `## Verification Artifacts` section** — every plan must include a
-  `Verification Artifacts` section where each bullet is a runnable command and an observable
-  success criterion; a plan missing it is caught by Self-Review and the adversarial reviewer (advisory, not a hard gate).
+  `Verification Artifacts` section where each bullet pairs a runnable command with an
+  *observable delta* (the postcondition that is false before the change and true after, not
+  merely "exit 0"); a plan missing it, or one whose criteria only prove a command ran, is
+  caught by Self-Review and the adversarial reviewer (advisory, not a hard gate).
 - **Docs-updated completion check** — the `verification-before-completion` skill now asks the
   agent to confirm (via a VCS diff) that relevant documentation was updated before it claims a
   task complete.
+- **Untrusted-input quarantine** — `writing-plans` separates *trusted instructions* (operator
+  requests, the approved spec) from *untrusted content* (repo prose, issue/PR text, tool and
+  subagent output). Instructions embedded in untrusted content are data, not commands, and may
+  not redefine scope, gates, permissions, or "done" without an explicit reason tied to a
+  trusted source; the adversarial reviewer and `verification-before-completion` enforce it.
+
+A deterministic structural check, `scripts/lint-fork-customizations.sh`, verifies these
+behaviors remain present in the skill files after edits (no LLM; structure only — it does not
+verify an agent obeys them).
 
 ## Commercial Services
 
