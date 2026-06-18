@@ -25,6 +25,23 @@ Next up, once you say "go", it launches a *subagent-driven-development* process,
 
 There's a bunch more to it, but that's the core of the system. And because the skills trigger automatically, you don't need to do anything special. Your coding agent just has Superpowers.
 
+## Fork customizations
+
+This fork adds four behaviors on top of upstream Superpowers. All are **advisory**: the
+operator may override any gate by proceeding with an explicit statement of intent and reason.
+
+- **Adversarial plan review** — before implementation, `writing-plans` dispatches a required
+  in-session subagent reviewer plus best-effort Codex and Gemini reviewers (each skipped
+  gracefully when unavailable); verdicts are summarized per reviewer.
+- **Mandatory "Update documentation" final task** — every plan the `writing-plans` skill
+  produces ends with an explicit documentation-update task as its last step.
+- **Required `## Verification Artifacts` section** — every plan must include a
+  `Verification Artifacts` section where each bullet is a runnable command and an observable
+  success criterion; a plan missing it is caught by Self-Review and the adversarial reviewer (advisory, not a hard gate).
+- **Docs-updated completion check** — the `verification-before-completion` skill now asks the
+  agent to confirm (via a VCS diff) that relevant documentation was updated before it claims a
+  task complete.
+
 ## Commercial Services
 
 If you're using Superpowers in enterprise and could benefit from commercial support, additional tooling, or managed spending, please don't hesitate to drop us a line at sales@primeradiant.com.

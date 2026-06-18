@@ -1,5 +1,46 @@
 # Superpowers Release Notes
 
+## Fork: CCC plan-review-and-docs-gate (2026-06-18)
+
+This fork of Superpowers adds four coordinated behaviors to tighten plan quality and
+documentation discipline before dispatch. All four gates are **advisory**: the operator may
+override any of them by proceeding with an explicit statement of intent and reason.
+
+### Adversarial Plan Review (writing-plans)
+
+Before implementation begins, an in-session subagent reviewer (current model) is **required**
+and always runs, performing an adversarial plan review of the full plan. Two additional
+reviewers are consulted best-effort and skip gracefully when unavailable:
+
+- **Codex** (`codex exec`) — skipped if the `codex` CLI is not on `PATH`
+- **Gemini** (via the local `claude-or` wrapper) — skipped if `claude-or` is unavailable
+
+Verdicts from each available reviewer are collected and summarized before the plan is handed
+off, so the operator sees any concerns from multiple models in one place.
+
+### Mandatory "Update documentation" Final Task (writing-plans)
+
+Every plan produced by the `writing-plans` skill now ends with an explicit
+**"Update documentation"** task. A plan missing it is caught by writing-plans' own Self-Review and by the adversarial reviewer (which recommends `revise`) — advisory, not a hard block. The task
+is intended to be the final step of every implementation plan, dogfooding the rule itself.
+
+### Required `## Verification Artifacts` Section (writing-plans)
+
+Every plan must include a `## Verification Artifacts` section. Each bullet in that section
+must be a runnable command paired with an observable success criterion. A plan lacking this
+section is caught by Self-Review and the adversarial reviewer (which recommends `revise`), not by
+a hard gate, so every plan still ships with a concrete definition of done.
+
+### Docs-Updated Completion Check (verification-before-completion)
+
+The `verification-before-completion` skill now includes a documentation-update check as part
+of the completion gate: before accepting a completion claim, the skill instructs the agent to
+confirm via a VCS diff that the relevant documentation (e.g., README, RELEASE-NOTES, or other
+affected docs) was actually updated. Like the other gates, this is advisory — the operator may
+override it explicitly.
+
+---
+
 ## v6.0.2 (2026-06-16)
 
 ### Install Fixes
