@@ -184,6 +184,55 @@ After writing the complete plan, look at the spec with fresh eyes and check the 
 
 If you find issues, fix them inline. No need to re-review — just fix and move on. If you find a spec requirement with no task, add the task.
 
+## Adversarial Plan Review
+
+After Self-Review and before Execution Handoff, get an independent adversarial
+review of the plan. This is **advisory**: it refuses to let you *claim* the plan
+is ready without a review, but you may override (see below).
+
+Use the prompt template at `plan-document-reviewer-prompt.md`, filling
+`[PLAN_FILE_PATH]` and `[SPEC_FILE_PATH]`.
+
+**1. Required — in-session reviewer (current model):**
+Dispatch a fresh `general-purpose` subagent with the filled prompt. This
+reviewer always runs.
+
+**2. Best-effort — model diversity (NS5):**
+Additionally send the SAME filled prompt to other model backends if they are
+available in this environment. Each is optional: if the backend is missing or
+errors, report `skipped (unavailable: <name>)` and continue. Never block on an
+external model. Write the filled prompt to a temp file first, e.g.
+`/tmp/plan-review-prompt.md`.
+
+- Codex:
+  ```bash
+  if command -v codex >/dev/null 2>&1; then
+    codex exec - < /tmp/plan-review-prompt.md || echo "skipped (unavailable: codex)"
+  else
+    echo "skipped (unavailable: codex)"
+  fi
+  ```
+- Gemini (operator's `claude-or` wrapper, or any local Gemini CLI):
+  ```bash
+  if command -v claude-or >/dev/null 2>&1; then
+    claude-or -p "$(cat /tmp/plan-review-prompt.md)" || echo "skipped (unavailable: gemini)"
+  else
+    echo "skipped (unavailable: gemini)"
+  fi
+  ```
+
+**3. Summarize verdicts:** Present every verdict that returned, attributed by
+reviewer (e.g. "Claude: proceed", "Codex: revise — Task 3 ordering", "Gemini:
+skipped (unavailable)"). Do not collapse them into a single pass/fail.
+
+**4. Act on the verdicts:**
+- If all returned reviewers say `proceed`: continue to Execution Handoff.
+- If any reviewer says `revise`: strongly recommend revising the plan first.
+  Proceeding anyway is allowed, but you MUST state explicitly that you are
+  overriding the review and why.
+
+Do not proceed to Execution Handoff without completing Steps 1, 3, and 4 (Step 2 is optional).
+
 ## Execution Handoff
 
 After saving the plan, offer execution choice:
