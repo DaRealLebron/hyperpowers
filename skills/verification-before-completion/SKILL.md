@@ -122,7 +122,7 @@ From 24 failure memories:
 - ANY expression of satisfaction
 - ANY positive statement about work state
 - Committing, PR creation, task completion
-- Completing a task whose plan included a documentation task
+- Completing work that should update documentation
 - Moving to next task
 - Delegating to agents
 
