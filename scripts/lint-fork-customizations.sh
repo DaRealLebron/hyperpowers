@@ -93,6 +93,13 @@ check "skill-router: scale-adaptive routing section" "$SR" "## Scale-Adaptive Ro
 check "skill-router: route-by-signals wording"       "$SR" "Route by signals, not by habit"
 check "using-superpowers: routes via skill-router"   "$US" "skill-router"
 
+# 12. BMAD absorption — product-discovery + elicitation menu
+PD="skills/product-discovery/SKILL.md"
+EM="skills/product-discovery/elicitation-methods.md"
+check "product-discovery: discovery-to-PRD section"  "$PD" "## Discovery to PRD"
+check "product-discovery: carry-forward anti-rework" "$PD" "Carry findings forward"
+check "elicitation-methods: menu section"            "$EM" "## Elicitation Methods"
+
 printf '\n%d passed, %d failed\n' "$pass" "$fail"
 if [[ "$fail" -gt 0 ]]; then
   exit 1
