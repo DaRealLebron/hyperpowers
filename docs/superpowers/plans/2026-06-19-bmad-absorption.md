@@ -26,7 +26,7 @@
 - `grep -c skill-router skills/using-superpowers/SKILL.md` — returns ≥1 (was 0), proving the router is wired into the always-loaded entry skill.
 - `grep -F 'acceptance criteria become Verification Artifacts' skills/writing-plans/SKILL.md` — matches (absent before), proving the anti-duplication consumption seam is documented.
 - `grep -F 'Completed work is immutable' skills/reevaluation/SKILL.md` — matches, proving the supersede-not-rewrite rule (the fix for BMAD's known bug) is present.
-- `grep -c 'behaviors' README.md` updated and `grep -F '40 checks' README.md` — matches, proving the README count was advanced from 11 behaviors / 24 checks to 15 / 40.
+- `grep -F '40 checks' README.md` — matches (the README said `24 checks` before this plan), proving the doc check-count was advanced; and `grep -F 'BMAD absorption' RELEASE-NOTES.md` — matches, proving the release entry was added.
 
 ---
 
@@ -334,6 +334,8 @@ wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/architectur
 - Consumes: `skill-router` (which routes major changes here) and the upward-escalation signal added to `subagent-driven-development` in Task 8.
 - Produces: the `reevaluation` skill. Markers `## Supersede, Don't Rewrite`, `Completed work is immutable`.
 
+**Note (apostrophe):** the marker `## Supersede, Don't Rewrite` contains an apostrophe. Author both the skill heading and the lint `check` line with the Edit/Write tool (direct file edit) — never by echoing the line through a single-quoted `bash -lc '...'` payload, where the `Don't` apostrophe would terminate the payload early. `grep -qF` matches it correctly once it is in the file.
+
 - [ ] **Step 1: Add the failing lint checks**
 
 Append to `scripts/lint-fork-customizations.sh`:
@@ -469,7 +471,10 @@ Expected: `35 passed, 1 failed`, `EXIT=1`.
 
 - [ ] **Step 3: Graft the note**
 
-In `skills/writing-plans/SKILL.md`, at the end of the `## Task Right-Sizing` section (after the paragraph ending ``Reserve agent reasoning for the steps that genuinely need judgment.``), add:
+In `skills/writing-plans/SKILL.md`, insert at the end of the `## Task Right-Sizing` section —
+immediately **before** the next heading `## Bite-Sized Task Granularity`. (Anchor on those two
+single-line headings; do not search for the section's closing sentence, which is line-wrapped in the
+file.) Add:
 
 ```markdown
 
@@ -524,12 +529,13 @@ In `skills/writing-plans/SKILL.md`, immediately after the `## API Evidence` sect
 ```markdown
 ## Test Oracle Strength
 
-A Verification Artifact is only as good as the test behind it. Prefer **behaviorally-independent
-assertions** — a test that asserts the real observable outcome, not the shape of the
-implementation. For logic-heavy acceptance criteria, propose at least one property / invariant test
-alongside the example test, and trace each acceptance criterion to the test that covers it (AC →
-test). For P0/P1 (highest-risk) criteria, demand assertions strong enough that a wrong
-implementation fails them; run mutation testing on the changed module when the toolchain supports it.
+A Verification Artifact is only as good as the test behind it. Prefer
+**behaviorally-independent assertions** — a test that asserts the real observable outcome, not the
+shape of the implementation. For logic-heavy acceptance criteria, propose at least one property /
+invariant test alongside the example test, and trace each acceptance criterion to the test that
+covers it (AC → test). For P0/P1 (highest-risk) criteria, demand assertions strong enough that a
+wrong implementation fails them; run mutation testing on the changed module when the toolchain
+supports it.
 
 ```
 
@@ -590,7 +596,7 @@ Expected: `38 passed, 2 failed`, `EXIT=1`.
 
 - [ ] **Step 3: Graft `writing-plans`**
 
-In `skills/writing-plans/SKILL.md`, immediately after the `## Test Oracle Strength` section added in Task 7 (before `## Remember`), add:
+In `skills/writing-plans/SKILL.md`, immediately after the `## Test Oracle Strength` section added in Task 7 (before `## Remember`), add: (Task 7 must already be applied — `## Test Oracle Strength` is the anchor it creates; if that heading is absent, stop and run Task 7 first.)
 
 ```markdown
 ## Consuming Project Artifacts
@@ -642,7 +648,7 @@ Note the exact current count strings (the prior round left README at "eleven beh
 
 - [ ] **Step 2: Update README counts**
 
-In `README.md`, change the customization-behavior count from eleven to **fifteen** (4 new skills: skill-router, product-discovery, architecture-design, reevaluation — the elicitation menu, scale-adaptive depth, Finding A, and the consumption seam are grafts, not separate behaviors), and change `24 checks` to `40 checks`. Add a short bullet block after the existing behavior list:
+In `README.md`, using the exact strings Step 1 surfaced, change the behavior-count word (currently `eleven`) to `fifteen` (4 new skills: skill-router, product-discovery, architecture-design, reevaluation — the elicitation menu, scale-adaptive depth, Finding A, and the consumption seam are grafts, not separate behaviors), and change the `24 checks` string to `40 checks`. If Step 1 shows different wording than `eleven` / `24 checks` (e.g. a digit, or `24-check`), replace whatever it actually found — do not assume the literals. Add a short bullet block after the existing behavior list:
 
 ```markdown
 - **Project altitude (BMAD absorption):** `skill-router` routes work by scale (trivial → feature → project); `product-discovery` writes the brief + PRD; `architecture-design` writes the durable architecture + ADRs and runs a PASS/CONCERNS/FAIL readiness gate (reusing the review panel); `reevaluation` handles major change by superseding — not rewriting — completed work.
