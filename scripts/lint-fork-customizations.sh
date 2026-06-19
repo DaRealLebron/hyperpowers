@@ -86,6 +86,13 @@ check "writing-plans: verify-before-acting on review"  "$WP" "discard that findi
 check "writing-plans: shell-first mechanical lane"     "$WP" "shell/script step, not prose"
 check "subagent-driven: shell-first mechanical lane"   "$SDD" "shell/script with no subagent"
 
+# 11. BMAD absorption — skill-router (scale-adaptive front door)
+SR="skills/skill-router/SKILL.md"
+US="skills/using-superpowers/SKILL.md"
+check "skill-router: scale-adaptive routing section" "$SR" "## Scale-Adaptive Routing"
+check "skill-router: route-by-signals wording"       "$SR" "Route by signals, not by habit"
+check "using-superpowers: routes via skill-router"   "$US" "skill-router"
+
 printf '\n%d passed, %d failed\n' "$pass" "$fail"
 if [[ "$fail" -gt 0 ]]; then
   exit 1

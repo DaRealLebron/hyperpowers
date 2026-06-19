@@ -108,6 +108,11 @@ When multiple skills could apply, use this order:
 "Let's build X" → brainstorming first, then implementation skills.
 "Fix this bug" → systematic-debugging first, then domain-specific skills.
 
+## Routing Build Work
+
+For build tasks, route altitude first with skill-router (trivial → feature → project), then enter
+the matched skill. Don't default every task to the same depth — proportional effort is the point (NS2).
+
 ## Skill Types
 
 **Rigid** (TDD, systematic-debugging): Follow exactly. Don't adapt away discipline.
