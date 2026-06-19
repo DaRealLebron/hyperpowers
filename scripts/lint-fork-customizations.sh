@@ -114,6 +114,9 @@ check "reevaluation: completed-work-immutable rule"  "$RE" "Completed work is im
 BR="skills/brainstorming/SKILL.md"
 check "brainstorming: elicitation menu pointer" "$BR" "../product-discovery/elicitation-methods.md"
 
+# 16. BMAD absorption — scale-adaptive depth grafted into writing-plans
+check "writing-plans: scale-adaptive depth note" "$WP" "Match planning depth to project size"
+
 printf '\n%d passed, %d failed\n' "$pass" "$fail"
 if [[ "$fail" -gt 0 ]]; then
   exit 1

@@ -101,6 +101,10 @@ through. A deterministic command is cheaper and more reliable than an LLM pass f
 work that has one correct output (NS2). Reserve agent reasoning for the steps that
 genuinely need judgment.
 
+Match planning depth to project size (see skill-router): a trivial change skips brainstorming and
+the project altitude; a new product earns the full discovery → PRD → architecture pass. Spending
+the same ceremony on every task is the failure this guards against (NS2).
+
 ## Bite-Sized Task Granularity
 
 **Each step is one action (2-5 minutes):**
