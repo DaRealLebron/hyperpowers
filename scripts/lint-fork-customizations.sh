@@ -110,6 +110,10 @@ RE="skills/reevaluation/SKILL.md"
 check "reevaluation: supersede-not-rewrite section"  "$RE" "## Supersede, Don't Rewrite"
 check "reevaluation: completed-work-immutable rule"  "$RE" "Completed work is immutable"
 
+# 15. BMAD absorption — elicitation menu grafted into brainstorming
+BR="skills/brainstorming/SKILL.md"
+check "brainstorming: elicitation menu pointer" "$BR" "../product-discovery/elicitation-methods.md"
+
 printf '\n%d passed, %d failed\n' "$pass" "$fail"
 if [[ "$fail" -gt 0 ]]; then
   exit 1

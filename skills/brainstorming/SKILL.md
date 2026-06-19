@@ -71,6 +71,7 @@ digraph brainstorming {
 - Prefer multiple choice questions when possible, but open-ended is fine too
 - Only one question per message - if a topic needs more exploration, break it into multiple questions
 - Focus on understanding: purpose, constraints, success criteria
+- When an answer is shallow or an assumption is load-bearing, offer a named method from [elicitation-methods.md](../product-discovery/elicitation-methods.md) (pre-mortem, inversion, first-principles, …). Proportional — not every question (NS2).
 
 **Exploring approaches:**
 
