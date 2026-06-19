@@ -1,5 +1,21 @@
 # Superpowers Release Notes
 
+## Fork: depth-2 research fan-out + multi-lens review panel (2026-06-18)
+
+Adds two flat (depth-2, controller-direct) subagent patterns and an explicit anti-nesting
+guardrail, grounded in research that parallel **read/review** fan-out helps while **nested**
+delegation (subagents calling subagents) measurably does not:
+
+- `writing-plans`: optional, proportional, **read-only** research fan-out before File Structure.
+- `writing-plans`: adversarial plan review is now a **multi-lens panel** (parallel reviewers,
+  one lens each) sharing a `[REVIEW_LENS]`-parameterized prompt template.
+- `dispatching-parallel-agents`: **Keep Delegation Flat** — dispatched subagents do not spawn
+  their own subagents. Harness-independent; no dependency on any nesting feature.
+
+All advisory with operator override. `scripts/lint-fork-customizations.sh` gains six structural
+checks protecting the new markers (18 checks total, no LLM). Behavioral adherence still requires
+the live `testing-skills-with-subagents` drill (follow-up).
+
 ## Fork: outcome-based verification + untrusted-input quarantine (2026-06-18)
 
 Two follow-ups to the plan-review-and-docs-gate work below, both **advisory** with operator
