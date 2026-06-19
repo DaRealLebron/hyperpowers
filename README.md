@@ -63,6 +63,23 @@ A deterministic structural check, `scripts/lint-fork-customizations.sh`, verifie
 behaviors remain present in the skill files after edits (no LLM; structure only — it does not
 verify an agent obeys them).
 
+### Installing this fork
+
+This fork is published at [`DaRealLebron/superpowers`](https://github.com/DaRealLebron/superpowers).
+To use it in Claude Code instead of upstream:
+
+```bash
+/plugin marketplace add DaRealLebron/superpowers
+/plugin install superpowers@superpowers-dev
+```
+
+Both plugins are named `superpowers` and share skill names, so disable the upstream one to avoid a
+collision: open `/plugin`, toggle `superpowers@claude-plugins-official` **off**, then restart Claude
+Code. Verify the customizations are present with `bash scripts/lint-fork-customizations.sh` (18 checks
+should pass).
+
+See [`docs/workflow.md`](docs/workflow.md) for the happy-path flowcharts (upstream vs. this fork).
+
 ## Commercial Services
 
 If you're using Superpowers in enterprise and could benefit from commercial support, additional tooling, or managed spending, please don't hesitate to drop us a line at sales@primeradiant.com.
