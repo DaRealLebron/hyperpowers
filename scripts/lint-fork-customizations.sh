@@ -122,6 +122,10 @@ TDD="skills/test-driven-development/SKILL.md"
 check "writing-plans: oracle-strength assertions"   "$WP"  "behaviorally-independent assertions"
 check "test-driven-development: oracle-strength rule" "$TDD" "survive a deliberately wrong implementation"
 
+# 18. BMAD absorption — consumption contract (anti-duplication seam)
+check "writing-plans: AC→VA consumption seam"        "$WP"  "acceptance criteria become Verification Artifacts"
+check "subagent-driven: upward escalation to reeval" "$SDD" "escalate to reevaluation"
+
 printf '\n%d passed, %d failed\n' "$pass" "$fail"
 if [[ "$fail" -gt 0 ]]; then
   exit 1

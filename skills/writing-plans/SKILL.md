@@ -255,6 +255,19 @@ covers it (AC → test). For P0/P1 (highest-risk) criteria, demand assertions st
 wrong implementation fails them; run mutation testing on the changed module when the toolchain
 supports it.
 
+## Consuming Project Artifacts
+
+When the project altitude has run, a feature plan **reads** its artifacts instead of re-deriving them:
+
+- The PRD epic's acceptance criteria become Verification Artifacts — each Gherkin AC maps to a VA
+  bullet with its observable delta (and inherits the oracle-strength rule above).
+- Cite `architecture.md` / the relevant ADRs in Global Constraints and Interfaces rather than
+  re-deciding architecture in the plan.
+- Do not re-run product-discovery or re-author PRD-level content for a feature an epic already
+  covers (no-re-spec).
+- If planning reveals the architecture is wrong, escalate to `reevaluation` — do not quietly
+  redesign inside the plan.
+
 ## Remember
 - Exact file paths always
 - Complete code in every step — if a step changes code, show the code

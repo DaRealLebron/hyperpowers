@@ -150,6 +150,7 @@ Implementer subagents report one of four statuses. Handle each appropriately:
 2. If the task requires more reasoning, re-dispatch with a more capable model
 3. If the task is too large, break it into smaller pieces
 4. If the plan itself is wrong, escalate to the human
+5. If the blocker is architectural — the plan builds on an architecture decision that turns out wrong — escalate to reevaluation rather than letting the implementer redesign. This is the upward path of the consumption contract.
 
 **Never** ignore an escalation or force the same model to retry without changes. If the implementer said it's stuck, something needs to change.
 
