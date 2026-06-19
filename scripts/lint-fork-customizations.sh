@@ -105,6 +105,11 @@ AD="skills/architecture-design/SKILL.md"
 check "architecture-design: readiness gate section"  "$AD" "## Implementation-Readiness Gate"
 check "architecture-design: PASS/CONCERNS/FAIL verdict" "$AD" "PASS / CONCERNS / FAIL"
 
+# 14. BMAD absorption — reevaluation (supersede, don't rewrite)
+RE="skills/reevaluation/SKILL.md"
+check "reevaluation: supersede-not-rewrite section"  "$RE" "## Supersede, Don't Rewrite"
+check "reevaluation: completed-work-immutable rule"  "$RE" "Completed work is immutable"
+
 printf '\n%d passed, %d failed\n' "$pass" "$fail"
 if [[ "$fail" -gt 0 ]]; then
   exit 1
