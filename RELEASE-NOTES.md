@@ -9,10 +9,11 @@ deterministic mechanical work to the shell rather than an LLM pass:
   schema the plan must either confirm it exists (via a check step or citation) or mark the
   dependency an explicit `ASSUMPTION`; the adversarial reviewer flags unchecked external
   dependencies.
-- **Verify-before-acting on review** (`receiving-code-review`, `writing-plans` reviewer) — when a
+- **Verify-before-acting on review** (`writing-plans` plan-review + reviewer prompt) — when a plan
   reviewer suggests a fix, the agent checks that the cited file, line, or behavior actually exists
   before implementing; phantom findings (hallucinated locations, stale line numbers) are discarded
-  with a note.
+  with a note. Scoped to the plan-review stage only (the post-implementation code-review stages are
+  deliberately untouched).
 - **Shell-first mechanical lane** (`writing-plans`, `subagent-driven-development`) — deterministic
   mechanical tasks (rename, format, codemod, find-and-replace) are routed to a shell or script
   step rather than an LLM pass in both the planner and the executor.
