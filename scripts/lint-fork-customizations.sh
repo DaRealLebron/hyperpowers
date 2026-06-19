@@ -78,6 +78,9 @@ check "writing-plans: API Evidence section"            "$WP" "## API Evidence"
 check "reviewer: API/command evidence row"             "$RP" "API/command evidence"
 check "completion gate: external-API-confirmed row"    "$VC" "External API confirmed"
 
+# 9. Verify-before-acting on plan-review findings
+check "writing-plans: verify-before-acting on review"  "$WP" "discard that finding"
+
 printf '\n%d passed, %d failed\n' "$pass" "$fail"
 if [[ "$fail" -gt 0 ]]; then
   exit 1

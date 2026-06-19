@@ -67,6 +67,9 @@ Structure your review exactly like this:
 **Issues (if any):**
 - [Critical | Important | Minor] [Task X, Step Y]: [specific issue] — [why it matters for implementation]
 
+Cite concrete, checkable evidence for each issue — a file:line, an API or command
+name, or the plan's Task/Step — so the author can verify it before acting on it.
+
 **Ready to implement? proceed | revise**
 ```
 
