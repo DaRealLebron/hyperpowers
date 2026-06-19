@@ -27,7 +27,7 @@ There's a bunch more to it, but that's the core of the system. And because the s
 
 ## Fork customizations
 
-This fork adds eight behaviors on top of upstream Superpowers. All are **advisory**: the
+This fork adds eleven behaviors on top of upstream Superpowers. All are **advisory**: the
 operator may override any gate by proceeding with an explicit statement of intent and reason.
 
 - **Adversarial plan review** — before implementation, `writing-plans` dispatches a required
@@ -58,6 +58,12 @@ operator may override any gate by proceeding with an explicit statement of inten
 - **Flat-delegation guardrail** — `dispatching-parallel-agents` states the rule that dispatched
   subagents do not spawn their own subagents: delegation stays flat (depth 2), avoiding the
   geometric cost, runaway recursion, and lost observability of nested subagents.
+- **API/doc pre-verification** — a plan must confirm an external API/CLI/schema exists (or mark it
+  an explicit ASSUMPTION) before relying on it.
+- **Verify-before-acting on review** — a reviewer's suggested fix is checked against what it cites
+  before it is implemented; phantom findings are discarded.
+- **Shell-first mechanical lane** — deterministic mechanical work (rename/format/codemod) goes to
+  shell/script, not an LLM pass, in both the planner and the executor.
 
 A deterministic structural check, `scripts/lint-fork-customizations.sh`, verifies these
 behaviors remain present in the skill files after edits (no LLM; structure only — it does not
@@ -75,7 +81,7 @@ To use it in Claude Code instead of upstream:
 
 Both plugins are named `superpowers` and share skill names, so disable the upstream one to avoid a
 collision: open `/plugin`, toggle `superpowers@claude-plugins-official` **off**, then restart Claude
-Code. Verify the customizations are present with `bash scripts/lint-fork-customizations.sh` (18 checks
+Code. Verify the customizations are present with `bash scripts/lint-fork-customizations.sh` (24 checks
 should pass).
 
 See [`docs/workflow.md`](docs/workflow.md) for the happy-path flowcharts (upstream vs. this fork).

@@ -1,5 +1,27 @@
 # Superpowers Release Notes
 
+## Fork: evidence-grounded planning (2026-06-19)
+
+Adds three advisory behaviors that keep plans grounded in verifiable facts and route
+deterministic mechanical work to the shell rather than an LLM pass:
+
+- **API/doc pre-verification** (`writing-plans`) — before relying on an external API, CLI, or
+  schema the plan must either confirm it exists (via a check step or citation) or mark the
+  dependency an explicit `ASSUMPTION`; the adversarial reviewer flags unchecked external
+  dependencies.
+- **Verify-before-acting on review** (`receiving-code-review`, `writing-plans` reviewer) — when a
+  reviewer suggests a fix, the agent checks that the cited file, line, or behavior actually exists
+  before implementing; phantom findings (hallucinated locations, stale line numbers) are discarded
+  with a note.
+- **Shell-first mechanical lane** (`writing-plans`, `subagent-driven-development`) — deterministic
+  mechanical tasks (rename, format, codemod, find-and-replace) are routed to a shell or script
+  step rather than an LLM pass in both the planner and the executor.
+
+All three are advisory with operator override. `scripts/lint-fork-customizations.sh` gains six
+structural checks protecting the new markers (24 checks total, up from 18). Fork customization
+count moves from 8 to 11. Behavioral adherence still requires the live
+`testing-skills-with-subagents` drill (follow-up).
+
 ## Fork: depth-2 research fan-out + multi-lens review panel (2026-06-18)
 
 Adds two flat (depth-2, controller-direct) subagent patterns and an explicit anti-nesting
