@@ -47,6 +47,10 @@ check "writing-plans: mandatory final docs task"        "$WP" "## Mandatory Fina
 # 3. Adversarial plan review step
 check "writing-plans: adversarial plan review"          "$WP" "## Adversarial Plan Review"
 
+# 2b. Optional read-only research fan-out (depth-2, pre-plan)
+check "writing-plans: research fan-out section"         "$WP" "## Research Fan-Out"
+check "writing-plans: research fan-out read-only/flat"  "$WP" "read-only and flat: they do not write files"
+
 # 4. Untrusted-input quarantine (Input Trust Model + Self-Review item 6)
 check "writing-plans: Input Trust Model section"        "$WP" "## Input Trust Model"
 check "writing-plans: Self-Review untrusted check"      "$WP" "Untrusted-content check"
