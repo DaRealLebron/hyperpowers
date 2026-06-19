@@ -254,9 +254,16 @@ is ready without a review, but you may override (see below).
 Use the prompt template at `plan-document-reviewer-prompt.md`, filling
 `[PLAN_FILE_PATH]` and `[SPEC_FILE_PATH]`.
 
-**1. Required — in-session reviewer (current model):**
-Dispatch a fresh `general-purpose` subagent with the filled prompt. This
-reviewer always runs.
+**1. Required — in-session lens panel (current model):**
+Dispatch a parallel panel of fresh `general-purpose` subagents — one per lens — each with the
+filled prompt and a different `[REVIEW_LENS]` value. **Assign each reviewer a distinct lens** so
+the panel covers more ground than one generalist pass: e.g. `spec-coverage & scope`,
+`task decomposition & buildability`, `verification artifacts`, `untrusted-input handling`,
+`failure modes`. Dispatch them in one response so they run in parallel. This panel always runs.
+
+The panel is **flat and read-only**: reviewers modify nothing and do not spawn their own
+subagents (see **Keep Delegation Flat** in `dispatching-parallel-agents`). For a small plan,
+2–3 lenses is enough; scale lens count to the plan's surface area (NS2).
 
 **2. Best-effort — model diversity (NS5):**
 Additionally send the SAME filled prompt to other model backends if they are
@@ -283,7 +290,7 @@ external model. Write the filled prompt to a temp file first, e.g.
   ```
 
 **3. Summarize verdicts:** Present every verdict that returned, attributed by
-reviewer (e.g. "Claude: proceed", "Codex: revise — Task 3 ordering", "Gemini:
+reviewer and lens (e.g. "Claude: proceed", "Codex: revise — Task 3 ordering", "Gemini:
 skipped (unavailable)"). Do not collapse them into a single pass/fail.
 
 **4. Act on the verdicts:**

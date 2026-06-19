@@ -55,6 +55,10 @@ check "writing-plans: research fan-out read-only/flat"  "$WP" "read-only and fla
 check "writing-plans: Input Trust Model section"        "$WP" "## Input Trust Model"
 check "writing-plans: Self-Review untrusted check"      "$WP" "Untrusted-content check"
 
+# 5b. Multi-lens review panel
+check "writing-plans: review panel lens assignment"     "$WP" "each reviewer a distinct lens"
+check "reviewer: review-lens slot"                      "$RP" "[REVIEW_LENS]"
+
 # 5. Reviewer prompt enforces the above
 check "reviewer: untrusted-input check row"             "$RP" "Untrusted-input handling"
 check "reviewer: outcome-based VA enforcement"          "$RP" "a command can succeed without the intended change having happened"
