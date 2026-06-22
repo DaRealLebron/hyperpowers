@@ -178,6 +178,12 @@ Thin, one-line invocations into three existing skills:
 
 ## Multi-Harness Projection
 
+**Priority: Claude Code is primary; other harnesses are ports.** The Claude-native layer
+(`CLAUDE.md` + `.claude/rules/`) is canonical and must always be correct; every other harness is
+served by a **generated mirror** that is best-effort. When the two cannot be made equivalent (see
+the non-directory glob case below), Claude-native correctness wins and the mirror degrades
+gracefully rather than compromising the canonical source.
+
 - **Claude Code:** `CLAUDE.md` (root, canonical) + `.claude/rules/*.md` (scoped, canonical).
 - **Codex / open-standard:** `AGENTS.md` full mirror at root; nested `AGENTS.md` for scoped rules
   whose glob maps to a directory subtree.
