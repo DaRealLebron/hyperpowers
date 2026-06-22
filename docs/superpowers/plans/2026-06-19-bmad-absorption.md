@@ -1,6 +1,6 @@
 # BMAD Absorption — Unified Planning OS Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:subagent-driven-development (recommended) or hyperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Absorb BMAD's effective project-altitude capabilities into the fork as native skills — discovery/PRD, durable architecture + readiness gate, reevaluation, a scale-adaptive router — plus the elicitation menu and Finding A, all guarded by the deterministic structural lint.
 
@@ -50,7 +50,7 @@ SR="skills/skill-router/SKILL.md"
 US="skills/using-superpowers/SKILL.md"
 check "skill-router: scale-adaptive routing section" "$SR" "## Scale-Adaptive Routing"
 check "skill-router: route-by-signals wording"       "$SR" "Route by signals, not by habit"
-check "using-superpowers: routes via skill-router"   "$US" "skill-router"
+check "using-hyperpowers: routes via skill-router"   "$US" "skill-router"
 ```
 
 - [ ] **Step 2: Run the lint to verify it fails**

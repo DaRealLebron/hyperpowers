@@ -91,7 +91,7 @@ SR="skills/skill-router/SKILL.md"
 US="skills/using-superpowers/SKILL.md"
 check "skill-router: scale-adaptive routing section" "$SR" "## Scale-Adaptive Routing"
 check "skill-router: route-by-signals wording"       "$SR" "Route by signals, not by habit"
-check "using-superpowers: routes via skill-router"   "$US" "skill-router"
+check "using-hyperpowers: routes via skill-router"   "$US" "skill-router"
 
 # 12. BMAD absorption — product-discovery + elicitation menu
 PD="skills/product-discovery/SKILL.md"

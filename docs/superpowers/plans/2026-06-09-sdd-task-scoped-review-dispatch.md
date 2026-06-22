@@ -1,6 +1,6 @@
 # SDD Task-Scoped Review Dispatch Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:subagent-driven-development (recommended) or hyperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Scope SDD's per-task reviews to the task (diff-first reading, justified broadening, no redundant test runs) while final branch review stays broad.
 
@@ -369,7 +369,7 @@ with:
 
 ```
 - [code-quality-reviewer-prompt.md](code-quality-reviewer-prompt.md) - Dispatch code quality reviewer subagent
-- Final whole-branch review: use superpowers:requesting-code-review's [code-reviewer.md](../requesting-code-review/code-reviewer.md)
+- Final whole-branch review: use hyperpowers:requesting-code-review's [code-reviewer.md](../requesting-code-review/code-reviewer.md)
 ```
 
 - [ ] **Step 5: Example workflow verdict vocabulary.** Two replacements:
@@ -397,13 +397,13 @@ Code reviewer: ✅ Task quality: Approved
 - [ ] **Step 6: Integration section.** Replace (currently line 272):
 
 ```
-- **superpowers:requesting-code-review** - Code review template for reviewer subagents
+- **hyperpowers:requesting-code-review** - Code review template for reviewer subagents
 ```
 
 with:
 
 ```
-- **superpowers:requesting-code-review** - Code review template for the final whole-branch review
+- **hyperpowers:requesting-code-review** - Code review template for the final whole-branch review
 ```
 
 - [ ] **Step 7: Verify**
@@ -613,7 +613,7 @@ When the agent is ready for input, tell it to execute the plan with SDD. Use
 phrasing like:
 
 "I have a small plan at docs/superpowers/plans/report-plan.md — two report
-formatting functions. Use the superpowers:subagent-driven-development skill
+formatting functions. Use the hyperpowers:subagent-driven-development skill
 to execute it end-to-end — dispatch fresh subagents per task and run the
 two-stage review after each."
 
@@ -634,7 +634,7 @@ you are done.
 
 ## Acceptance Criteria
 
-- A `Skill` invocation naming `superpowers:subagent-driven-development`
+- A `Skill` invocation naming `hyperpowers:subagent-driven-development`
   and at least one `Agent` (subagent dispatch) tool call appear in the
   session log.
 - The duplicated report-formatting logic did not survive to the end of
@@ -677,7 +677,7 @@ pre() {
 }
 
 post() {
-    skill-called superpowers:subagent-driven-development
+    skill-called hyperpowers:subagent-driven-development
     tool-called Agent
     command-succeeds 'npm test'
     file-contains 'src/report.js' 'export function formatUserReport'
@@ -771,4 +771,4 @@ Pass bar: all four pre-existing scenarios still pass after the change (no regres
 
 ## Finishing
 
-After all tasks pass: the evals submodule commit needs to land in `superpowers-evals` (PR to its `main`), then this branch bumps the `evals` submodule pointer — per `evals/CLAUDE.md`, the parent bump is part of propagation, not optional. Then use superpowers:finishing-a-development-branch. PRs against superpowers target `dev`.
+After all tasks pass: the evals submodule commit needs to land in `superpowers-evals` (PR to its `main`), then this branch bumps the `evals` submodule pointer — per `evals/CLAUDE.md`, the parent bump is part of propagation, not optional. Then use hyperpowers:finishing-a-development-branch. PRs against superpowers target `dev`.

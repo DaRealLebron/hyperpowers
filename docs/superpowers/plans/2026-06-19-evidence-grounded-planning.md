@@ -1,6 +1,6 @@
 # Evidence-Grounded Planning Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:subagent-driven-development (recommended) or hyperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Add three advisory, flat, evidence-oriented behaviors to the fork's planning/execution skills — API/doc pre-verification, verify-before-acting-on-review, and a shell-first mechanical lane — each guarded by a deterministic grep marker in the existing lint.
 

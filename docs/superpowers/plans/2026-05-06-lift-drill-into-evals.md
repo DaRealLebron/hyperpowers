@@ -1,6 +1,6 @@
 # Lift drill into superpowers as `evals/` — implementation plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:subagent-driven-development (recommended) or hyperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Move the standalone `obra/drill` skill-compliance benchmark into superpowers as a top-level `evals/` directory, delete redundant bash tests under `superpowers/tests/` after per-file subagent verification of drill scenario coverage, and update top-level docs so contributors land on the new structure.
 

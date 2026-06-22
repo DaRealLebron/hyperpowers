@@ -1,6 +1,6 @@
 # Research Fan-Out + Multi-Lens Review Panel Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:subagent-driven-development (recommended) or hyperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Add two depth-2 (flat, controller-direct) subagent patterns to the fork — an optional read-only research fan-out before planning, and a multi-lens adversarial review panel — plus an explicit anti-nesting guardrail, so the fork captures the measured benefit of parallel read/review fan-out without the measured losses of nested delegation.
 

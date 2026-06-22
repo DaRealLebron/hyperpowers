@@ -1,10 +1,10 @@
 # Rename Superpowers → Hyperpowers Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:subagent-driven-development (recommended) or hyperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Rename the project end-to-end from Superpowers to Hyperpowers and cut it loose from upstream `obra/superpowers`, becoming the standalone `DaRealLebron/hyperpowers`.
 
-**Architecture:** A 1,253-hit mechanical rename done the fork's **shell-first** way: exact edits for the small structured manifests; scoped, **preserve-list-guarded**, *anchored* shell replacements for the bulk (`superpowers:`, `using-superpowers`, `docs/superpowers/`, owner/path-anchored strings) so upstream-pointing references are never collateral-damaged; `git mv` for directories/files. Eight phases, each gated by the structural lint (`49 passed`) + relevant tests + verification greps, committed by explicit path. Source spec: `docs/superpowers/specs/2026-06-22-rename-to-hyperpowers-design.md`.
+**Architecture:** A 1,253-hit mechanical rename done the fork's **shell-first** way: exact edits for the small structured manifests; scoped, **preserve-list-guarded**, *anchored* shell replacements for the bulk (`hyperpowers:`, `using-superpowers`, `docs/superpowers/`, owner/path-anchored strings) so upstream-pointing references are never collateral-damaged; `git mv` for directories/files. Eight phases, each gated by the structural lint (`49 passed`) + relevant tests + verification greps, committed by explicit path. Source spec: `docs/superpowers/specs/2026-06-22-rename-to-hyperpowers-design.md`.
 
 **Tech Stack:** Bash + perl/grep/sed (Git Bash on Windows); JSON manifests; git.
 
@@ -19,14 +19,14 @@
   - `prime-radiant-inc/openai-codex-plugins`
   - the `Copyright (c) 2025 Jesse Vincent` line in `LICENSE`
 - **OUT OF SCOPE — do not touch:** `scripts/sync-to-codex-plugin.sh`, `tests/codex-plugin-sync/`. Every sweeping `grep -rl` pipes through `grep -v -e codex-plugin-sync -e sync-to-codex-plugin` to exclude them.
-- **Why anchored, not blanket.** A bare `s/superpowers/hyperpowers/g` would corrupt `obra/superpowers` etc. So phases 2–5 replace only *anchored* forms (`superpowers:` with colon, the distinctive `using-superpowers`, the `docs/superpowers/` path, `DaRealLebron/superpowers`, exact install ids, exact filenames). Phase 6 handles prose with a capital-anchored replace + a **residual-review** step (preview every remaining `superpowers`, fix only ours, leave the preserve-list).
+- **Why anchored, not blanket.** A bare `s/superpowers/hyperpowers/g` would corrupt `obra/superpowers` etc. So phases 2–5 replace only *anchored* forms (`hyperpowers:` with colon, the distinctive `using-superpowers`, the `docs/superpowers/` path, `DaRealLebron/superpowers`, exact install ids, exact filenames). Phase 6 handles prose with a capital-anchored replace + a **residual-review** step (preview every remaining `superpowers`, fix only ours, leave the preserve-list).
 - **Lint stays 49.** `bash scripts/lint-fork-customizations.sh` must print `49 passed, 0 failed` at the end of every phase that could affect it (its `US=` path changes in Phase 3).
 - **The plan & spec move.** Phase 4 `git mv docs/superpowers docs/hyperpowers` relocates this plan and the spec; after Phase 4 they live under `docs/hyperpowers/`.
 
 ## Verification Artifacts
 
 - `bash scripts/lint-fork-customizations.sh` → `49 passed, 0 failed` (after each phase; final too).
-- `grep -rn 'superpowers:' --include=*.md --include=*.json --include=*.sh --include=*.ts --include=*.js . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin` → **no** matches (namespace fully migrated).
+- `grep -rn 'hyperpowers:' --include=*.md --include=*.json --include=*.sh --include=*.ts --include=*.js . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin` → **no** matches (namespace fully migrated).
 - `grep -rni 'obra/superpowers' . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin` → **only** the MIT attribution note in README/LICENSE and the preserved `obra/superpowers/issues/...` URLs (no manifest URLs).
 - `test -f skills/using-hyperpowers/SKILL.md && ! test -e skills/using-superpowers` → bootstrap moved.
 - `test -d docs/hyperpowers && ! test -e docs/superpowers` → docs path moved.
@@ -90,15 +90,15 @@ git commit -m "rename: hard identifiers (manifests, marketplace, package, licens
 
 ---
 
-### Task 2: Skill namespace `superpowers:` → `hyperpowers:`
+### Task 2: Skill namespace `hyperpowers:` → `hyperpowers:`
 
-The `superpowers:` (colon-anchored) form is the skill namespace; no preserve-list string contains it, so this is safe.
+The `hyperpowers:` (colon-anchored) form is the skill namespace; no preserve-list string contains it, so this is safe.
 
 - [ ] **Step 1: Preview**
 
 ```
 cd <worktree>
-grep -rln 'superpowers:' --include=*.md --include=*.json --include=*.sh --include=*.ts --include=*.js --include=*.cjs --include=*.txt . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin | tee /tmp/ns-files.txt
+grep -rln 'hyperpowers:' --include=*.md --include=*.json --include=*.sh --include=*.ts --include=*.js --include=*.cjs --include=*.txt . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin | tee /tmp/ns-files.txt
 ```
 Expected: a list of skill/hook/doc files (no `codex-plugin-sync`).
 
@@ -113,12 +113,12 @@ xargs perl -pi -e 's/\bsuperpowers:/hyperpowers:/g' < /tmp/ns-files.txt
 
 ```
 cd <worktree>
-grep -rn 'superpowers:' --include=*.md --include=*.json --include=*.sh --include=*.ts --include=*.js --include=*.cjs --include=*.txt . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin
+grep -rn 'hyperpowers:' --include=*.md --include=*.json --include=*.sh --include=*.ts --include=*.js --include=*.cjs --include=*.txt . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin
 bash scripts/lint-fork-customizations.sh | tail -1
 ```
 Expected: the first grep prints **nothing**; lint `49 passed, 0 failed`.
 
-- [ ] **Step 4: Commit** — `git add` the files from `/tmp/ns-files.txt` (run `git add $(cat /tmp/ns-files.txt)`), then `git commit -m "rename: skill namespace superpowers: -> hyperpowers:"`.
+- [ ] **Step 4: Commit** — `git add` the files from `/tmp/ns-files.txt` (run `git add $(cat /tmp/ns-files.txt)`), then `git commit -m "rename: skill namespace hyperpowers: -> hyperpowers:"`.
 
 ---
 
@@ -306,7 +306,7 @@ Update each non-sync test's expectations to the new identifiers as needed; re-ru
 ```
 cd <worktree>
 bash scripts/lint-fork-customizations.sh | tail -1
-grep -rn 'superpowers:' --include=*.md --include=*.json --include=*.sh --include=*.ts --include=*.js . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin
+grep -rn 'hyperpowers:' --include=*.md --include=*.json --include=*.sh --include=*.ts --include=*.js . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin
 test -f skills/using-hyperpowers/SKILL.md && ! test -e skills/using-superpowers && echo BOOT_OK
 test -d docs/hyperpowers && ! test -e docs/superpowers && echo DOCS_OK
 echo "manifests:" && grep -h '"name":' .claude-plugin/plugin.json .codex-plugin/plugin.json .cursor-plugin/plugin.json .kimi-plugin/plugin.json package.json gemini-extension.json

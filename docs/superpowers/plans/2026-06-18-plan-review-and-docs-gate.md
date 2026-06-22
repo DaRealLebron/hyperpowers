@@ -1,6 +1,6 @@
 # Adversarial Plan Review + Mandatory Docs Gate — Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:subagent-driven-development (recommended) or hyperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Add an advisory pre-implementation adversarial plan review, a mandatory documentation task, and a required `## Verification Artifacts` section to the Superpowers planning skills in this fork.
 

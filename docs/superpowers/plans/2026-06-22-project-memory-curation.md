@@ -1,6 +1,6 @@
 # Project-Memory Curation Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:subagent-driven-development (recommended) or hyperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build the `curating-project-memory` skill and graft it into three checkpoint skills so any project using the fork slowly drifts its `CLAUDE.md` (canonical), generated `AGENTS.md` mirror, scoped `.claude/rules/`, and `docs/` toward an optimal, well-linked state — all guarded by the deterministic structural lint.
 

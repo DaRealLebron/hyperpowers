@@ -1,6 +1,6 @@
 # Docs Reflect New Realities — Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:subagent-driven-development (recommended) or hyperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Update this repo's living docs to reflect two shipped arcs (BMAD project-altitude absorption + project-memory curation), and dogfood the new `curating-project-memory` model on the repo's own memory files (`CLAUDE.md` / `AGENTS.md` / `GEMINI.md`).
 
