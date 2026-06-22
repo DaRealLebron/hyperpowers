@@ -14,12 +14,12 @@ export XDG_CONFIG_HOME="$TEST_HOME/.config"
 export OPENCODE_CONFIG_DIR="$TEST_HOME/.config/opencode"
 
 # Standard install layout:
-#   $OPENCODE_CONFIG_DIR/superpowers/             ← package root
-#   $OPENCODE_CONFIG_DIR/superpowers/skills/      ← skills dir (../../skills from plugin)
-#   $OPENCODE_CONFIG_DIR/superpowers/.opencode/plugins/hyperpowers.js ← plugin file
+#   $OPENCODE_CONFIG_DIR/hyperpowers/             ← package root
+#   $OPENCODE_CONFIG_DIR/hyperpowers/skills/      ← skills dir (../../skills from plugin)
+#   $OPENCODE_CONFIG_DIR/hyperpowers/.opencode/plugins/hyperpowers.js ← plugin file
 #   $OPENCODE_CONFIG_DIR/plugins/hyperpowers.js   ← symlink OpenCode reads
 
-HYPERPOWERS_DIR="$OPENCODE_CONFIG_DIR/superpowers"
+HYPERPOWERS_DIR="$OPENCODE_CONFIG_DIR/hyperpowers"
 HYPERPOWERS_SKILLS_DIR="$HYPERPOWERS_DIR/skills"
 HYPERPOWERS_PLUGIN_FILE="$HYPERPOWERS_DIR/.opencode/plugins/hyperpowers.js"
 
@@ -67,7 +67,7 @@ EOF
 
 echo "Setup complete: $TEST_HOME"
 echo "OPENCODE_CONFIG_DIR:  $OPENCODE_CONFIG_DIR"
-echo "Superpowers dir:      $HYPERPOWERS_DIR"
+echo "Hyperpowers dir:      $HYPERPOWERS_DIR"
 echo "Skills dir:           $HYPERPOWERS_SKILLS_DIR"
 echo "Plugin file:          $HYPERPOWERS_PLUGIN_FILE"
 echo "Plugin registered at: $OPENCODE_CONFIG_DIR/plugins/hyperpowers.js"

@@ -6,7 +6,7 @@
 
 **Architecture:** Pure skill-text edits to four Markdown skill files plus six new `grep -qF` checks in `scripts/lint-fork-customizations.sh`. No code, no new infrastructure. Each behavior is advisory (operator may override) and is verified structurally by the lint (no LLM). TDD here means: add the lint check first and watch it FAIL (the marker is absent), then add the skill text and watch it PASS.
 
-**Tech Stack:** Markdown, Bash (the lint script), `grep -qF`. The repo lives in WSL at `/root/projects/superpowers`; this session drives it from a Windows host via `wsl.exe`.
+**Tech Stack:** Markdown, Bash (the lint script), `grep -qF`. The repo lives in WSL at `/root/projects/hyperpowers`; this session drives it from a Windows host via `wsl.exe`.
 
 ## Global Constraints
 
@@ -18,13 +18,13 @@ These bind every task. Copy them verbatim into any reviewer dispatch.
 - **Run environment.** The fork is in WSL. From this Windows host every shell command is wrapped. Two canonical forms (use these exact shapes):
   - **Lint (exit-code check):** single-quote the payload so `$?` resolves in WSL bash, and do NOT pipe (piping masks the exit code):
     ```
-    wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'
+    wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'
     ```
   - **Git (commit):** double-quote the payload, single-quote the commit message (no `$` in messages):
     ```
-    wsl.exe -e bash -lc "cd /root/projects/superpowers && git add <explicit paths> && git commit -m 'msg'"
+    wsl.exe -e bash -lc "cd /root/projects/hyperpowers && git add <explicit paths> && git commit -m 'msg'"
     ```
-  - File edits use the Edit/Write tools against the UNC path `\\wsl.localhost\Ubuntu\root\projects\superpowers\<path>` — those work directly and need no wrapper.
+  - File edits use the Edit/Write tools against the UNC path `\\wsl.localhost\Ubuntu\root\projects\hyperpowers\<path>` — those work directly and need no wrapper.
 - **Lint markers are `grep -qF` fixed strings:** each marker must appear **verbatim, case-sensitive, on a single physical line** of its target file. A marker that wraps across two lines never matches. After writing skill text, confirm the marker is on one line.
 - **Final lint count is 24.** The lint has 18 checks today; this plan adds exactly 6 (one per marker below). Task 3's verification and the documentation task both assert `24 passed, 0 failed`.
 - **Advisory, with override.** None of these behaviors hard-blocks; each is phrased as a rule the operator may consciously override (NS6). Do not introduce a hard gate.
@@ -45,12 +45,12 @@ These bind every task. Copy them verbatim into any reviewer dispatch.
 
 Each bullet is `<command>` — <observable delta: false before this plan, true after>.
 
-- `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'` — the summary line reads `24 passed, 0 failed` and `EXIT=0` (it read `18 passed, 0 failed` before this plan; the six new markers, absent before, now resolve).
-- `wsl.exe -e bash -lc "cd /root/projects/superpowers && grep -c '## API Evidence' skills/writing-plans/SKILL.md"` — returns `1` (was `0`): the API Evidence rule now exists in writing-plans.
-- `wsl.exe -e bash -lc "cd /root/projects/superpowers && grep -c 'External API confirmed' skills/verification-before-completion/SKILL.md"` — returns `1` (was `0`): the completion gate now has an external-API row.
-- `wsl.exe -e bash -lc "cd /root/projects/superpowers && grep -c 'discard that finding' skills/writing-plans/SKILL.md"` — returns `1` (was `0`): the verify-before-acting rule is present in the Adversarial Plan Review step.
-- `wsl.exe -e bash -lc "cd /root/projects/superpowers && grep -c 'shell/script with no subagent' skills/subagent-driven-development/SKILL.md"` — returns `1` (was `0`): the executor's mechanical lane is present.
-- `wsl.exe -e bash -lc "cd /root/projects/superpowers && git log --oneline main..feat/evidence-grounded-planning | grep -c ."` — returns ≥ `6` (was `2`: the spec and plan commits): the three implementation commits plus the docs commit now exist on the branch.
+- `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'` — the summary line reads `24 passed, 0 failed` and `EXIT=0` (it read `18 passed, 0 failed` before this plan; the six new markers, absent before, now resolve).
+- `wsl.exe -e bash -lc "cd /root/projects/hyperpowers && grep -c '## API Evidence' skills/writing-plans/SKILL.md"` — returns `1` (was `0`): the API Evidence rule now exists in writing-plans.
+- `wsl.exe -e bash -lc "cd /root/projects/hyperpowers && grep -c 'External API confirmed' skills/verification-before-completion/SKILL.md"` — returns `1` (was `0`): the completion gate now has an external-API row.
+- `wsl.exe -e bash -lc "cd /root/projects/hyperpowers && grep -c 'discard that finding' skills/writing-plans/SKILL.md"` — returns `1` (was `0`): the verify-before-acting rule is present in the Adversarial Plan Review step.
+- `wsl.exe -e bash -lc "cd /root/projects/hyperpowers && grep -c 'shell/script with no subagent' skills/subagent-driven-development/SKILL.md"` — returns `1` (was `0`): the executor's mechanical lane is present.
+- `wsl.exe -e bash -lc "cd /root/projects/hyperpowers && git log --oneline main..feat/evidence-grounded-planning | grep -c ."` — returns ≥ `6` (was `2`: the spec and plan commits): the three implementation commits plus the docs commit now exist on the branch.
 
 ---
 
@@ -81,7 +81,7 @@ check "completion gate: external-API-confirmed row"    "$VC" "External API confi
 
 - [ ] **Step 2: Run the lint and confirm these three FAIL**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: three new `FAIL` lines (API Evidence section, API/command evidence row, external-API-confirmed row), summary `18 passed, 3 failed`, and `EXIT=1`.
 
 - [ ] **Step 3: Add the `## API Evidence` section to writing-plans (M1)**
@@ -133,13 +133,13 @@ In `skills/verification-before-completion/SKILL.md`, in the `## Common Failures`
 
 - [ ] **Step 7: Run the lint and confirm GREEN**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: summary `21 passed, 0 failed`, `EXIT=0`. (21 = the original 18 + the 3 added here.)
 
 - [ ] **Step 8: Commit**
 
 ```
-wsl.exe -e bash -lc "cd /root/projects/superpowers && git add skills/writing-plans/SKILL.md skills/writing-plans/plan-document-reviewer-prompt.md skills/verification-before-completion/SKILL.md scripts/lint-fork-customizations.sh && git commit -m 'feat(skills): API/doc pre-verification rule + reviewer and completion checks'"
+wsl.exe -e bash -lc "cd /root/projects/hyperpowers && git add skills/writing-plans/SKILL.md skills/writing-plans/plan-document-reviewer-prompt.md skills/verification-before-completion/SKILL.md scripts/lint-fork-customizations.sh && git commit -m 'feat(skills): API/doc pre-verification rule + reviewer and completion checks'"
 ```
 
 ---
@@ -168,7 +168,7 @@ check "writing-plans: verify-before-acting on review"  "$WP" "discard that findi
 
 - [ ] **Step 2: Run the lint and confirm it FAILS**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: one new `FAIL` (verify-before-acting on review), summary `21 passed, 1 failed`, `EXIT=1`.
 
 - [ ] **Step 3: Add the verify-before-acting bullet (M4)**
@@ -195,13 +195,13 @@ name, or the plan's Task/Step — so the author can verify it before acting on i
 
 - [ ] **Step 5: Run the lint and confirm GREEN**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: summary `22 passed, 0 failed`, `EXIT=0`.
 
 - [ ] **Step 6: Commit**
 
 ```
-wsl.exe -e bash -lc "cd /root/projects/superpowers && git add skills/writing-plans/SKILL.md skills/writing-plans/plan-document-reviewer-prompt.md scripts/lint-fork-customizations.sh && git commit -m 'feat(skills): verify reviewer-cited references before acting on a plan-review finding'"
+wsl.exe -e bash -lc "cd /root/projects/hyperpowers && git add skills/writing-plans/SKILL.md skills/writing-plans/plan-document-reviewer-prompt.md scripts/lint-fork-customizations.sh && git commit -m 'feat(skills): verify reviewer-cited references before acting on a plan-review finding'"
 ```
 
 ---
@@ -237,7 +237,7 @@ check "subagent-driven: shell-first mechanical lane"   "$SDD" "shell/script with
 
 - [ ] **Step 2: Run the lint and confirm the two new checks FAIL**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: two new `FAIL` lines (writing-plans + subagent-driven shell-first), summary `22 passed, 2 failed`, `EXIT=1`.
 
 - [ ] **Step 3: Add the shell-first paragraph to writing-plans (M5)**
@@ -266,13 +266,13 @@ judgment is needed; this is the cheapest tier below "mechanical implementation".
 
 - [ ] **Step 5: Run the lint and confirm GREEN at 24**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: summary `24 passed, 0 failed`, `EXIT=0`.
 
 - [ ] **Step 6: Commit**
 
 ```
-wsl.exe -e bash -lc "cd /root/projects/superpowers && git add skills/writing-plans/SKILL.md skills/subagent-driven-development/SKILL.md scripts/lint-fork-customizations.sh && git commit -m 'feat(skills): shell-first mechanical lane in planner and executor'"
+wsl.exe -e bash -lc "cd /root/projects/hyperpowers && git add skills/writing-plans/SKILL.md skills/subagent-driven-development/SKILL.md scripts/lint-fork-customizations.sh && git commit -m 'feat(skills): shell-first mechanical lane in planner and executor'"
 ```
 
 ---
@@ -297,18 +297,18 @@ Reflect the three new behaviors and the new lint count in the public docs. The f
 
 - [ ] **Step 3: Verify the docs changed and no stale count remains**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && grep -c "API/doc pre-verification" README.md; grep -c "evidence-grounded planning" RELEASE-NOTES.md; grep -c "24 checks" README.md; grep -c "18 checks" README.md'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && grep -c "API/doc pre-verification" README.md; grep -c "evidence-grounded planning" RELEASE-NOTES.md; grep -c "24 checks" README.md; grep -c "18 checks" README.md'`
 Expected: the first three counts print `1` (each was `0`); the last (`18 checks`) prints `0` — the stale install-count is gone from `README.md`. (`RELEASE-NOTES.md` keeps its historical `18 checks total`; this grep only inspects `README.md`.)
 
 - [ ] **Step 4: Re-run the lint as a final guard** — docs edits must not have disturbed the skills.
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `24 passed, 0 failed`, `EXIT=0`.
 
 - [ ] **Step 5: Commit**
 
 ```
-wsl.exe -e bash -lc "cd /root/projects/superpowers && git add README.md RELEASE-NOTES.md && git commit -m 'docs: document evidence-grounded planning additions (8 to 11 customizations)'"
+wsl.exe -e bash -lc "cd /root/projects/hyperpowers && git add README.md RELEASE-NOTES.md && git commit -m 'docs: document evidence-grounded planning additions (8 to 11 customizations)'"
 ```
 
 > **Deferred follow-up (not in this plan):** a `testing-skills-with-subagents` behavioral drill that proves an agent *obeys* these rules (the lint proves only that the text is present). Recorded in the spec's "Known Follow-Up" section; pick it up in a later cycle.

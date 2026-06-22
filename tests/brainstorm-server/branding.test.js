@@ -76,13 +76,13 @@ function writeFragment(dir) {
 }
 
 function createPackagedServerFixture(version) {
-  const root = fs.mkdtempSync(path.join('/tmp', 'superpowers-packaged-server-'));
+  const root = fs.mkdtempSync(path.join('/tmp', 'hyperpowers-packaged-server-'));
   const scriptDir = path.join(root, 'skills/brainstorming/scripts');
   fs.cpSync(path.join(REPO_ROOT, 'skills/brainstorming/scripts'), scriptDir, { recursive: true });
   fs.mkdirSync(path.join(root, '.codex-plugin'), { recursive: true });
   fs.writeFileSync(
     path.join(root, '.codex-plugin/plugin.json'),
-    JSON.stringify({ name: 'superpowers', version }, null, 2)
+    JSON.stringify({ name: 'hyperpowers', version }, null, 2)
   );
   return {
     root,

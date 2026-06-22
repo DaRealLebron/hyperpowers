@@ -47,7 +47,7 @@ training memory. Key findings that shaped scope:
 1. Give the fork a **continuous curation discipline** that nudges a project's `CLAUDE.md`,
    generated `AGENTS.md`, scoped rules, and `docs/` toward an optimal, well-linked state at
    natural checkpoints.
-2. Define the **target artifact model** every superpowers-driven project drifts toward: a
+2. Define the **target artifact model** every hyperpowers-driven project drifts toward: a
    three-layer knowledge system where each fact lives in exactly one layer and layers *link*
    rather than duplicate.
 3. Make drift **bidirectional** — curation both *adds* verified learnings and *evicts* bloat
@@ -120,7 +120,7 @@ Every new learning is routed to exactly one home:
 
 ## Definition of "Optimal" (the curation rubric)
 
-A superpowers-aware adaptation of the established six-criterion `CLAUDE.md` rubric —
+A hyperpowers-aware adaptation of the established six-criterion `CLAUDE.md` rubric —
 **Commands, Architecture clarity, Non-obvious patterns, Conciseness, Currency, Actionability** —
 with three ecosystem-specific additions:
 

@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Add full superpowers support for OpenCode.ai with a native JavaScript plugin that shares core functionality with the existing Codex implementation.
+**Goal:** Add full hyperpowers support for OpenCode.ai with a native JavaScript plugin that shares core functionality with the existing Codex implementation.
 
 **Architecture:** Extract common skill discovery/parsing logic into `lib/skills-core.js`, refactor Codex to use it, then build OpenCode plugin using their native plugin API with custom tools and session hooks.
 
@@ -109,7 +109,7 @@ Add before `module.exports`:
  * Find all SKILL.md files in a directory recursively.
  *
  * @param {string} dir - Directory to search
- * @param {string} sourceType - 'personal' or 'superpowers' for namespacing
+ * @param {string} sourceType - 'personal' or 'hyperpowers' for namespacing
  * @param {number} maxDepth - Maximum recursion depth (default: 3)
  * @returns {Array<{path: string, name: string, description: string, sourceType: string}>}
  */
@@ -189,7 +189,7 @@ Add before `module.exports`:
 ```javascript
 /**
  * Resolve a skill name to its file path, handling shadowing
- * (personal skills override superpowers skills).
+ * (personal skills override hyperpowers skills).
  *
  * @param {string} skillName - Name like "hyperpowers:brainstorming" or "my-skill"
  * @param {string} superpowersDir - Path to superpowers skills directory
@@ -214,14 +214,14 @@ function resolveSkillPath(skillName, superpowersDir, personalDir) {
         }
     }
 
-    // Try superpowers skills
+    // Try hyperpowers skills
     if (superpowersDir) {
         const superpowersPath = path.join(superpowersDir, actualSkillName);
         const superpowersSkillFile = path.join(superpowersPath, 'SKILL.md');
         if (fs.existsSync(superpowersSkillFile)) {
             return {
                 skillFile: superpowersSkillFile,
-                sourceType: 'superpowers',
+                sourceType: 'hyperpowers',
                 skillPath: actualSkillName
             };
         }
@@ -519,7 +519,7 @@ export const HyperpowersPlugin = async ({ project, client, $, directory, worktre
           skill_name: z.string().describe('Name of the skill to load (e.g., "hyperpowers:brainstorming" or "my-custom-skill")')
         }),
         execute: async ({ skill_name }) => {
-          // Resolve skill path (handles shadowing: personal > superpowers)
+          // Resolve skill path (handles shadowing: personal > hyperpowers)
           const resolved = skillsCore.resolveSkillPath(
             skill_name,
             superpowersSkillsDir,
@@ -598,13 +598,13 @@ Add after the use_skill tool definition, before closing the tools array:
 ```javascript
       {
         name: 'find_skills',
-        description: 'List all available skills in the superpowers and personal skill libraries.',
+        description: 'List all available skills in the hyperpowers and personal skill libraries.',
         schema: z.object({}),
         execute: async () => {
           // Find skills in both directories
           const superpowersSkills = skillsCore.findSkillsInDir(
             superpowersSkillsDir,
-            'superpowers',
+            'hyperpowers',
             3
           );
           const personalSkills = skillsCore.findSkillsInDir(
@@ -617,7 +617,7 @@ Add after the use_skill tool definition, before closing the tools array:
           const allSkills = [...personalSkills, ...superpowersSkills];
 
           if (allSkills.length === 0) {
-            return 'No skills found. Install superpowers skills to ~/.config/opencode/superpowers/skills/';
+            return 'No skills found. Install hyperpowers skills to ~/.config/opencode/hyperpowers/skills/';
           }
 
           let output = 'Available skills:\n\n';
@@ -712,24 +712,24 @@ When skills reference tools you don't have, substitute OpenCode equivalents:
 - Utilities and helpers specific to that skill
 
 **Skills naming:**
-- Hyperpowers skills: \`hyperpowers:skill-name\` (from ~/.config/opencode/superpowers/skills/)
+- Hyperpowers skills: \`hyperpowers:skill-name\` (from ~/.config/opencode/hyperpowers/skills/)
 - Personal skills: \`skill-name\` (from ~/.config/opencode/skills/)
-- Personal skills override superpowers skills when names match
+- Personal skills override hyperpowers skills when names match
 `;
 
       // Check for updates (non-blocking)
       const hasUpdates = skillsCore.checkForUpdates(
-        path.join(homeDir, '.config/opencode/superpowers')
+        path.join(homeDir, '.config/opencode/hyperpowers')
       );
 
       const updateNotice = hasUpdates ?
-        '\n\n⚠️ **Updates available!** Run `cd ~/.config/opencode/superpowers && git pull` to update superpowers.' :
+        '\n\n⚠️ **Updates available!** Run `cd ~/.config/opencode/hyperpowers && git pull` to update hyperpowers.' :
         '';
 
       // Return context to inject into session
       return {
         context: `<EXTREMELY_IMPORTANT>
-You have superpowers.
+You have hyperpowers.
 
 **Below is the full content of your 'hyperpowers:using-hyperpowers' skill - your introduction to using skills. For all other skills, use the 'use_skill' tool:**
 
@@ -778,14 +778,14 @@ git commit -m "feat: implement session.started hook for opencode"
 ### 1. Install Hyperpowers Skills
 
 ```bash
-# Clone superpowers skills to OpenCode config directory
-mkdir -p ~/.config/opencode/superpowers
+# Clone hyperpowers skills to OpenCode config directory
+mkdir -p ~/.config/opencode/hyperpowers
 git clone https://github.com/obra/superpowers.git ~/.config/opencode/superpowers
 ```
 
 ### 2. Install the Plugin
 
-The plugin is included in the superpowers repository you just cloned.
+The plugin is included in the hyperpowers repository you just cloned.
 
 OpenCode will automatically discover it from:
 - `~/.config/opencode/superpowers/.opencode/plugin/superpowers.js`
@@ -803,7 +803,7 @@ ln -s ~/.config/opencode/superpowers/.opencode/plugin/superpowers.js .opencode/p
 Restart OpenCode to load the plugin. On the next session, you should see:
 
 ```
-You have superpowers.
+You have hyperpowers.
 ```
 
 ## Usage
@@ -845,12 +845,12 @@ description: Use when [condition] - [what it does]
 [Your skill content here]
 ```
 
-Personal skills override superpowers skills with the same name.
+Personal skills override hyperpowers skills with the same name.
 
 ## Updating
 
 ```bash
-cd ~/.config/opencode/superpowers
+cd ~/.config/opencode/hyperpowers
 git pull
 ```
 
@@ -864,7 +864,7 @@ git pull
 
 ### Skills not found
 
-1. Verify skills directory exists: `ls ~/.config/opencode/superpowers/skills`
+1. Verify skills directory exists: `ls ~/.config/opencode/hyperpowers/skills`
 2. Use `find_skills` tool to see what's discovered
 3. Check file structure: each skill should have a `SKILL.md` file
 

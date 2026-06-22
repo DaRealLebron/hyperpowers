@@ -73,7 +73,7 @@ Keep the existing cookie test if present; merge assertions rather than duplicati
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 node auth.test.js
 ```
 
@@ -134,7 +134,7 @@ and replace it in Task 4.
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 node auth.test.js
 ```
 
@@ -204,7 +204,7 @@ Then add:
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 node auth.test.js
 ```
 
@@ -236,7 +236,7 @@ function handleUpgrade(req, socket) {
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 node auth.test.js
 ```
 
@@ -286,7 +286,7 @@ test('uses cookie-only WebSocket URL when no sessionStorage key is present', () 
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 node helper.test.js
 ```
 
@@ -327,7 +327,7 @@ with:
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 node helper.test.js
 ```
 
@@ -369,7 +369,7 @@ In `tests/brainstorm-server/auth.test.js`, add:
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 node auth.test.js
 ```
 
@@ -417,7 +417,7 @@ res.writeHead(404, securityHeaders());
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 node auth.test.js
 ```
 
@@ -451,7 +451,7 @@ In `tests/brainstorm-server/server.test.js`, after the `/files/` empty-name test
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 node server.test.js
 ```
 
@@ -492,7 +492,7 @@ Replace the `/files/*` guard with:
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 node server.test.js
 ```
 
@@ -555,7 +555,7 @@ This test may already pass once Tasks 2 and 3 are implemented. If it passes befo
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 node lifecycle.test.js
 ```
 
@@ -573,7 +573,7 @@ Expected after Tasks 2 and 3: lifecycle tests pass. If this fails, fix the auth/
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers
+cd /Users/drewritter/prime-rad/hyperpowers
 scripts/lint-shell.sh skills/brainstorming/scripts/start-server.sh skills/brainstorming/scripts/stop-server.sh tests/brainstorm-server/stop-server.test.sh
 ```
 
@@ -632,7 +632,7 @@ This keeps the test from hanging when `CODEX_CI` triggers start-server foregroun
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers
+cd /Users/drewritter/prime-rad/hyperpowers
 scripts/lint-shell.sh skills/brainstorming/scripts/start-server.sh skills/brainstorming/scripts/stop-server.sh tests/brainstorm-server/stop-server.test.sh
 cd tests/brainstorm-server
 node lifecycle.test.js
@@ -650,7 +650,7 @@ Expected: shell lint exits 0; lifecycle tests exit 0 without hanging.
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers
+cd /Users/drewritter/prime-rad/hyperpowers
 git check-ignore .hyperpowers/brainstorm/.last-token || true
 ```
 
@@ -669,7 +669,7 @@ Add this line to `.gitignore`:
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers
+cd /Users/drewritter/prime-rad/hyperpowers
 git check-ignore .hyperpowers/brainstorm/.last-token
 ```
 
@@ -689,7 +689,7 @@ Expected output:
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 node auth.test.js
 node helper.test.js
 node server.test.js
@@ -703,7 +703,7 @@ Expected: all four commands exit 0.
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 npm test
 ```
 
@@ -714,7 +714,7 @@ Expected: all tests pass, including ws-protocol, helper, auth, server, lifecycle
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers/tests/brainstorm-server
+cd /Users/drewritter/prime-rad/hyperpowers/tests/brainstorm-server
 for i in 1 2 3; do npm test || exit 1; done
 ```
 
@@ -725,7 +725,7 @@ Expected: all three repeats pass without hanging.
 Run:
 
 ```bash
-cd /Users/drewritter/prime-rad/superpowers
+cd /Users/drewritter/prime-rad/hyperpowers
 scripts/lint-shell.sh skills/brainstorming/scripts/start-server.sh skills/brainstorming/scripts/stop-server.sh tests/brainstorm-server/stop-server.test.sh
 ```
 
@@ -741,7 +741,7 @@ Expected: exits 0.
 Use the previous scratch probe if available:
 
 ```bash
-node /tmp/superpowers-pr1720-security-drewritter/probe-pr1720.cjs
+node /tmp/hyperpowers-pr1720-security-drewritter/probe-pr1720.cjs
 ```
 
 If the scratch probe is unavailable, recreate a minimal probe under `/tmp` that:

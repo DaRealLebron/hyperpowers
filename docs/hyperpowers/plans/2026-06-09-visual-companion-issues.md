@@ -252,7 +252,7 @@ skips the offer entirely when opt-out is set.
 **Design choice open.** Mechanism isn't settled:
 - Env var (e.g. `HYPERPOWERS_VISUAL_COMPANION=off`) the skill is told to read —
   simplest, matches what the issue asks for, lives in `.zshrc`.
-- A plugin-settings file (`.claude/superpowers.local.md` frontmatter) — more
+- A plugin-settings file (`.claude/hyperpowers.local.md` frontmatter) — more
   structured, per-project capable, but heavier and project-scoped.
 - Reliability caveat from the issue: a separate "no-companion" skill competes on
   trigger words and isn't reliable — rejected.

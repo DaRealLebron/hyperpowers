@@ -6,7 +6,7 @@
 
 ## Context
 
-A research note (`superpowers_fork_findings_summary.md`) surveyed public Hyperpowers
+A research note (`hyperpowers_fork_findings_summary.md`) surveyed public Hyperpowers
 forks for methodology ideas worth borrowing. Reconciled against this fork's **existing**
 eight customizations, most of its "borrow" list was already shipped here (untrusted-input
 quarantine, observable-delta verification, multi-model reviewer adapters, ambient

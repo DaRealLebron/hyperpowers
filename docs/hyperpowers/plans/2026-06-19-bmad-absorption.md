@@ -55,7 +55,7 @@ check "using-hyperpowers: routes via skill-router"   "$US" "skill-router"
 
 - [ ] **Step 2: Run the lint to verify it fails**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 (single-quoted because of `$?`)
 Expected: `24 passed, 3 failed`, `EXIT=1` — the three new markers are missing.
 
@@ -122,13 +122,13 @@ the matched skill. Don't default every task to the same depth — proportional e
 
 - [ ] **Step 5: Run the lint to verify it passes**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `27 passed, 0 failed`, `EXIT=0`.
 
 - [ ] **Step 6: Commit**
 
 ```bash
-wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/skill-router/SKILL.md skills/using-hyperpowers/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): add scale-adaptive skill-router + wire into using-hyperpowers"'
+wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && git add skills/skill-router/SKILL.md skills/using-hyperpowers/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): add scale-adaptive skill-router + wire into using-hyperpowers"'
 ```
 
 ---
@@ -159,7 +159,7 @@ check "elicitation-methods: menu section"            "$EM" "## Elicitation Metho
 
 - [ ] **Step 2: Run the lint to verify it fails**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `27 passed, 3 failed`, `EXIT=1`.
 
 - [ ] **Step 3: Create the `product-discovery` skill**
@@ -237,13 +237,13 @@ Pick the method that fits the gap; name it in the notes so the choice is legible
 
 - [ ] **Step 5: Run the lint to verify it passes**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `30 passed, 0 failed`, `EXIT=0`.
 
 - [ ] **Step 6: Commit**
 
 ```bash
-wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/product-discovery/SKILL.md skills/product-discovery/elicitation-methods.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): add product-discovery + shared elicitation menu"'
+wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && git add skills/product-discovery/SKILL.md skills/product-discovery/elicitation-methods.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): add product-discovery + shared elicitation menu"'
 ```
 
 ---
@@ -271,7 +271,7 @@ check "architecture-design: PASS/CONCERNS/FAIL verdict" "$AD" "PASS / CONCERNS /
 
 - [ ] **Step 2: Run the lint to verify it fails**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `30 passed, 2 failed`, `EXIT=1`.
 
 - [ ] **Step 3: Create the `architecture-design` skill**
@@ -313,13 +313,13 @@ and append/cross-link — never clobber it.
 
 - [ ] **Step 4: Run the lint to verify it passes**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `32 passed, 0 failed`, `EXIT=0`.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/architecture-design/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): add architecture-design + implementation-readiness gate"'
+wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && git add skills/architecture-design/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): add architecture-design + implementation-readiness gate"'
 ```
 
 ---
@@ -349,7 +349,7 @@ check "reevaluation: completed-work-immutable rule"  "$RE" "Completed work is im
 
 - [ ] **Step 2: Run the lint to verify it fails**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `32 passed, 2 failed`, `EXIT=1`.
 
 - [ ] **Step 3: Create the `reevaluation` skill**
@@ -388,13 +388,13 @@ discipline: state the architectural assumption that broke and what it blocks.
 
 - [ ] **Step 4: Run the lint to verify it passes**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `34 passed, 0 failed`, `EXIT=0`.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/reevaluation/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): add reevaluation (supersede-not-rewrite course-correct)"'
+wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && git add skills/reevaluation/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): add reevaluation (supersede-not-rewrite course-correct)"'
 ```
 
 ---
@@ -421,7 +421,7 @@ check "brainstorming: elicitation menu pointer" "$BR" "../product-discovery/elic
 
 - [ ] **Step 2: Run the lint to verify it fails**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `34 passed, 1 failed`, `EXIT=1`.
 
 - [ ] **Step 3: Graft the pointer**
@@ -434,13 +434,13 @@ In `skills/brainstorming/SKILL.md`, under **The Process → Understanding the id
 
 - [ ] **Step 4: Run the lint to verify it passes**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `35 passed, 0 failed`, `EXIT=0`.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/brainstorming/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(brainstorming): offer the shared elicitation menu"'
+wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && git add skills/brainstorming/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(brainstorming): offer the shared elicitation menu"'
 ```
 
 ---
@@ -466,7 +466,7 @@ check "writing-plans: scale-adaptive depth note" "$WP" "Match planning depth to 
 
 - [ ] **Step 2: Run the lint to verify it fails**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `35 passed, 1 failed`, `EXIT=1`.
 
 - [ ] **Step 3: Graft the note**
@@ -485,13 +485,13 @@ the same ceremony on every task is the failure this guards against (NS2).
 
 - [ ] **Step 4: Run the lint to verify it passes**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `36 passed, 0 failed`, `EXIT=0`.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/writing-plans/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(writing-plans): scale-adaptive planning depth"'
+wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && git add skills/writing-plans/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(writing-plans): scale-adaptive planning depth"'
 ```
 
 ---
@@ -519,7 +519,7 @@ check "test-driven-development: oracle-strength rule" "$TDD" "survive a delibera
 
 - [ ] **Step 2: Run the lint to verify it fails**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `36 passed, 2 failed`, `EXIT=1`.
 
 - [ ] **Step 3: Graft `writing-plans`**
@@ -557,13 +557,13 @@ tests bite.
 
 - [ ] **Step 5: Run the lint to verify it passes**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `38 passed, 0 failed`, `EXIT=0`.
 
 - [ ] **Step 6: Commit**
 
 ```bash
-wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/writing-plans/SKILL.md skills/test-driven-development/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): Finding A — oracle-strengthening test guidance"'
+wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && git add skills/writing-plans/SKILL.md skills/test-driven-development/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): Finding A — oracle-strengthening test guidance"'
 ```
 
 ---
@@ -591,7 +591,7 @@ check "subagent-driven: upward escalation to reeval" "$SDD" "escalate to reevalu
 
 - [ ] **Step 2: Run the lint to verify it fails**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `38 passed, 2 failed`, `EXIT=1`.
 
 - [ ] **Step 3: Graft `writing-plans`**
@@ -624,13 +624,13 @@ In `skills/subagent-driven-development/SKILL.md`, inside `## Handling Implemente
 
 - [ ] **Step 5: Run the lint to verify it passes**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: `40 passed, 0 failed`, `EXIT=0`.
 
 - [ ] **Step 6: Commit**
 
 ```bash
-wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/writing-plans/SKILL.md skills/subagent-driven-development/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): consumption contract (AC→VA, architecture cite, upward escalation)"'
+wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && git add skills/writing-plans/SKILL.md skills/subagent-driven-development/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): consumption contract (AC→VA, architecture cite, upward escalation)"'
 ```
 
 ---
@@ -643,7 +643,7 @@ wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/writing-pla
 
 - [ ] **Step 1: Read the current docs**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && grep -nE "behaviors|24 checks|eleven" README.md'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && grep -nE "behaviors|24 checks|eleven" README.md'`
 Note the exact current count strings (the prior round left README at "eleven behaviors" / "24 checks").
 
 - [ ] **Step 2: Update README counts**
@@ -678,11 +678,11 @@ sprint machinery — all poor fits for a solo operator. Structural lint grows 24
 
 - [ ] **Step 4: Verify**
 
-Run: `wsl.exe -e bash -lc 'cd /root/projects/superpowers && grep -F "40 checks" README.md && grep -F "BMAD absorption" RELEASE-NOTES.md && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
+Run: `wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && grep -F "40 checks" README.md && grep -F "BMAD absorption" RELEASE-NOTES.md && bash scripts/lint-fork-customizations.sh; echo EXIT=$?'`
 Expected: both `grep`s match, lint prints `40 passed, 0 failed`, `EXIT=0`.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add README.md RELEASE-NOTES.md && git commit -q -m "docs: document BMAD absorption (15 behaviors, 40 lint checks)"'
+wsl.exe -e bash -lc 'cd /root/projects/hyperpowers && git add README.md RELEASE-NOTES.md && git commit -q -m "docs: document BMAD absorption (15 behaviors, 40 lint checks)"'
 ```

@@ -24,7 +24,7 @@
 Each is an observable delta (false before this plan, true after):
 
 - `grep -c '49 checks' docs/workflow.md` → `1`, and `grep -c '18 checks' docs/workflow.md` → `0` (the stale count is gone).
-- `grep -F 'Two newer arcs' docs/workflow.md` matches, and `grep -F 'superpowers/bmad-absorption-happy-path.md' docs/workflow.md` matches (the project altitude is narrated and cross-linked, not duplicated).
+- `grep -F 'Two newer arcs' docs/workflow.md` matches, and `grep -F 'hyperpowers/bmad-absorption-happy-path.md' docs/workflow.md` matches (the project altitude is narrated and cross-linked, not duplicated).
 - `grep -F 'curate project memory' docs/hyperpowers/bmad-absorption-happy-path.md` matches (the merge node now shows the curation pass).
 - `grep -c '## Context' CLAUDE.md` → `1` and `grep -c '## Documentation index' CLAUDE.md` → `1` (the two missing layers added), while `grep -F '## What We Will Not Accept' CLAUDE.md` still matches (existing tuned content preserved).
 - `diff -q CLAUDE.md AGENTS.md` prints nothing and exits 0 (AGENTS.md is now an exact mirror — it was a 1-line stub before), and `grep -F '## Pull Request Requirements' AGENTS.md` matches.
@@ -78,7 +78,7 @@ Run:
 ```
 cd /c/Users/12026/.config/superpowers/worktrees/hyperpowers/feat-docs-reflect-new-realities
 echo "49:$(grep -c '49 checks' docs/workflow.md) 18:$(grep -c '18 checks' docs/workflow.md)"
-grep -F 'Two newer arcs' docs/workflow.md >/dev/null && grep -F 'superpowers/bmad-absorption-happy-path.md' docs/workflow.md >/dev/null && echo LINKS_OK
+grep -F 'Two newer arcs' docs/workflow.md >/dev/null && grep -F 'hyperpowers/bmad-absorption-happy-path.md' docs/workflow.md >/dev/null && echo LINKS_OK
 ```
 Expected: `49:1 18:0` and `LINKS_OK`.
 
@@ -301,7 +301,7 @@ No separate "Update documentation" task applies — the entire plan *is* the doc
 Run:
 ```
 cd /c/Users/12026/.config/superpowers/worktrees/hyperpowers/feat-docs-reflect-new-realities
-echo "== workflow ==" && echo "49:$(grep -c '49 checks' docs/workflow.md) 18:$(grep -c '18 checks' docs/workflow.md)" && grep -F 'superpowers/bmad-absorption-happy-path.md' docs/workflow.md >/dev/null && echo xref_ok
+echo "== workflow ==" && echo "49:$(grep -c '49 checks' docs/workflow.md) 18:$(grep -c '18 checks' docs/workflow.md)" && grep -F 'hyperpowers/bmad-absorption-happy-path.md' docs/workflow.md >/dev/null && echo xref_ok
 echo "== happy-path ==" && grep -F 'curate project memory' docs/hyperpowers/bmad-absorption-happy-path.md >/dev/null && echo curation_ok
 echo "== CLAUDE.md ==" && echo "Context:$(grep -c '## Context' CLAUDE.md) DocIndex:$(grep -c '## Documentation index' CLAUDE.md)" && grep -qF '## What We Will Not Accept' CLAUDE.md && echo preserved_ok
 echo "== AGENTS mirror ==" && diff -q CLAUDE.md AGENTS.md && echo mirror_ok

@@ -250,7 +250,7 @@ Add these tests after the existing `/files/*` hardlink test:
 Run:
 
 ```bash
-cd /Users/drewritter/.codex/worktrees/59f6/superpowers/tests/brainstorm-server
+cd /Users/drewritter/.codex/worktrees/59f6/hyperpowers/tests/brainstorm-server
 node server.test.js
 ```
 
@@ -280,7 +280,7 @@ function getNewestScreen() {
 Run:
 
 ```bash
-cd /Users/drewritter/.codex/worktrees/59f6/superpowers/tests/brainstorm-server
+cd /Users/drewritter/.codex/worktrees/59f6/hyperpowers/tests/brainstorm-server
 node server.test.js
 ```
 
@@ -434,7 +434,7 @@ Add this test immediately after the persisted-token fallback test:
 Run:
 
 ```bash
-cd /Users/drewritter/.codex/worktrees/59f6/superpowers/tests/brainstorm-server
+cd /Users/drewritter/.codex/worktrees/59f6/hyperpowers/tests/brainstorm-server
 node lifecycle.test.js
 ```
 
@@ -492,7 +492,7 @@ In the `server.on('error', ...)` handler, replace the `EADDRINUSE` branch with:
 Run:
 
 ```bash
-cd /Users/drewritter/.codex/worktrees/59f6/superpowers/tests/brainstorm-server
+cd /Users/drewritter/.codex/worktrees/59f6/hyperpowers/tests/brainstorm-server
 node lifecycle.test.js
 ```
 
@@ -645,7 +645,7 @@ Keep the unrelated PID and missing PID tests.
 Run:
 
 ```bash
-cd /Users/drewritter/.codex/worktrees/59f6/superpowers
+cd /Users/drewritter/.codex/worktrees/59f6/hyperpowers
 bash tests/brainstorm-server/stop-server.test.sh
 ```
 
@@ -759,7 +759,7 @@ In the stopped branch, change the cleanup line to:
 Run:
 
 ```bash
-cd /Users/drewritter/.codex/worktrees/59f6/superpowers
+cd /Users/drewritter/.codex/worktrees/59f6/hyperpowers
 bash tests/brainstorm-server/stop-server.test.sh
 ```
 
@@ -814,7 +814,7 @@ After `const { stdout: initialStdout } = await waitForServer(server);`, add:
 Run:
 
 ```bash
-cd /Users/drewritter/.codex/worktrees/59f6/superpowers/tests/brainstorm-server
+cd /Users/drewritter/.codex/worktrees/59f6/hyperpowers/tests/brainstorm-server
 node auth.test.js
 ```
 
@@ -900,7 +900,7 @@ Change the direct Node launch in Test 6 to:
 Run:
 
 ```bash
-cd /Users/drewritter/.codex/worktrees/59f6/superpowers
+cd /Users/drewritter/.codex/worktrees/59f6/hyperpowers
 bash tests/brainstorm-server/start-server.test.sh
 ```
 
@@ -1008,7 +1008,7 @@ git commit -m "Align visual companion docs with shipped scope"
 Run:
 
 ```bash
-cd /Users/drewritter/.codex/worktrees/59f6/superpowers/tests/brainstorm-server
+cd /Users/drewritter/.codex/worktrees/59f6/hyperpowers/tests/brainstorm-server
 node server.test.js
 node auth.test.js
 node lifecycle.test.js
@@ -1023,7 +1023,7 @@ Expected: all focused tests pass; symlink-only tests may report skipped only whe
 Run:
 
 ```bash
-cd /Users/drewritter/.codex/worktrees/59f6/superpowers/tests/brainstorm-server
+cd /Users/drewritter/.codex/worktrees/59f6/hyperpowers/tests/brainstorm-server
 npm test
 ```
 
@@ -1047,7 +1047,7 @@ Expected: all commands exit 0.
 Copy or fetch the rebased branch on `ballmer`, then run:
 
 ```bash
-cd superpowers
+cd hyperpowers
 npm --prefix tests/brainstorm-server ci
 npm --prefix tests/brainstorm-server test
 bash tests/brainstorm-server/windows-lifecycle.test.sh
@@ -1071,11 +1071,11 @@ Expected: first command exits 0. PR JSON no longer reports `DIRTY` or `CONFLICTI
 Run:
 
 ```bash
-git -C /Users/drewritter/.codex/worktrees/59f6/superpowers-evals rev-parse HEAD
-git -C /Users/drewritter/.codex/worktrees/59f6/superpowers-evals status --short --branch
+git -C /Users/drewritter/.codex/worktrees/59f6/hyperpowers-evals rev-parse HEAD
+git -C /Users/drewritter/.codex/worktrees/59f6/hyperpowers-evals status --short --branch
 ```
 
-If the eval worktree is not at that path, run the same commands in `/Users/drewritter/prime-rad/superpowers-evals`.
+If the eval worktree is not at that path, run the same commands in `/Users/drewritter/prime-rad/hyperpowers-evals`.
 
 Record the exact eval scenario path, command, result artifact path, and RED/GREEN outcome from the already-run eval evidence. Do not claim the eval submodule is included in PR #1720.
 

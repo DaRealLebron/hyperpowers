@@ -560,7 +560,7 @@ def scaffold_sdd_quality_defect_plan(workdir: Path) -> None:
     _git(["git", "config", "user.name", "Drill Test"], cwd=workdir)
 
     (workdir / "package.json").write_text(PACKAGE_JSON)
-    plans_dir = workdir / "docs" / "superpowers" / "plans"
+    plans_dir = workdir / "docs" / "hyperpowers" / "plans"
     plans_dir.mkdir(parents=True, exist_ok=True)
     (plans_dir / "report-plan.md").write_text(PLAN_BODY)
 
@@ -771,4 +771,4 @@ Pass bar: all four pre-existing scenarios still pass after the change (no regres
 
 ## Finishing
 
-After all tasks pass: the evals submodule commit needs to land in `superpowers-evals` (PR to its `main`), then this branch bumps the `evals` submodule pointer — per `evals/CLAUDE.md`, the parent bump is part of propagation, not optional. Then use hyperpowers:finishing-a-development-branch. PRs against superpowers target `dev`.
+After all tasks pass: the evals submodule commit needs to land in `superpowers-evals` (PR to its `main`), then this branch bumps the `evals` submodule pointer — per `evals/CLAUDE.md`, the parent bump is part of propagation, not optional. Then use hyperpowers:finishing-a-development-branch. PRs against hyperpowers target `dev`.

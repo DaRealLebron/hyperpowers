@@ -1,8 +1,8 @@
-# Lift drill into superpowers as `evals/` — implementation plan
+# Lift drill into hyperpowers as `evals/` — implementation plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:subagent-driven-development (recommended) or hyperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Move the standalone `obra/drill` skill-compliance benchmark into superpowers as a top-level `evals/` directory, delete redundant bash tests under `superpowers/tests/` after per-file subagent verification of drill scenario coverage, and update top-level docs so contributors land on the new structure.
+**Goal:** Move the standalone `obra/drill` skill-compliance benchmark into hyperpowers as a top-level `evals/` directory, delete redundant bash tests under `hyperpowers/tests/` after per-file subagent verification of drill scenario coverage, and update top-level docs so contributors land on the new structure.
 
 **Architecture:** Single PR against `dev` on a new branch `f/evals-lift`. Drill source is copied verbatim with explicit rsync excludes to keep `.git/`, `.venv/`, etc. out of the new dir. A small helper in `drill/cli.py` defaults `HYPERPOWERS_ROOT` to the parent of the `evals/` directory, so contributors don't have to set the env var. Each bash-test deletion is gated by a subagent that compares the bash test's assertions to its claimed drill scenario's verify block. Historical references in plan docs and release notes are annotated, not rewritten.
 
@@ -151,7 +151,7 @@ Expected output starts with `A  evals/...` lines listing many added files. Many 
 git commit -m "$(cat <<EOF
 Lift drill into evals/ at $DRILL_SHA
 
-rsync of obra/drill@$DRILL_SHA into superpowers/evals/, excluding
+rsync of obra/drill@$DRILL_SHA into hyperpowers/evals/, excluding
 .git/, .venv/, results/, .env/, __pycache__/, *.egg-info/,
 .private-journal/.
 
@@ -359,9 +359,9 @@ def _set_superpowers_root_default() -> None:
     """Default HYPERPOWERS_ROOT to the parent of evals/ if not already set.
 
     Drill historically required contributors to export HYPERPOWERS_ROOT
-    pointing at the superpowers checkout. After lifting drill into
-    superpowers/evals/, the parent of PROJECT_ROOT is always the
-    superpowers root, so we can supply this default automatically.
+    pointing at the hyperpowers checkout. After lifting drill into
+    hyperpowers/evals/, the parent of PROJECT_ROOT is always the
+    hyperpowers root, so we can supply this default automatically.
 
     Existing HYPERPOWERS_ROOT environment values are respected as overrides.
     """
@@ -391,7 +391,7 @@ git commit -m "evals: default HYPERPOWERS_ROOT to parent of evals/ if unset
 
 Adds _set_superpowers_root_default() to drill/cli.py, called at
 module import after load_dotenv(). PROJECT_ROOT resolves to evals/
-post-lift; its parent is the superpowers repo root, which is the
+post-lift; its parent is the hyperpowers repo root, which is the
 correct value for HYPERPOWERS_ROOT.
 
 Existing env values are respected as overrides via os.environ.setdefault.
@@ -552,7 +552,7 @@ Find the section that looks like:
 ```markdown
 Required environment:
 ```bash
-export HYPERPOWERS_ROOT=/path/to/superpowers
+export HYPERPOWERS_ROOT=/path/to/hyperpowers
 export ANTHROPIC_API_KEY=sk-...
 ```
 ```
@@ -565,7 +565,7 @@ Required environment:
 export ANTHROPIC_API_KEY=sk-...
 ```
 
-`HYPERPOWERS_ROOT` defaults to the parent of `evals/` (the superpowers repo root) and only needs to be set if you're running drill against a different superpowers checkout.
+`HYPERPOWERS_ROOT` defaults to the parent of `evals/` (the hyperpowers repo root) and only needs to be set if you're running drill against a different hyperpowers checkout.
 ```
 
 - [ ] **Step 2: Edit evals/CLAUDE.md**
@@ -576,7 +576,7 @@ Find the section:
 ## Required env
 
 ```
-HYPERPOWERS_ROOT=/path/to/superpowers
+HYPERPOWERS_ROOT=/path/to/hyperpowers
 ANTHROPIC_API_KEY=sk-...
 ```
 ```
@@ -590,7 +590,7 @@ Replace with:
 ANTHROPIC_API_KEY=sk-...
 ```
 
-`HYPERPOWERS_ROOT` defaults to the parent of `evals/` (the superpowers repo root). Override only if running drill against a different superpowers checkout.
+`HYPERPOWERS_ROOT` defaults to the parent of `evals/` (the hyperpowers repo root). Override only if running drill against a different hyperpowers checkout.
 ```
 
 - [ ] **Step 3: Commit**
@@ -1038,7 +1038,7 @@ already addressed, but I want a second pair of eyes:
 
 <paste contents of /tmp/deleted-paths.txt>
 
-Search the entire superpowers tree (excluding evals/, node_modules/,
+Search the entire hyperpowers tree (excluding evals/, node_modules/,
 .venv/, .git/) for any remaining references to those paths. Report
 every hit with file:line and one-sentence judgment of whether it
 needs an update or is fine as-is. Do not modify files; just report.
@@ -1223,7 +1223,7 @@ assigned the identical task.
 **Base:** dev (currently b4363df)
 **Spec:** docs/hyperpowers/specs/2026-05-06-lift-drill-into-evals-design.md
 
-This branch lifts the obra/drill repo into superpowers/evals/ and
+This branch lifts the obra/drill repo into hyperpowers/evals/ and
 deletes redundant bash tests that drill scenarios cover. Two prior
 adversarial reviews caught issues at the spec stage; this is the
 post-implementation review.
@@ -1283,15 +1283,15 @@ gh pr create \
   --base dev \
   --head f/evals-lift \
   --reviewer arittr \
-  --title "Lift drill into superpowers as evals/ harness" \
+  --title "Lift drill into hyperpowers as evals/ harness" \
   --body "$(cat <<'EOF'
 ## What problem are you trying to solve?
 
-Drill — the standalone Python skill-compliance benchmark at obra/drill — is already the de facto eval harness for superpowers. The PRI-1397 commit series lifted ~22 bash tests into drill scenarios, and the most recent superpowers commit (a2292c5) explicitly removed a redundant bash test with the message "replaced by drill behavioral coverage". Drill is a sibling repo today, requiring contributors to clone two checkouts and set HYPERPOWERS_ROOT manually. This PR completes the migration: drill becomes superpowers/evals/.
+Drill — the standalone Python skill-compliance benchmark at obra/drill — is already the de facto eval harness for hyperpowers. The PRI-1397 commit series lifted ~22 bash tests into drill scenarios, and the most recent hyperpowers commit (a2292c5) explicitly removed a redundant bash test with the message "replaced by drill behavioral coverage". Drill is a sibling repo today, requiring contributors to clone two checkouts and set HYPERPOWERS_ROOT manually. This PR completes the migration: drill becomes hyperpowers/evals/.
 
 ## What does this PR change?
 
-- Lifts the obra/drill repo into superpowers as `evals/`, with explicit rsync excludes (.git, .venv, results, .env, __pycache__, *.egg-info, .private-journal). The lift commit records the source SHA.
+- Lifts the obra/drill repo into hyperpowers as `evals/`, with explicit rsync excludes (.git, .venv, results, .env, __pycache__, *.egg-info, .private-journal). The lift commit records the source SHA.
 - Adds a `_set_superpowers_root_default()` helper to drill/cli.py so HYPERPOWERS_ROOT defaults to the parent of evals/ — no manual env-var setup.
 - Drops HYPERPOWERS_ROOT from required_env in codex.yaml/gemini.yaml (the helper supplies it). Claude*.yaml keep it because they interpolate ${HYPERPOWERS_ROOT} into --plugin-dir args.
 - Deletes redundant bash tests under tests/skill-triggering/, tests/explicit-skill-requests/, tests/subagent-driven-dev/, and tests/claude-code/ — gated per-file by a subagent that compared each bash test's assertions to its drill scenario's verify block. Anything not 100% covered was kept.
@@ -1300,17 +1300,17 @@ Drill — the standalone Python skill-compliance benchmark at obra/drill — is 
 
 ## Is this change appropriate for the core library?
 
-Yes. Cross-runtime evaluation is core to superpowers, the migration to drill scenarios was already underway in this repo, and the eval harness needs to be discoverable in-tree to be findable.
+Yes. Cross-runtime evaluation is core to hyperpowers, the migration to drill scenarios was already underway in this repo, and the eval harness needs to be discoverable in-tree to be findable.
 
 ## What alternatives did you consider?
 
 - Vendored copy + sync script (drill repo continues independently). Rejected: divergence risk; single-source-of-truth wins.
-- git subtree merge (preserves drill history in-tree). Rejected: superpowers' git history grows by 50+ commits, the merge commit is ugly, subtrees are operationally heavy.
+- git subtree merge (preserves drill history in-tree). Rejected: hyperpowers' git history grows by 50+ commits, the merge commit is ugly, subtrees are operationally heavy.
 - Keep drill as a sibling repo and just polish docs. Rejected: doesn't solve the discoverability problem.
 
 ## Does this PR contain multiple unrelated changes?
 
-No — every change supports "drill is now evals/ inside superpowers". Multiple commits for atomicity (verbatim copy, env helper, YAML updates, docs) but one direction.
+No — every change supports "drill is now evals/ inside hyperpowers". Multiple commits for atomicity (verbatim copy, env helper, YAML updates, docs) but one direction.
 
 ## Existing PRs
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regression check: Superpowers should not route new worktrees through the old
+# Regression check: Hyperpowers should not route new worktrees through the old
 # global worktree directory.
 
 set -euo pipefail
