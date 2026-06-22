@@ -49,6 +49,7 @@ Skip any step = lying, not verifying
 | Agent completed | VCS diff shows changes | Agent reports "success" |
 | Requirements met | Line-by-line checklist | Tests passing |
 | Docs updated | VCS diff shows the doc changes | "Code is self-explanatory", "will document later" |
+| Project memory current | A curation pass ran, or VCS diff shows `CLAUDE.md`/`AGENTS.md` still matches reality | Stale commands/paths left in memory; "memory looks fine" |
 | Change actually happened | Observable delta: postcondition false before is now true | Command exit 0 / "HTTP 200" (proves it ran, not that it worked) |
 | External API confirmed | The external API/CLI/schema was checked against local evidence (type defs, usage, `--help`) before code relied on it | Assumed it exists; "the SDK probably has it" |
 
