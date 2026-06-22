@@ -103,13 +103,16 @@ To install from this fork:
 
 ### Codex CLI
 
-Clone the repository and load the plugin manually:
+Hyperpowers is its own Codex plugin marketplace. Register it, then install:
 
 ```bash
-git clone https://github.com/DaRealLebron/hyperpowers
+codex plugin marketplace add DaRealLebron/hyperpowers
+codex plugin install hyperpowers
 ```
 
-Then follow the Codex CLI plugin docs to load `.codex-plugin/plugin.json`.
+(Inside a Codex session the equivalent slash commands are
+`/plugin marketplace add DaRealLebron/hyperpowers` and `/plugin install hyperpowers`.)
+Codex also reads the repo's `AGENTS.md` natively when you work inside the project.
 
 ### Cursor
 
