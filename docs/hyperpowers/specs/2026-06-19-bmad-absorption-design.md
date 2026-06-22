@@ -2,12 +2,12 @@
 
 **Date:** 2026-06-19
 **Status:** Approved (brainstorming complete; ready for writing-plans)
-**Fork:** `DaRealLebron/superpowers` (fork of `obra/superpowers`)
+**Fork:** `DaRealLebron/hyperpowers` (fork of `obra/superpowers`)
 
 ## Context
 
 The operator wanted BMAD to handle new-project discovery, PRDs, architecture, and major
-reevaluations while Superpowers handled day-to-day planning, implementation, testing, and
+reevaluations while Hyperpowers handled day-to-day planning, implementation, testing, and
 review — and asked for a "skill router" so agents know which skill to use when, what signals
 trigger it, what artifact it reads/writes, and how skills hand off without duplicating work.
 

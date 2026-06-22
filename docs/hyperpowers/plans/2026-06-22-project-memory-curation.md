@@ -344,13 +344,13 @@ git commit -m "feat(skills): add project-memory-current row to the completion ga
 In `README.md`, replace:
 
 ```markdown
-This fork adds fifteen behaviors on top of upstream Superpowers. All are **advisory**: the
+This fork adds fifteen behaviors on top of upstream Hyperpowers. All are **advisory**: the
 ```
 
 with:
 
 ```markdown
-This fork adds sixteen behaviors on top of upstream Superpowers. All are **advisory**: the
+This fork adds sixteen behaviors on top of upstream Hyperpowers. All are **advisory**: the
 ```
 
 - [ ] **Step 2: Add the new behavior bullet**
@@ -387,7 +387,7 @@ Code. Verify the customizations are present with `bash scripts/lint-fork-customi
 
 - [ ] **Step 4: Add the RELEASE-NOTES entry**
 
-In `RELEASE-NOTES.md`, insert this entry immediately after the `# Superpowers Release Notes` title line and before the `## Fork: BMAD absorption` heading:
+In `RELEASE-NOTES.md`, insert this entry immediately after the `# Hyperpowers Release Notes` title line and before the `## Fork: BMAD absorption` heading:
 
 ```markdown
 ## Fork: project-memory curation — CLAUDE.md drift built into the skills (2026-06-22)

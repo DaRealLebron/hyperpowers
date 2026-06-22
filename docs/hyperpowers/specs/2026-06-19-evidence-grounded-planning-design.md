@@ -2,11 +2,11 @@
 
 **Date:** 2026-06-19
 **Status:** Approved (brainstorming complete; ready for writing-plans)
-**Fork:** `DaRealLebron/superpowers` (fork of `obra/superpowers`)
+**Fork:** `DaRealLebron/hyperpowers` (fork of `obra/superpowers`)
 
 ## Context
 
-A research note (`superpowers_fork_findings_summary.md`) surveyed public Superpowers
+A research note (`superpowers_fork_findings_summary.md`) surveyed public Hyperpowers
 forks for methodology ideas worth borrowing. Reconciled against this fork's **existing**
 eight customizations, most of its "borrow" list was already shipped here (untrusted-input
 quarantine, observable-delta verification, multi-model reviewer adapters, ambient

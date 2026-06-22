@@ -1,10 +1,10 @@
-# Happy Path — Unified Planning OS (Superpowers + absorbed BMAD)
+# Happy Path — Unified Planning OS (Hyperpowers + absorbed BMAD)
 
 This fork absorbed BMAD's effective **project-altitude** capabilities as native skills instead of
 integrating a second tool (design: `docs/hyperpowers/specs/2026-06-19-bmad-absorption-design.md`).
 Below is the *happy path*: a greenfield product flowing all the way to merge with every gate
 passing. Nodes are colored by origin —
-**🟦 Superpowers-native** (upstream + this fork's prior customizations) vs
+**🟦 Hyperpowers-native** (upstream + this fork's prior customizations) vs
 **🟧 absorbed from BMAD** (the 2026-06-19 batch).
 
 ## Flowchart
@@ -27,7 +27,7 @@ flowchart TD
 
     Gate -->|"PASS · per epic"| FeatEntry
 
-    subgraph FEATURE ["FEATURE ALTITUDE — Superpowers-native"]
+    subgraph FEATURE ["FEATURE ALTITUDE — Hyperpowers-native"]
         direction TB
         Brainstorm["brainstorming → spec<br/>(only if design non-obvious)"]
         Plan["writing-plans → plan<br/>Verification Artifacts (observable delta)<br/>+ adversarial plan-review panel<br/>+ oracle-strength (Finding A)"]
@@ -53,7 +53,7 @@ flowchart TD
     class Brainstorm,Plan,SDD,FinalRev,Finish,Shell sp;
 ```
 
-**Legend:** 🟧 = absorbed from BMAD · 🟦 = Superpowers-native. Solid arrows are the forward happy
+**Legend:** 🟧 = absorbed from BMAD · 🟦 = Hyperpowers-native. Solid arrows are the forward happy
 path; dotted arrows are the **consumption seam** (feature altitude reads project artifacts, never
 re-derives them) and the **upward escalation** loop (an architectural surprise during execution
 re-enters the project altitude through `reevaluation`).

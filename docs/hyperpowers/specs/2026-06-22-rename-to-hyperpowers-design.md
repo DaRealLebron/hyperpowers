@@ -1,13 +1,13 @@
-# Rename Superpowers → Hyperpowers (Independent Fork) Design
+# Rename Hyperpowers → Hyperpowers (Independent Fork) Design
 
 **Date:** 2026-06-22
 **Status:** Approved (brainstorming complete; ready for writing-plans)
-**Fork:** `DaRealLebron/superpowers` (fork of `obra/superpowers`) → becoming the standalone `DaRealLebron/hyperpowers`
+**Fork:** `DaRealLebron/hyperpowers` (fork of `obra/superpowers`) → becoming the standalone `DaRealLebron/hyperpowers`
 
 ## Context
 
 The operator is taking their fork independent: it should stop pointing at upstream `obra/superpowers`
-and be renamed end-to-end from "Superpowers" to "Hyperpowers" — branding, plugin identifiers, the
+and be renamed end-to-end from "Hyperpowers" to "Hyperpowers" — branding, plugin identifiers, the
 skill namespace, the bootstrap skill, the docs path, plugin filenames, hooks, tests, and the GitHub
 repository. The operator explicitly chose the **deepest** rename tier and a **fully independent**
 relationship to upstream.
@@ -31,7 +31,7 @@ Recon established the magnitude and the hazards:
    Hyperpowers install path — while preserving the MIT fork-attribution required by the license.
 3. Repoint ownership: manifests credit `DaRealLebron <stephpangas@gmail.com>`; URLs point at
    `github.com/DaRealLebron/hyperpowers`.
-4. Rename the GitHub repository `DaRealLebron/superpowers` → `DaRealLebron/hyperpowers` and repoint
+4. Rename the GitHub repository `DaRealLebron/hyperpowers` → `DaRealLebron/hyperpowers` and repoint
    the local `origin` remote.
 5. Keep the project working: the structural lint stays at **49 passed**, the affected `tests/` suites
    pass, and every harness's bootstrap still auto-triggers under the new name.
@@ -68,14 +68,14 @@ Every text-replace phase runs against this preserve-list, including the rewrite 
 |---|---|---|
 | Plugin name (`.claude-plugin`, `.codex-plugin`, `.cursor-plugin`, `.kimi-plugin` manifests; `package.json`; `marketplace.json` plugin entry) | `superpowers` | `hyperpowers` |
 | Marketplace name (`marketplace.json`) | `superpowers-dev` | `hyperpowers` |
-| Install command | `superpowers@superpowers-dev` (from `DaRealLebron/superpowers`) | `hyperpowers@hyperpowers` (from `DaRealLebron/hyperpowers`) |
+| Install command | `hyperpowers@hyperpowers` (from `DaRealLebron/hyperpowers`) | `hyperpowers@hyperpowers` (from `DaRealLebron/hyperpowers`) |
 | Skill namespace (cross-refs in skills, hooks, docs) | `hyperpowers:` | `hyperpowers:` |
 | Bootstrap skill (dir, frontmatter `name:`, and **all** hook/extension references) | `using-hyperpowers` | `using-hyperpowers` |
 | Docs path (`git mv` + every reference) | `docs/hyperpowers/` | `docs/hyperpowers/` |
 | Plugin entry files (+ their internal refs and any config pointing at them) | `.opencode/plugins/hyperpowers.js`, `.pi/extensions/hyperpowers.ts` | `…/hyperpowers.{js,ts}` |
 | Manifest URLs (`homepage`, `repository`) | `github.com/obra/superpowers` | `github.com/DaRealLebron/hyperpowers` |
 | Manifest author/owner | `Jesse Vincent <jesse@fsck.com>` | `DaRealLebron <stephpangas@gmail.com>` |
-| Branding prose | "Superpowers" | "Hyperpowers" |
+| Branding prose | "Hyperpowers" | "Hyperpowers" |
 
 ## Independence Changes
 
@@ -118,7 +118,7 @@ Every text-replace phase runs against this preserve-list, including the rewrite 
    `docs/.../specs|plans`).
 5. **Plugin filenames** — rename `.opencode/plugins/hyperpowers.js`, `.pi/extensions/hyperpowers.ts`
    + their internal refs and any config that points at them.
-6. **Branding + independence** — prose "Superpowers" → "Hyperpowers"; strip obra official-install
+6. **Branding + independence** — prose "Hyperpowers" → "Hyperpowers"; strip obra official-install
    README sections; add MIT attribution; remove `upstream` remote.
 7. **Tests + lint** — update affected suites; confirm `49 passed` and green tests.
 8. **GitHub repo rename** — after the code rename is merged: `gh repo rename hyperpowers`, then

@@ -18,7 +18,7 @@ grounded against the current code, not the PR author's description.
 - **E1 (terminal-vs-HTML hard gate) is a workshop item.** We'll design it
   together; it is not specced here.
 - **E2 (storage location, #975/#977) is deferred** for now.
-- **Remote serving is a first-class scenario.** Superpowers is general-purpose;
+- **Remote serving is a first-class scenario.** Hyperpowers is general-purpose;
   users connect from remote (SSH tunnel, Tailscale, `--host 0.0.0.0`). The
   security fix MUST protect those users, not just loopback. **Decision: a
   per-session secret key**, not a Host allowlist. A Host allowlist only

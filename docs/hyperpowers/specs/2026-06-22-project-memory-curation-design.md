@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-22
 **Status:** Approved (brainstorming complete; ready for writing-plans)
-**Fork:** `DaRealLebron/superpowers` (fork of `obra/superpowers`)
+**Fork:** `DaRealLebron/hyperpowers` (fork of `obra/superpowers`)
 
 ## Context
 

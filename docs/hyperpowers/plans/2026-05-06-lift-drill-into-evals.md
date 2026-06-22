@@ -1076,9 +1076,9 @@ The file is currently Claude-Code-centric. Split into two top-level sections.
 Open `/Users/jesse/Documents/GitHub/superpowers/superpowers/docs/testing.md` and replace the file content with this structure (preserve the existing Plugin-test details where applicable):
 
 ```markdown
-# Testing Superpowers
+# Testing Hyperpowers
 
-Superpowers has two distinct kinds of tests, each in its own directory:
+Hyperpowers has two distinct kinds of tests, each in its own directory:
 
 - **`tests/`** — does the plugin's non-LLM code work? Bash + node + python integration tests for brainstorm-server JS, OpenCode plugin loading, codex-plugin sync, and analysis utilities.
 - **`evals/`** — do agents behave correctly on real LLM sessions? Python harness driving real tmux sessions of Claude Code / Codex / Gemini CLI / Copilot CLI, with an LLM actor and verifier judging skill compliance.

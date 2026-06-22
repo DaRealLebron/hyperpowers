@@ -198,11 +198,11 @@ Add before `module.exports`:
  */
 function resolveSkillPath(skillName, superpowersDir, personalDir) {
     // Strip hyperpowers: prefix if present
-    const forceSuperpowers = skillName.startsWith('hyperpowers:');
-    const actualSkillName = forceSuperpowers ? skillName.replace(/^hyperpowers:/, '') : skillName;
+    const forceHyperpowers = skillName.startsWith('hyperpowers:');
+    const actualSkillName = forceHyperpowers ? skillName.replace(/^hyperpowers:/, '') : skillName;
 
     // Try personal skills first (unless explicitly hyperpowers:)
-    if (!forceSuperpowers && personalDir) {
+    if (!forceHyperpowers && personalDir) {
         const personalPath = path.join(personalDir, actualSkillName);
         const personalSkillFile = path.join(personalPath, 'SKILL.md');
         if (fs.existsSync(personalSkillFile)) {
@@ -457,7 +457,7 @@ Run: `mkdir -p .opencode/plugin`
 #!/usr/bin/env node
 
 /**
- * Superpowers plugin for OpenCode.ai
+ * Hyperpowers plugin for OpenCode.ai
  *
  * Provides custom tools for loading and discovering skills,
  * with automatic bootstrap on session start.
@@ -475,7 +475,7 @@ const personalSkillsDir = path.join(homeDir, '.config/opencode/skills');
 /**
  * OpenCode plugin entry point
  */
-export const SuperpowersPlugin = async ({ project, client, $, directory, worktree }) => {
+export const HyperpowersPlugin = async ({ project, client, $, directory, worktree }) => {
   return {
     // Custom tools and hooks will go here
   };
@@ -506,7 +506,7 @@ git commit -m "feat: create opencode plugin scaffold"
 Replace the plugin return statement with:
 
 ```javascript
-export const SuperpowersPlugin = async ({ project, client, $, directory, worktree }) => {
+export const HyperpowersPlugin = async ({ project, client, $, directory, worktree }) => {
   // Import zod for schema validation
   const { z } = await import('zod');
 
@@ -664,15 +664,15 @@ After the tools array, add:
 ```javascript
     'session.started': async () => {
       // Read using-hyperpowers skill content
-      const usingSuperpowersPath = skillsCore.resolveSkillPath(
+      const usingHyperpowersPath = skillsCore.resolveSkillPath(
         'using-hyperpowers',
         superpowersSkillsDir,
         personalSkillsDir
       );
 
-      let usingSuperpowersContent = '';
-      if (usingSuperpowersPath) {
-        const fullContent = fs.readFileSync(usingSuperpowersPath.skillFile, 'utf8');
+      let usingHyperpowersContent = '';
+      if (usingHyperpowersPath) {
+        const fullContent = fs.readFileSync(usingHyperpowersPath.skillFile, 'utf8');
         // Strip frontmatter
         const lines = fullContent.split('\n');
         let inFrontmatter = false;
@@ -694,7 +694,7 @@ After the tools array, add:
           }
         }
 
-        usingSuperpowersContent = contentLines.join('\n').trim();
+        usingHyperpowersContent = contentLines.join('\n').trim();
       }
 
       // Tool mapping instructions
@@ -712,7 +712,7 @@ When skills reference tools you don't have, substitute OpenCode equivalents:
 - Utilities and helpers specific to that skill
 
 **Skills naming:**
-- Superpowers skills: \`hyperpowers:skill-name\` (from ~/.config/opencode/superpowers/skills/)
+- Hyperpowers skills: \`hyperpowers:skill-name\` (from ~/.config/opencode/superpowers/skills/)
 - Personal skills: \`skill-name\` (from ~/.config/opencode/skills/)
 - Personal skills override superpowers skills when names match
 `;
@@ -733,7 +733,7 @@ You have superpowers.
 
 **Below is the full content of your 'hyperpowers:using-hyperpowers' skill - your introduction to using skills. For all other skills, use the 'use_skill' tool:**
 
-${usingSuperpowersContent}
+${usingHyperpowersContent}
 
 ${toolMapping}${updateNotice}
 </EXTREMELY_IMPORTANT>`
@@ -765,7 +765,7 @@ git commit -m "feat: implement session.started hook for opencode"
 **Step 1: Create installation guide**
 
 ```markdown
-# Installing Superpowers for OpenCode
+# Installing Hyperpowers for OpenCode
 
 ## Prerequisites
 
@@ -775,7 +775,7 @@ git commit -m "feat: implement session.started hook for opencode"
 
 ## Installation Steps
 
-### 1. Install Superpowers Skills
+### 1. Install Hyperpowers Skills
 
 ```bash
 # Clone superpowers skills to OpenCode config directory
@@ -908,7 +908,7 @@ Find the section about supported platforms (search for "Codex" in the file), and
 ```markdown
 ### OpenCode
 
-Superpowers works with [OpenCode.ai](https://opencode.ai) through a native JavaScript plugin.
+Hyperpowers works with [OpenCode.ai](https://opencode.ai) through a native JavaScript plugin.
 
 **Installation:** See [.opencode/INSTALL.md](.opencode/INSTALL.md)
 

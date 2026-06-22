@@ -1,7 +1,7 @@
-# Porting Superpowers to a New Harness
+# Porting Hyperpowers to a New Harness
 
 This guide explains how to add support for a new harness — an IDE, CLI, or
-agent runner that isn't Claude Code — so that Superpowers skills auto-trigger
+agent runner that isn't Claude Code — so that Hyperpowers skills auto-trigger
 there the same way they do natively.
 
 It is written in two layers. **Part 1–3** explain how the system works and how
@@ -28,9 +28,9 @@ writing anything:
 
 ---
 
-## Part 1 — How Superpowers works across harnesses
+## Part 1 — How Hyperpowers works across harnesses
 
-Superpowers is the same content everywhere. What changes per harness is the thin
+Hyperpowers is the same content everywhere. What changes per harness is the thin
 layer that delivers that content to the model and translates its instructions
 into the harness's native tools. Three components:
 
@@ -80,7 +80,7 @@ edited in the user's home.)
 
 ## Part 2 — Can this harness be supported?
 
-A harness can support Superpowers only if it can do all of the following. Check
+A harness can support Hyperpowers only if it can do all of the following. Check
 these before writing code — if the first one fails, stop.
 
 ### Hard requirement: automatic session-start injection
@@ -98,7 +98,7 @@ one non-negotiable capability. It can take any form:
   pointing at the extension's own `GEMINI.md`) — not a file you edit in the user's
   home.
 
-If the only way to get Superpowers in front of the model is for your human
+If the only way to get Hyperpowers in front of the model is for your human
 partner to opt in each session (paste a prompt, run a command, enable a mode),
 the harness
 **cannot** be properly supported. The acceptance test in Part 3 will fail, and
@@ -156,9 +156,9 @@ A port is finished when **all** of these are true:
    manifest and don't treat a rewritten installed manifest as a failure.
 
 A quick smoke check before the full acceptance test: start a session and ask the
-model to describe its superpowers. If the bootstrap injected, it knows it has
+model to describe its hyperpowers. If the bootstrap injected, it knows it has
 them. (OpenCode's install doc uses `opencode run --print-logs "hello" 2>&1 |
-grep -i superpowers` for the same goal via a different mechanism — log-grep
+grep -i hyperpowers` for the same goal via a different mechanism — log-grep
 rather than asking the model; the `2>&1` matters because logs go to stderr. Find
 your harness's equivalent.)
 
@@ -326,7 +326,7 @@ ones in spirit:
   - **Build/dependency check.** Decide how the harness loads your module:
     does it run the source directly (pi's `.ts` is referenced as-is from
     `package.json`; OpenCode ships plain `.js`), or does it need a transpile/build
-    step? Superpowers is zero-runtime-dependency. pi's `import type
+    step? Hyperpowers is zero-runtime-dependency. pi's `import type
     { ExtensionAPI }` works specifically because the harness runs the `.ts`
     directly, supplies that type at load, and the repo never type-checks the file
     in CI — the import isn't even declared as a dependency. If *your* harness
@@ -357,7 +357,7 @@ shape. Do **not** apply one shape's recipe to another.
 **Shape A — a script reads `SKILL.md` and prints the harness's JSON.** The
 dispatched script (`hooks/session-start`) `cat`s the whole `SKILL.md` (frontmatter
 included — that's fine; it's emitted verbatim), wraps it with the "You have
-superpowers… for all other skills use the Skill tool" preamble, escapes it, and
+hyperpowers… for all other skills use the Skill tool" preamble, escapes it, and
 prints the harness's JSON shape. The tool mapping for Shape A does **not** go
 inline here — it lives in `references/<harness>-tools.md` (Step 4). Get the JSON
 output shape exactly right. `hooks/session-start`
@@ -399,7 +399,7 @@ itself via `dirname`, so the script body doesn't depend on this — but the
 command in the manifest does.)
 
 **Discovering the harness's contract.** The three facts above — env var, JSON
-field/nesting, matcher strings — are the harness's contract, not Superpowers',
+field/nesting, matcher strings — are the harness's contract, not Hyperpowers',
 so you have to source them. Read the harness's hook docs, or find out
 empirically: register a throwaway session-start hook that dumps its environment
 and emits a marker, then observe which env var identifies the harness and
@@ -490,7 +490,7 @@ Where the mapping lives depends on shape:
   section links the per-harness references files. (Shape A harnesses have no
   instructions file; the mapping is *not* inlined into the hook output.)
 - **Shape B:** the mapping is typically inlined into the bootstrap string you
-  inject (see the `toolMapping` constant in `superpowers.js`). pi keeps it in
+  inject (see the `toolMapping` constant in `hyperpowers.js`). pi keeps it in
   *both* places — `piToolMapping()` inline **and** `references/pi-tools.md`. If
   you maintain it in two places, update both, or the port is half-done.
 - **Shape C:** put it in `references/<harness>-tools.md` and pull it into the
@@ -635,10 +635,10 @@ sleep 12
 tmux capture-pane -t port-test -p          # onboarding / trust prompt? answer it via send-keys first
 # (e.g. tmux send-keys -t port-test Enter   # to accept a trust prompt — inspect before assuming)
 
-# 3. Smoke check: does the model know it has superpowers?
+# 3. Smoke check: does the model know it has hyperpowers?
 #    Send the text and Enter as SEPARATE send-keys with a beat between them —
 #    sending them together races on some TUIs (Enter arrives before the text lands).
-tmux send-keys -t port-test 'What are your superpowers?'; sleep 0.4; tmux send-keys -t port-test Enter
+tmux send-keys -t port-test 'What are your hyperpowers?'; sleep 0.4; tmux send-keys -t port-test Enter
 sleep 5
 tmux capture-pane -t port-test -p          # reply should show it knows its skills
 
@@ -661,7 +661,7 @@ than capturing once; `capture-pane` shows only the visible pane, so for a long
 conversation use the harness's own transcript/log file as the record of truth;
 always `kill-session` when done.
 
-If the smoke check shows the model *doesn't* know it has superpowers, the
+If the smoke check shows the model *doesn't* know it has hyperpowers, the
 bootstrap isn't loading — fix that before bothering with the acceptance test.
 
 ---
@@ -768,7 +768,7 @@ dispatcher pattern.
   complete acceptance-test transcript (the "Let's make a react todo list"
   session showing `brainstorming` auto-triggering). A PR without this proof will
   be closed.
-- Superpowers is a zero-dependency plugin. Don't add a third-party runtime
+- Hyperpowers is a zero-dependency plugin. Don't add a third-party runtime
   dependency. Adding a new harness is the one carve-out the contributor rules
   allow, and even then keep it to what the integration strictly requires —
   type-only imports that compile away are fine; runtime packages are not.
@@ -789,13 +789,13 @@ Use this as the live index; when in doubt, read the files, not this table.
 | Copilot CLI | (shares Claude Code hook path; `COPILOT_CLI` env) | shell hook → `hooks/session-start` (`additionalContext`) | `references/copilot-tools.md` | `tests/hooks/` | — |
 | Gemini CLI | `gemini-extension.json` + `GEMINI.md` | instructions file `@`-includes bootstrap + mapping | `references/gemini-tools.md` | — | `gemini extensions install` |
 | Kimi Code | `.kimi-plugin/plugin.json` | manifest `sessionStart.skill` loads `using-hyperpowers` | inline `skillInstructions` in manifest | `tests/kimi/` | marketplace or `/plugins install` GitHub URL |
-| OpenCode | `.opencode/plugins/hyperpowers.js` (declared via root `package.json` `main`) | in-process: `config` hook registers skills dir; `experimental.chat.messages.transform` injects user message | inline in `superpowers.js` | `tests/opencode/` | `opencode.json` plugin git URL |
+| OpenCode | `.opencode/plugins/hyperpowers.js` (declared via root `package.json` `main`) | in-process: `config` hook registers skills dir; `experimental.chat.messages.transform` injects user message | inline in `hyperpowers.js` | `tests/opencode/` | `opencode.json` plugin git URL |
 | pi | `.pi/extensions/hyperpowers.ts` | in-process: `resources_discover` registers skills; `context` event injects user message; lifecycle-flag + compaction-aware | `piToolMapping()` inline **and** `references/pi-tools.md` | `tests/pi/` | repo-root `package.json` fields |
 
 ## Appendix B — Gotchas that have bitten porters
 
 - **Opt-in isn't a port.** If your human partner has to do anything per session
-  to get Superpowers, the acceptance test fails. Re-read Part 2.
+  to get Hyperpowers, the acceptance test fails. Re-read Part 2.
 - **Wrong JSON field → silent failure or double injection.** Shape A only.
   Confirm the exact field/nesting; Claude Code reads two fields without dedup.
 - **Hook-config schema varies per harness.** Shape A. Cursor's `hooks-cursor.json`

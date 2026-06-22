@@ -1,8 +1,8 @@
-# Rename Superpowers → Hyperpowers Implementation Plan
+# Rename Hyperpowers → Hyperpowers Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:subagent-driven-development (recommended) or hyperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Rename the project end-to-end from Superpowers to Hyperpowers and cut it loose from upstream `obra/superpowers`, becoming the standalone `DaRealLebron/hyperpowers`.
+**Goal:** Rename the project end-to-end from Hyperpowers to Hyperpowers and cut it loose from upstream `obra/superpowers`, becoming the standalone `DaRealLebron/hyperpowers`.
 
 **Architecture:** A 1,253-hit mechanical rename done the fork's **shell-first** way: exact edits for the small structured manifests; scoped, **preserve-list-guarded**, *anchored* shell replacements for the bulk (`hyperpowers:`, `using-hyperpowers`, `docs/hyperpowers/`, owner/path-anchored strings) so upstream-pointing references are never collateral-damaged; `git mv` for directories/files. Eight phases, each gated by the structural lint (`49 passed`) + relevant tests + verification greps, committed by explicit path. Source spec: `docs/hyperpowers/specs/2026-06-22-rename-to-hyperpowers-design.md`.
 
@@ -19,7 +19,7 @@
   - `prime-radiant-inc/openai-codex-plugins`
   - the `Copyright (c) 2025 Jesse Vincent` line in `LICENSE`
 - **OUT OF SCOPE — do not touch:** `scripts/sync-to-codex-plugin.sh`, `tests/codex-plugin-sync/`. Every sweeping `grep -rl` pipes through `grep -v -e codex-plugin-sync -e sync-to-codex-plugin` to exclude them.
-- **Why anchored, not blanket.** A bare `s/superpowers/hyperpowers/g` would corrupt `obra/superpowers` etc. So phases 2–5 replace only *anchored* forms (`hyperpowers:` with colon, the distinctive `using-hyperpowers`, the `docs/hyperpowers/` path, `DaRealLebron/superpowers`, exact install ids, exact filenames). Phase 6 handles prose with a capital-anchored replace + a **residual-review** step (preview every remaining `superpowers`, fix only ours, leave the preserve-list).
+- **Why anchored, not blanket.** A bare `s/superpowers/hyperpowers/g` would corrupt `obra/superpowers` etc. So phases 2–5 replace only *anchored* forms (`hyperpowers:` with colon, the distinctive `using-hyperpowers`, the `docs/hyperpowers/` path, `DaRealLebron/hyperpowers`, exact install ids, exact filenames). Phase 6 handles prose with a capital-anchored replace + a **residual-review** step (preview every remaining `superpowers`, fix only ours, leave the preserve-list).
 - **Lint stays 49.** `bash scripts/lint-fork-customizations.sh` must print `49 passed, 0 failed` at the end of every phase that could affect it (its `US=` path changes in Phase 3).
 - **The plan & spec move.** Phase 4 `git mv docs/hyperpowers docs/hyperpowers` relocates this plan and the spec; after Phase 4 they live under `docs/hyperpowers/`.
 
@@ -52,21 +52,21 @@
   - both `"https://github.com/obra/superpowers"` (homepage, repository) and the `"websiteURL": "https://github.com/obra/superpowers"` → `"https://github.com/DaRealLebron/hyperpowers"`
   - author `"name": "Jesse Vincent"` → `"name": "DaRealLebron"`, `"email": "jesse@fsck.com"` → `"email": "stephpangas@gmail.com"`, `"url": "https://github.com/obra"` → `"url": "https://github.com/DaRealLebron"`
   - `"developerName": "Jesse Vincent"` → `"developerName": "DaRealLebron"`
-  - `"displayName": "Superpowers"` → `"displayName": "Hyperpowers"`
-  - in `shortDescription`/`longDescription`: `Superpowers` → `Hyperpowers` (the prose "Use Superpowers to guide…" → "Use Hyperpowers to guide…")
+  - `"displayName": "Hyperpowers"` → `"displayName": "Hyperpowers"`
+  - in `shortDescription`/`longDescription`: `Hyperpowers` → `Hyperpowers` (the prose "Use Hyperpowers to guide…" → "Use Hyperpowers to guide…")
   - `"composerIcon": "./assets/superpowers-small.svg"` → `"./assets/hyperpowers-small.svg"` (asset renamed in Step 9)
 
-- [ ] **Step 3: Edit `.cursor-plugin/plugin.json`** — `"name": "superpowers"` → `"hyperpowers"`; `"displayName": "Superpowers"` → `"Hyperpowers"`; both obra URLs → `DaRealLebron/hyperpowers`; author Jesse Vincent/jesse@fsck.com → DaRealLebron/stephpangas@gmail.com.
+- [ ] **Step 3: Edit `.cursor-plugin/plugin.json`** — `"name": "superpowers"` → `"hyperpowers"`; `"displayName": "Hyperpowers"` → `"Hyperpowers"`; both obra URLs → `DaRealLebron/hyperpowers`; author Jesse Vincent/jesse@fsck.com → DaRealLebron/stephpangas@gmail.com.
 
-- [ ] **Step 4: Edit `.kimi-plugin/plugin.json`** — `"name": "superpowers"` → `"hyperpowers"`; `"homepage": "https://github.com/obra/superpowers"` → `DaRealLebron/hyperpowers`; author → DaRealLebron/stephpangas@gmail.com; `"displayName": "Superpowers"` → `"Hyperpowers"`; in `longDescription`/`shortDescription` and the `skillInstructions` string, `Superpowers` → `Hyperpowers` (note `"sessionStart": { "skill": "using-hyperpowers" }` is handled in Task 3, not here).
+- [ ] **Step 4: Edit `.kimi-plugin/plugin.json`** — `"name": "superpowers"` → `"hyperpowers"`; `"homepage": "https://github.com/obra/superpowers"` → `DaRealLebron/hyperpowers`; author → DaRealLebron/stephpangas@gmail.com; `"displayName": "Hyperpowers"` → `"Hyperpowers"`; in `longDescription`/`shortDescription` and the `skillInstructions` string, `Hyperpowers` → `Hyperpowers` (note `"sessionStart": { "skill": "using-hyperpowers" }` is handled in Task 3, not here).
 
-- [ ] **Step 5: Edit `.claude-plugin/marketplace.json`** — `"name": "superpowers-dev"` → `"name": "hyperpowers"`; the plugin entry `"name": "superpowers"` → `"hyperpowers"`; `"Development marketplace for Superpowers core skills library"` → `"Marketplace for Hyperpowers core skills library"`; both owner and plugin `author` Jesse Vincent/jesse@fsck.com → DaRealLebron/stephpangas@gmail.com.
+- [ ] **Step 5: Edit `.claude-plugin/marketplace.json`** — `"name": "superpowers-dev"` → `"name": "hyperpowers"`; the plugin entry `"name": "superpowers"` → `"hyperpowers"`; `"Development marketplace for Hyperpowers core skills library"` → `"Marketplace for Hyperpowers core skills library"`; both owner and plugin `author` Jesse Vincent/jesse@fsck.com → DaRealLebron/stephpangas@gmail.com.
 
-- [ ] **Step 6: Edit `package.json`** — `"name": "superpowers"` → `"hyperpowers"`; `"description": "Superpowers skills and runtime bootstrap for coding agents"` → `"Hyperpowers skills and runtime bootstrap for coding agents"`. (Leave `"main": ".opencode/plugins/hyperpowers.js"` and the `.pi` extension path — Task 5 renames the files and updates these.)
+- [ ] **Step 6: Edit `package.json`** — `"name": "superpowers"` → `"hyperpowers"`; `"description": "Hyperpowers skills and runtime bootstrap for coding agents"` → `"Hyperpowers skills and runtime bootstrap for coding agents"`. (Leave `"main": ".opencode/plugins/hyperpowers.js"` and the `.pi` extension path — Task 5 renames the files and updates these.)
 
 - [ ] **Step 7: Edit `gemini-extension.json`** — `"name": "superpowers"` → `"hyperpowers"`.
 
-- [ ] **Step 8: Edit `LICENSE`** — keep line 3 `Copyright (c) 2025 Jesse Vincent` unchanged; insert directly below it: `Copyright (c) 2026 DaRealLebron` and a line `Hyperpowers is a fork of Superpowers (https://github.com/obra/superpowers) by Jesse Vincent.`
+- [ ] **Step 8: Edit `LICENSE`** — keep line 3 `Copyright (c) 2025 Jesse Vincent` unchanged; insert directly below it: `Copyright (c) 2026 DaRealLebron` and a line `Hyperpowers is a fork of Hyperpowers (https://github.com/obra/superpowers) by Jesse Vincent.`
 
 - [ ] **Step 9: Rename the brand asset** — `git mv assets/superpowers-small.svg assets/hyperpowers-small.svg` (if present; `ls assets/superpowers-small.svg` first — if absent, skip and revert the Step 2 composerIcon change to the actual asset name).
 
@@ -227,24 +227,24 @@ Expected: `FILES_OK`; second grep prints **nothing**; `pkg_valid`; `49 passed`.
 
 ### Task 6: Branding prose + independence
 
-- [ ] **Step 1: Strip obra official-install README sections** — open `README.md` and remove the blocks that document installing obra's OFFICIAL plugin (NOT the fork): the official Claude marketplace block (around `claude.com/plugins/superpowers` / `superpowers@claude-plugins-official`), the `obra/superpowers-marketplace` block (`superpowers@superpowers-marketplace`), and the official Codex/Copilot marketplace blocks (`obra/superpowers-marketplace`, official Codex marketplace, `copilot plugin marketplace add obra/superpowers-marketplace`). Keep ONLY the fork install paths. Update the fork install commands: `DaRealLebron/superpowers` → `DaRealLebron/hyperpowers` and `superpowers@superpowers-dev` → `hyperpowers@hyperpowers` (and the droid `superpowers@superpowers` → `hyperpowers@hyperpowers`).
+- [ ] **Step 1: Strip obra official-install README sections** — open `README.md` and remove the blocks that document installing obra's OFFICIAL plugin (NOT the fork): the official Claude marketplace block (around `claude.com/plugins/superpowers` / `superpowers@claude-plugins-official`), the `obra/superpowers-marketplace` block (`hyperpowers@hyperpowers-marketplace`), and the official Codex/Copilot marketplace blocks (`obra/superpowers-marketplace`, official Codex marketplace, `copilot plugin marketplace add obra/superpowers-marketplace`). Keep ONLY the fork install paths. Update the fork install commands: `DaRealLebron/hyperpowers` → `DaRealLebron/hyperpowers` and `hyperpowers@hyperpowers` → `hyperpowers@hyperpowers` (and the droid `hyperpowers@hyperpowers` → `hyperpowers@hyperpowers`).
 
-- [ ] **Step 2: Add the MIT attribution note** to `README.md` (near the top or in a "Credits"/"License" area): `> Hyperpowers is an independent fork of [obra/superpowers](https://github.com/obra/superpowers) by Jesse Vincent, used under the MIT license.` (Deliberately uses the lowercase `obra/superpowers` URL form and **no** bare capital "Superpowers" token, so the Step 4 branding sweep and the owner/install replaces in Step 3 cannot alter it.)
+- [ ] **Step 2: Add the MIT attribution note** to `README.md` (near the top or in a "Credits"/"License" area): `> Hyperpowers is an independent fork of [obra/superpowers](https://github.com/obra/superpowers) by Jesse Vincent, used under the MIT license.` (Deliberately uses the lowercase `obra/superpowers` URL form and **no** bare capital "Hyperpowers" token, so the Step 4 branding sweep and the owner/install replaces in Step 3 cannot alter it.)
 
 - [ ] **Step 3: Owner-anchored + install-id replacements repo-wide** (safe; `DaRealLebron/` and the exact ids are not preserve-list)
 
 ```
 cd <worktree>
-grep -rln -e 'DaRealLebron/superpowers' -e 'superpowers@superpowers' . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin | tee /tmp/own-files.txt
-xargs perl -pi -e 's{DaRealLebron/superpowers}{DaRealLebron/hyperpowers}g; s/superpowers\@superpowers-dev/hyperpowers\@hyperpowers/g; s/superpowers\@superpowers\b/hyperpowers\@hyperpowers/g' < /tmp/own-files.txt
+grep -rln -e 'DaRealLebron/hyperpowers' -e 'hyperpowers@hyperpowers' . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin | tee /tmp/own-files.txt
+xargs perl -pi -e 's{DaRealLebron/hyperpowers}{DaRealLebron/hyperpowers}g; s/superpowers\@superpowers-dev/hyperpowers\@hyperpowers/g; s/superpowers\@superpowers\b/hyperpowers\@hyperpowers/g' < /tmp/own-files.txt
 ```
 
 - [ ] **Step 4: Capital-S branding prose** (safe; obra URLs are lowercase)
 
 ```
 cd <worktree>
-grep -rln 'Superpowers' --include=*.md --include=*.json --include=*.ts --include=*.js --include=*.cjs --include=*.html . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin | tee /tmp/brand-files.txt
-xargs perl -pi -e 's/Superpowers/Hyperpowers/g' < /tmp/brand-files.txt
+grep -rln 'Hyperpowers' --include=*.md --include=*.json --include=*.ts --include=*.js --include=*.cjs --include=*.html . | grep -v -e codex-plugin-sync -e sync-to-codex-plugin | tee /tmp/brand-files.txt
+xargs perl -pi -e 's/Hyperpowers/Hyperpowers/g' < /tmp/brand-files.txt
 ```
 
 - [ ] **Step 5: Known lowercase brand spot** — in `hooks/session-start`, replace `You have superpowers.` → `You have hyperpowers.` (exact). Re-check `hooks/session-start-codex` for the same phrase and fix if present.
@@ -276,7 +276,7 @@ bash scripts/lint-fork-customizations.sh | tail -1
 ```
 Expected: `obra/superpowers` appears ONLY in the attribution note + preserved issue URLs; no stale `superpowers@` install ids; `49 passed`.
 
-- [ ] **Step 9: Commit** — `git add README.md LICENSE hooks/ $(cat /tmp/own-files.txt /tmp/brand-files.txt | sort -u)` (plus any files touched in residual review) then `git commit -m "rebrand: Superpowers -> Hyperpowers prose; go independent (strip obra installs, drop upstream)"`.
+- [ ] **Step 9: Commit** — `git add README.md LICENSE hooks/ $(cat /tmp/own-files.txt /tmp/brand-files.txt | sort -u)` (plus any files touched in residual review) then `git commit -m "rebrand: Hyperpowers -> Hyperpowers prose; go independent (strip obra installs, drop upstream)"`.
 
 ---
 
@@ -324,7 +324,7 @@ Run this ONLY after Tasks 1–7 are merged to the local default branch (per fini
 - [ ] **Step 1: Rename the GitHub repository**
 
 ```
-gh repo rename hyperpowers --repo DaRealLebron/superpowers
+gh repo rename hyperpowers --repo DaRealLebron/hyperpowers
 ```
 Expected: GitHub confirms the rename to `DaRealLebron/hyperpowers` (old URL auto-redirects).
 

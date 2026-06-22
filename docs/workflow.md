@@ -1,7 +1,7 @@
 # Fork Workflow — Happy Path
 
-This fork customizes the Superpowers planning/execution pipeline. The diagrams below
-show the **happy path** (everything passes, no `revise` loops) for upstream Superpowers
+This fork customizes the Hyperpowers planning/execution pipeline. The diagrams below
+show the **happy path** (everything passes, no `revise` loops) for upstream Hyperpowers
 and for this fork, with the fork's additions highlighted.
 
 In the fork chart: **green = new in this fork**, **amber = changed from upstream**,
@@ -10,7 +10,7 @@ default-styled nodes are the unchanged backbone.
 > Rendering: view this file in a Mermaid-aware viewer (GitHub, mermaid.live, VS Code
 > Mermaid preview) to see the colored boxes. Raw text won't show color.
 
-## 1. Original Superpowers — happy path
+## 1. Original Hyperpowers — happy path
 
 ```mermaid
 flowchart TD
@@ -91,10 +91,10 @@ The charts above are the day-to-day **feature** pipeline. Two later arcs extend 
   / cross-cutting work runs `product-discovery` → `architecture-design` → an
   implementation-readiness gate, then drops per-epic into the feature pipeline above, which *reads*
   those project artifacts instead of re-deriving them. Full diagram and "what came from where":
-  [`docs/hyperpowers/bmad-absorption-happy-path.md`](superpowers/bmad-absorption-happy-path.md).
+  [`docs/hyperpowers/bmad-absorption-happy-path.md`](hyperpowers/bmad-absorption-happy-path.md).
 - **Project-memory curation.** At completion, `finishing-a-development-branch` runs a
   `curating-project-memory` pass that drifts the project's `CLAUDE.md` (canonical) / generated
   `AGENTS.md` / scoped `.claude/rules/` / `docs/` toward an optimal, well-linked state;
   `writing-plans`' final documentation task now names `CLAUDE.md` / `AGENTS.md`, and
   `verification-before-completion` checks that project memory is current. Design:
-  [`docs/hyperpowers/specs/2026-06-22-project-memory-curation-design.md`](superpowers/specs/2026-06-22-project-memory-curation-design.md).
+  [`docs/hyperpowers/specs/2026-06-22-project-memory-curation-design.md`](hyperpowers/specs/2026-06-22-project-memory-curation-design.md).

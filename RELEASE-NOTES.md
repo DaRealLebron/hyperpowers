@@ -1,4 +1,4 @@
-# Superpowers Release Notes
+# Hyperpowers Release Notes
 
 ## Fork: project-memory curation — CLAUDE.md drift built into the skills (2026-06-22)
 
@@ -96,7 +96,7 @@ behaviors remain present after edits.
 
 ## Fork: CCC plan-review-and-docs-gate (2026-06-18)
 
-This fork of Superpowers adds four coordinated behaviors to tighten plan quality and
+This fork of Hyperpowers adds four coordinated behaviors to tighten plan quality and
 documentation discipline before dispatch. All four gates are **advisory**: the operator may
 override any of them by proceeding with an explicit statement of intent and reason.
 
@@ -145,12 +145,12 @@ override it explicitly.
 
 ### Codex Fixes
 
-- **Version display in the brainstorm companion** — packaged Codex plugins ship without a root `package.json`, so the visual companion reported its version as "unknown". `readSuperpowersVersion()` now falls back to `.codex-plugin/plugin.json` when `package.json` is absent.
+- **Version display in the brainstorm companion** — packaged Codex plugins ship without a root `package.json`, so the visual companion reported its version as "unknown". `readHyperpowersVersion()` now falls back to `.codex-plugin/plugin.json` when `package.json` is absent.
 - **Cleaner Codex plugin sync** — the sync-to-codex script now excludes `.gitmodules` and `.pre-commit-config.yaml`, keeping repo metadata out of the packaged Codex plugin.
 
 ## v6.0.0 (2026-06-16)
 
-Superpowers 6.0 is a big release. The headline is a rewrite of how `subagent-driven-development` reviews each task — cheaper, stricter, and harder to game. 
+Hyperpowers 6.0 is a big release. The headline is a rewrite of how `subagent-driven-development` reviews each task — cheaper, stricter, and harder to game. 
 
 While these numbers won't hold on every harness and for every workload, in our evals, Claude Code and Codex produce similar high-quality results roughly twice as fast and while spending almost 50% fewer tokens.
 
@@ -163,7 +163,7 @@ It also adds three new harnesses (Kimi Code, Pi, and Antigravity), gives the bra
 
 ### New Harness Support
 
-Superpowers now runs on three more harnesses. Each ships its own bootstrap, a tool-mapping reference, and tests, and each gets its own install section in the README.
+Hyperpowers now runs on three more harnesses. Each ships its own bootstrap, a tool-mapping reference, and tests, and each gets its own install section in the README.
 
 - **Kimi Code** — a plugin manifest, install docs, and manifest tests; install from Kimi's marketplace or straight from the repo. (initial manifest by @qer)
 - **Pi** — a session-start extension that registers the skills and injects the `using-hyperpowers` bootstrap. Pi has native skills, so it needs no compatibility shim.
@@ -239,7 +239,7 @@ Skill-behavior testing moved out of `tests/` into a new `evals/` submodule built
 
 ### Documentation & Contributor Guidelines
 
-- **A guide to porting Superpowers to a new harness** (`docs/porting-to-a-new-harness.md`) lays out the three pieces every integration needs and the one rule that makes or breaks it: load the bootstrap at session start.
+- **A guide to porting Hyperpowers to a new harness** (`docs/porting-to-a-new-harness.md`) lays out the three pieces every integration needs and the one rule that makes or breaks it: load the bootstrap at session start.
 - **Every PR and issue now discloses how it was made** — model, harness, version, and installed plugins, or a note that it was written by hand. We weigh a contribution differently depending on what produced it. PRs also target `dev`, not `main`. The PR template, all three issue templates, and a new platform-support template carry this.
 
 ### Contributors
@@ -546,7 +546,7 @@ Dramatically reduces token usage and speeds up spec and plan reviews by eliminat
 
 **Subagent-driven development mandatory on capable harnesses**
 
-Writing-plans no longer offers a choice between subagent-driven and executing-plans. On harnesses with subagent support (Claude Code, Codex), subagent-driven-development is required. Executing-plans is reserved for harnesses without subagent capability, and now tells the user that Superpowers works better on a subagent-capable platform.
+Writing-plans no longer offers a choice between subagent-driven and executing-plans. On harnesses with subagent support (Claude Code, Codex), subagent-driven-development is required. Executing-plans is reserved for harnesses without subagent capability, and now tells the user that Hyperpowers works better on a subagent-capable platform.
 
 **Executing-plans no longer batches**
 
@@ -562,7 +562,7 @@ Removed the "execute 3 tasks then stop for review" pattern. Plans now execute co
 
 Optional browser-based companion for brainstorming sessions. When a topic would benefit from visuals, the brainstorming skill offers to show mockups, diagrams, comparisons, and other content in a browser window alongside terminal conversation.
 
-- `lib/brainstorm-server/` — WebSocket server with browser helper library, session management scripts, and dark/light themed frame template ("Superpowers Brainstorming" with GitHub link)
+- `lib/brainstorm-server/` — WebSocket server with browser helper library, session management scripts, and dark/light themed frame template ("Hyperpowers Brainstorming" with GitHub link)
 - `skills/brainstorming/visual-companion.md` — Progressive disclosure guide for server workflow, screen authoring, and feedback collection
 - Brainstorming skill adds a visual companion decision point to its process flow: after exploring project context, the skill evaluates whether upcoming questions involve visual content and offers the companion in its own message
 - Per-question decision: even after accepting, each question is evaluated for whether browser or terminal is more appropriate
@@ -603,7 +603,7 @@ Design-for-isolation and file-size-awareness guidance added to brainstorming, wr
 Added explicit priority ordering to using-hyperpowers:
 
 1. User's explicit instructions (CLAUDE.md, AGENTS.md, direct requests) — highest priority
-2. Superpowers skills — override default system behavior
+2. Hyperpowers skills — override default system behavior
 3. Default system prompt — lowest priority
 
 If CLAUDE.md or AGENTS.md says "don't use TDD" and a skill says "always use TDD," the user's instructions win.
@@ -632,7 +632,7 @@ Added `<SUBAGENT-STOP>` block to using-hyperpowers. Subagents dispatched for spe
 
 **Cursor support**
 
-Superpowers now works with Cursor's plugin system. Includes a `.cursor-plugin/plugin.json` manifest and Cursor-specific installation instructions in the README. The SessionStart hook output now includes an `additional_context` field alongside the existing `hookSpecificOutput.additionalContext` for Cursor hook compatibility.
+Hyperpowers now works with Cursor's plugin system. Includes a `.cursor-plugin/plugin.json` manifest and Cursor-specific installation instructions in the README. The SessionStart hook output now includes an `additional_context` field alongside the existing `hookSpecificOutput.additionalContext` for Cursor hook compatibility.
 
 ### Fixed
 
@@ -766,7 +766,7 @@ Changes:
 
 **OpenCode: Switched to native skills system**
 
-Superpowers for OpenCode now uses OpenCode's native `skill` tool instead of custom `use_skill`/`find_skills` tools. This is a cleaner integration that works with OpenCode's built-in skill discovery.
+Hyperpowers for OpenCode now uses OpenCode's native `skill` tool instead of custom `use_skill`/`find_skills` tools. This is a cleaner integration that works with OpenCode's built-in skill discovery.
 
 **Migration required:** Skills must be symlinked to `~/.config/opencode/skills/superpowers/` (see updated installation docs).
 
@@ -1019,7 +1019,7 @@ Description changed to imperative: "You MUST use this before any creative work�
 - Single unified script instead of separate tools
 - Tool substitution system for Codex-specific equivalents
 - Simplified subagent handling (manual work instead of delegation)
-- Updated terminology: "Superpowers skills" instead of "Core skills"
+- Updated terminology: "Hyperpowers skills" instead of "Core skills"
 
 ### Files Added
 - `.codex/INSTALL.md` - Installation guide for Codex users
@@ -1195,11 +1195,11 @@ We now use Anthropic's first-party skills system!
 
 ---
 
-# Superpowers v2.0.0 Release Notes
+# Hyperpowers v2.0.0 Release Notes
 
 ## Overview
 
-Superpowers v2.0 makes skills more accessible, maintainable, and community-driven through a major architectural shift.
+Hyperpowers v2.0 makes skills more accessible, maintainable, and community-driven through a major architectural shift.
 
 The headline change is **skills repository separation**: all skills, scripts, and documentation have moved from the plugin into a dedicated repository ([obra/superpowers-skills](https://github.com/obra/superpowers-skills)). This transforms superpowers from a monolithic plugin into a lightweight shim that manages a local clone of the skills repository. Skills auto-update on session start. Users fork and contribute improvements via standard git workflows. The skills library versions independently from the plugin.
 

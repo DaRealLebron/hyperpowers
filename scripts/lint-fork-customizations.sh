@@ -5,7 +5,7 @@
 # Deterministic, no LLM: verifies the fork's advisory behaviors are still
 # PRESENT in the skill files after edits. It checks STRUCTURE only — it does
 # NOT verify that an agent actually obeys the skills. Behavioral coverage needs
-# live subagents via Superpowers' own testing-skills-with-subagents harness.
+# live subagents via Hyperpowers' own testing-skills-with-subagents harness.
 #
 # Usage:
 #   scripts/lint-fork-customizations.sh

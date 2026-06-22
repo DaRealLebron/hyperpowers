@@ -2,11 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use hyperpowers:subagent-driven-development (recommended) or hyperpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add an advisory pre-implementation adversarial plan review, a mandatory documentation task, and a required `## Verification Artifacts` section to the Superpowers planning skills in this fork.
+**Goal:** Add an advisory pre-implementation adversarial plan review, a mandatory documentation task, and a required `## Verification Artifacts` section to the Hyperpowers planning skills in this fork.
 
 **Architecture:** Three skill-file edits plus a behavioral verification pass. `writing-plans/SKILL.md` gains a Verification Artifacts template block, a mandatory final documentation task, an Adversarial Plan Review step, and two Self-Review checks. The orphaned `writing-plans/plan-document-reviewer-prompt.md` is repurposed into a backend-neutral adversarial reviewer wired into that step. `verification-before-completion/SKILL.md` gains a docs-updated completion check. All gates are advisory with an explicit override; the in-session reviewer is required, Codex and Gemini are best-effort.
 
-**Tech Stack:** Markdown skill files. No code/unit tests — skills are verified with Superpowers' own `testing-skills-with-subagents` methodology (dispatch fresh subagents through the modified skills and observe behavior), plus deterministic `grep` structural checks per edit.
+**Tech Stack:** Markdown skill files. No code/unit tests — skills are verified with Hyperpowers' own `testing-skills-with-subagents` methodology (dispatch fresh subagents through the modified skills and observe behavior), plus deterministic `grep` structural checks per edit.
 
 ## Global Constraints
 
@@ -363,7 +363,7 @@ git commit -m "feat(verification-before-completion): require docs-updated eviden
 **Files:**
 - Test only — no file edits. Creates throwaway artifacts under `/tmp`.
 
-This task uses Superpowers' `testing-skills-with-subagents` methodology: dispatch fresh subagents that read the modified skills and observe whether the new behaviors fire.
+This task uses Hyperpowers' `testing-skills-with-subagents` methodology: dispatch fresh subagents that read the modified skills and observe whether the new behaviors fire.
 
 - [ ] **Step 1: Create a tiny sample spec for the test**
 

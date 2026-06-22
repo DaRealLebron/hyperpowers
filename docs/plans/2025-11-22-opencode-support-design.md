@@ -156,18 +156,18 @@ const path = require('path');
 const fs = require('fs');
 const { z } = require('zod');
 
-export const SuperpowersPlugin = async ({ client, directory, $ }) => {
+export const HyperpowersPlugin = async ({ client, directory, $ }) => {
   const superpowersDir = path.join(process.env.HOME, '.config/opencode/superpowers');
   const personalDir = path.join(process.env.HOME, '.config/opencode/skills');
 
   return {
     'session.started': async () => {
-      const usingSuperpowers = await readSkill('using-hyperpowers');
+      const usingHyperpowers = await readSkill('using-hyperpowers');
       const skillsList = await findAllSkills();
       const toolMapping = getToolMappingInstructions();
 
       return {
-        context: `${usingSuperpowers}\n\n${skillsList}\n\n${toolMapping}`
+        context: `${usingHyperpowers}\n\n${skillsList}\n\n${toolMapping}`
       };
     },
 

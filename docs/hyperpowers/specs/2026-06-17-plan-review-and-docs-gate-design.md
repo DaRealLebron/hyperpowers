@@ -2,11 +2,11 @@
 
 **Date:** 2026-06-17
 **Status:** Approved (design); pending implementation plan
-**Repo:** `DaRealLebron/superpowers` (fork of `obra/superpowers`, branched from v6.0.2)
+**Repo:** `DaRealLebron/hyperpowers` (fork of `obra/superpowers`, branched from v6.0.2)
 
 ## Motivation
 
-This fork customizes the Superpowers workflow skills for a single operator who
+This fork customizes the Hyperpowers workflow skills for a single operator who
 wants two failure modes closed before a plan reaches implementation:
 
 1. **Plans get implemented without an adversarial second opinion.** Today
@@ -164,7 +164,7 @@ cleanly on any machine where those tools are absent.
 
 ## Verification / How We'll Know It Works
 
-Verification uses Superpowers' own `writing-skills` →
+Verification uses Hyperpowers' own `writing-skills` →
 `testing-skills-with-subagents` approach: dispatch fresh subagents through the
 modified skills and confirm the new behaviors fire.
 

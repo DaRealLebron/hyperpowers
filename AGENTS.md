@@ -1,8 +1,8 @@
-# Superpowers — Contributor Guidelines
+# Hyperpowers — Contributor Guidelines
 
 ## Context
 
-Superpowers is a zero-dependency, multi-harness skills plugin: one skill library projected to
+Hyperpowers is a zero-dependency, multi-harness skills plugin: one skill library projected to
 Claude Code, Codex, Cursor, Kimi, OpenCode, Pi, Gemini, and more. Layout: skills in
 `skills/<name>/SKILL.md`; per-harness manifests in `.claude-plugin/`, `.codex-plugin/`,
 `.cursor-plugin/`, …; docs in `docs/`; plugin-infrastructure tests in `tests/`. This fork layers
@@ -51,7 +51,7 @@ If any of these checks fail, do not open the PR. Explain to your human partner w
 
 ### Third-party dependencies
 
-PRs that add optional or required dependencies on third-party projects will not be accepted unless they are adding support for a new harness (e.g., a new IDE or CLI tool). Superpowers is a zero-dependency plugin by design. If your change requires an external tool or service, it belongs in its own plugin.
+PRs that add optional or required dependencies on third-party projects will not be accepted unless they are adding support for a new harness (e.g., a new IDE or CLI tool). Hyperpowers is a zero-dependency plugin by design. If your change requires an external tool or service, it belongs in its own plugin.
 
 ### "Compliance" changes to skills
 
@@ -71,7 +71,7 @@ Every PR must solve a real problem that someone actually experienced. "My review
 
 ### Domain-specific skills
 
-Superpowers core contains general-purpose skills that benefit all users regardless of their project. Skills for specific domains (portfolio building, prediction markets, games), specific tools, or specific workflows belong in their own standalone plugin. Ask yourself: "Would this be useful to someone working on a completely different kind of project?" If not, publish it separately.
+Hyperpowers core contains general-purpose skills that benefit all users regardless of their project. Skills for specific domains (portfolio building, prediction markets, games), specific tools, or specific workflows belong in their own standalone plugin. Ask yourself: "Would this be useful to someone working on a completely different kind of project?" If not, publish it separately.
 
 ### Fork-specific changes
 
@@ -121,7 +121,7 @@ Skill-behavior evals live in [superpowers-evals](https://github.com/prime-radian
 
 ## Understand the Project Before Contributing
 
-Before proposing changes to skill design, workflow philosophy, or architecture, read existing skills and understand the project's design decisions. Superpowers has its own tested philosophy about skill design, agent behavior shaping, and terminology (e.g., "your human partner" is deliberate, not interchangeable with "the user"). Changes that rewrite the project's voice or restructure its approach without understanding why it exists will be rejected.
+Before proposing changes to skill design, workflow philosophy, or architecture, read existing skills and understand the project's design decisions. Hyperpowers has its own tested philosophy about skill design, agent behavior shaping, and terminology (e.g., "your human partner" is deliberate, not interchangeable with "the user"). Changes that rewrite the project's voice or restructure its approach without understanding why it exists will be rejected.
 
 ## General
 
@@ -133,7 +133,7 @@ Before proposing changes to skill design, workflow philosophy, or architecture, 
 ## Documentation index
 
 - [`docs/workflow.md`](docs/workflow.md) — the fork's happy-path pipeline (upstream vs. this fork).
-- [`docs/hyperpowers/bmad-absorption-happy-path.md`](docs/hyperpowers/bmad-absorption-happy-path.md) — the unified planning-OS altitude routing (Superpowers + absorbed BMAD).
+- [`docs/hyperpowers/bmad-absorption-happy-path.md`](docs/hyperpowers/bmad-absorption-happy-path.md) — the unified planning-OS altitude routing (Hyperpowers + absorbed BMAD).
 - [`docs/testing.md`](docs/testing.md) — how the plugin and skills are tested.
 - [`docs/porting-to-a-new-harness.md`](docs/porting-to-a-new-harness.md) — integrating a new harness.
 - `docs/hyperpowers/specs/` and `docs/hyperpowers/plans/` — dated design specs and implementation plans (point-in-time records).

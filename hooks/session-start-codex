@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Codex SessionStart hook for superpowers plugin
+# Codex SessionStart hook for hyperpowers plugin
 
 set -euo pipefail
 
@@ -19,7 +19,7 @@ escape_for_json() {
 }
 
 using_hyperpowers_escaped=$(escape_for_json "$using_hyperpowers_content")
-session_context="<EXTREMELY_IMPORTANT>\nYou have superpowers.\n\n**Below is the full content of your 'hyperpowers:using-hyperpowers' skill - your introduction to using skills. For all other skills, follow the Codex skill-loading instructions in that skill:**\n\n${using_hyperpowers_escaped}\n</EXTREMELY_IMPORTANT>"
+session_context="<EXTREMELY_IMPORTANT>\nYou have hyperpowers.\n\n**Below is the full content of your 'hyperpowers:using-hyperpowers' skill - your introduction to using skills. For all other skills, follow the Codex skill-loading instructions in that skill:**\n\n${using_hyperpowers_escaped}\n</EXTREMELY_IMPORTANT>"
 
 printf '{\n  "hookSpecificOutput": {\n    "hookEventName": "SessionStart",\n    "additionalContext": "%s"\n  }\n}\n' "$session_context" | cat
 

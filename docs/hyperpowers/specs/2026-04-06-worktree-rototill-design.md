@@ -7,7 +7,7 @@
 
 ## Problem
 
-Superpowers is opinionated about worktree management — specific paths (`.worktrees/<branch>`), specific commands (`git worktree add`), specific cleanup (`git worktree remove`). Meanwhile, Claude Code, Codex App, Gemini CLI, and Cursor all provide native worktree support with their own paths, lifecycle management, and cleanup.
+Hyperpowers is opinionated about worktree management — specific paths (`.worktrees/<branch>`), specific commands (`git worktree add`), specific cleanup (`git worktree remove`). Meanwhile, Claude Code, Codex App, Gemini CLI, and Cursor all provide native worktree support with their own paths, lifecycle management, and cleanup.
 
 This creates three failure modes:
 
@@ -46,7 +46,7 @@ The skill describes the goal ("ensure work happens in an isolated workspace") an
 
 ### Provenance-based ownership
 
-Whoever creates the worktree owns its cleanup. If the harness created it, superpowers doesn't touch it. If superpowers created it (via git fallback), superpowers cleans it up. The heuristic: if the worktree lives under `.worktrees/` or `worktrees/`, superpowers owns it. Anything else (`.claude/worktrees/`, `~/.codex/worktrees/`, `.gemini/worktrees/`, or old user-global Superpowers paths) belongs to the harness or user and is left alone.
+Whoever creates the worktree owns its cleanup. If the harness created it, superpowers doesn't touch it. If superpowers created it (via git fallback), superpowers cleans it up. The heuristic: if the worktree lives under `.worktrees/` or `worktrees/`, superpowers owns it. Anything else (`.claude/worktrees/`, `~/.codex/worktrees/`, `.gemini/worktrees/`, or old user-global Hyperpowers paths) belongs to the harness or user and is left alone.
 
 ## Design
 
@@ -114,7 +114,7 @@ When no native tool is available, create a worktree manually.
 2. Check for existing `.worktrees/` or `worktrees/` directory — if found, use it. If both exist, `.worktrees/` wins.
 3. Default to `.worktrees/`.
 
-No interactive directory selection prompt. Old user-global Superpowers worktree paths are not detected or offered; new manual worktrees are project-local unless the user explicitly specifies another location.
+No interactive directory selection prompt. Old user-global Hyperpowers worktree paths are not detected or offered; new manual worktrees are project-local unless the user explicitly specifies another location.
 
 **Safety verification** (project-local directories only):
 
@@ -232,7 +232,7 @@ if GIT_DIR == GIT_COMMON:
     done
 
 if worktree path is under .worktrees/ or worktrees/:
-    # Superpowers created it — we own cleanup
+    # Hyperpowers created it — we own cleanup
     cd to main repo root       # Bug #238 fix
     git worktree remove <path>
 
