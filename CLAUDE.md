@@ -1,5 +1,21 @@
 # Superpowers — Contributor Guidelines
 
+## Context
+
+Superpowers is a zero-dependency, multi-harness skills plugin: one skill library projected to
+Claude Code, Codex, Cursor, Kimi, OpenCode, Pi, Gemini, and more. Layout: skills in
+`skills/<name>/SKILL.md`; per-harness manifests in `.claude-plugin/`, `.codex-plugin/`,
+`.cursor-plugin/`, …; docs in `docs/`; plugin-infrastructure tests in `tests/`. This fork layers
+advisory customizations on upstream, guarded by a deterministic structural lint.
+
+`CLAUDE.md` is the canonical project memory for this repo; `AGENTS.md` is a generated full mirror
+(regenerate with `cp CLAUDE.md AGENTS.md`) so Codex and other AGENTS.md-native tools get the same
+guidelines.
+
+- **Verify the fork customizations:** `bash scripts/lint-fork-customizations.sh` (no LLM; structure
+  only — currently 49 checks).
+- **Orientation & workflow:** see the Documentation index at the end of this file.
+
 ## If You Are an AI Agent
 
 Stop. Read this section before doing anything.
@@ -113,3 +129,11 @@ Before proposing changes to skill design, workflow philosophy, or architecture, 
 - One problem per PR
 - Test on at least one harness and report results in the environment table
 - Describe the problem you solved, not just what you changed
+
+## Documentation index
+
+- [`docs/workflow.md`](docs/workflow.md) — the fork's happy-path pipeline (upstream vs. this fork).
+- [`docs/superpowers/bmad-absorption-happy-path.md`](docs/superpowers/bmad-absorption-happy-path.md) — the unified planning-OS altitude routing (Superpowers + absorbed BMAD).
+- [`docs/testing.md`](docs/testing.md) — how the plugin and skills are tested.
+- [`docs/porting-to-a-new-harness.md`](docs/porting-to-a-new-harness.md) — integrating a new harness.
+- `docs/superpowers/specs/` and `docs/superpowers/plans/` — dated design specs and implementation plans (point-in-time records).
