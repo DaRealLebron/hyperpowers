@@ -166,7 +166,7 @@ It also adds three new harnesses (Kimi Code, Pi, and Antigravity), gives the bra
 Superpowers now runs on three more harnesses. Each ships its own bootstrap, a tool-mapping reference, and tests, and each gets its own install section in the README.
 
 - **Kimi Code** — a plugin manifest, install docs, and manifest tests; install from Kimi's marketplace or straight from the repo. (initial manifest by @qer)
-- **Pi** — a session-start extension that registers the skills and injects the `using-superpowers` bootstrap. Pi has native skills, so it needs no compatibility shim.
+- **Pi** — a session-start extension that registers the skills and injects the `using-hyperpowers` bootstrap. Pi has native skills, so it needs no compatibility shim.
 - **Antigravity (`agy`)** — installs the plugin directly and bootstraps from the first message; verified end-to-end against the standard "make a react todo list" acceptance test.
 
 ### Subagent-Driven Development
@@ -212,7 +212,7 @@ The visual companion is a small web server the agent opens alongside the convers
 
 The skills used to speak Claude Code's dialect — "use the Task tool," "put it in CLAUDE.md." This release rewrites that vocabulary in terms of what you're actually doing ("dispatch a subagent," "your instructions file") and adds a per-harness reference that maps each action to the right tool, checked against each runtime. Prose that named "Claude" now says "your agent."
 
-- **A tool reference per harness** at `skills/using-superpowers/references/`, covering Claude Code, Codex, Copilot, Gemini, Pi, and Antigravity.
+- **A tool reference per harness** at `skills/using-hyperpowers/references/`, covering Claude Code, Codex, Copilot, Gemini, Pi, and Antigravity.
 - **`finishing-a-development-branch` went forge-neutral** — it no longer hardcodes `gh pr create`, so agents push with whatever forge tooling they have. (#1609)
 - **One rename:** "Claude Search Optimization" is now "Skill Discovery Optimization," since the technique isn't Claude-specific.
 
@@ -232,7 +232,7 @@ Skill-behavior testing moved out of `tests/` into a new `evals/` submodule built
 - **systematic-debugging no longer forces every session into extended thinking.** One bullet held the exact keyword Claude Code scans for, quietly tripping the switch on every session that loaded the skill. A hyphen breaks the keyword; the text still reads. (#1283, by @Nick Galatis)
 - **The Windows SessionStart hook stopped printing a write error every session** — each `printf` now routes through `cat` to absorb the broken pipe, and the output is otherwise unchanged. (#1612, reported by @silvertakana)
 - **Windows foreground mode** tracks the right process and clears its owner PID on MSYS2. (by @nestorluiscamachopaz)
-- **The `using-superpowers` bootstrap** no longer lists "debugging" as a skill that doesn't exist. (reported by @mhat)
+- **The `using-hyperpowers` bootstrap** no longer lists "debugging" as a skill that doesn't exist. (reported by @mhat)
 - **The TDD skill** links the testing anti-patterns reference. (#1532, #1529; link fix #1474 by @Stable Genius)
 - **`using-git-worktrees`** fixes its step numbering and drops stale Cursor references. (#1522, and by @fuleinist)
 - **The Codex review skill** swaps a private in-joke for plain guidance. (#1531)
@@ -271,7 +271,7 @@ Two new sections at the top of `CLAUDE.md` (symlinked to `AGENTS.md`) speak dire
 
 - **Pre-submission checklist** — read the PR template, search for existing PRs, verify a real problem exists, confirm the change belongs in core, and show the human partner the complete diff before submitting.
 - **What we will not accept** — third-party dependencies, "compliance" rewrites of skill content, project-specific configuration, bulk PRs, speculative fixes, domain-specific skills, fork-specific changes, fabricated content, and bundled unrelated changes.
-- **New harness PRs require a session transcript** — most past new-harness integrations copied skill files or wrapped with `npx skills` instead of loading the `using-superpowers` bootstrap at session start. The acceptance test ("Let's make a react todo list" must auto-trigger `brainstorming` in a clean session) and a complete transcript are now required.
+- **New harness PRs require a session transcript** — most past new-harness integrations copied skill files or wrapped with `npx skills` instead of loading the `using-hyperpowers` bootstrap at session start. The acceptance test ("Let's make a react todo list" must auto-trigger `brainstorming` in a clean session) and a complete transcript are now required.
 
 ### Codex Plugin Mirror Tooling
 
@@ -338,7 +338,7 @@ New `sync-to-codex-plugin` script mirrors superpowers into the OpenAI Codex plug
 
 - **SessionStart context injection** — Copilot CLI v1.0.11 added support for `additionalContext` in sessionStart hook output. The session-start hook now detects the `COPILOT_CLI` environment variable and emits the SDK-standard `{ "additionalContext": "..." }` format, giving Copilot CLI users the full superpowers bootstrap at session start. (Original fix by @culinablaz in PR #910)
 - **Tool mapping** — added `references/copilot-tools.md` with the full Claude Code to Copilot CLI tool equivalence table
-- **Skill and README updates** — added Copilot CLI to the `using-superpowers` skill's platform instructions and README installation section
+- **Skill and README updates** — added Copilot CLI to the `using-hyperpowers` skill's platform instructions and README installation section
 
 ### OpenCode Fixes
 
@@ -459,8 +459,8 @@ Dramatically reduces token usage and speeds up spec and plan reviews by eliminat
 **Gemini CLI extension**
 
 - Native Gemini CLI extension support via `gemini-extension.json` and `GEMINI.md` at repo root
-- `GEMINI.md` @imports `using-superpowers` skill and tool mapping table at session start
-- Gemini CLI tool mapping reference (`skills/using-superpowers/references/gemini-tools.md`) — translates Claude Code tool names (Read, Write, Edit, Bash, etc.) to Gemini CLI equivalents (read_file, write_file, replace, etc.)
+- `GEMINI.md` @imports `using-hyperpowers` skill and tool mapping table at session start
+- Gemini CLI tool mapping reference (`skills/using-hyperpowers/references/gemini-tools.md`) — translates Claude Code tool names (Read, Write, Edit, Bash, etc.) to Gemini CLI equivalents (read_file, write_file, replace, etc.)
 - Documents Gemini CLI limitations: no subagent support, skills fall back to `executing-plans`
 - Extension root at repo root for cross-platform compatibility (avoids Windows symlink issues)
 - Install instructions added to README
@@ -610,7 +610,7 @@ If CLAUDE.md or AGENTS.md says "don't use TDD" and a skill says "always use TDD,
 
 **SUBAGENT-STOP gate**
 
-Added `<SUBAGENT-STOP>` block to using-superpowers. Subagents dispatched for specific tasks now skip the skill instead of activating the 1% rule and invoking full skill workflows.
+Added `<SUBAGENT-STOP>` block to using-hyperpowers. Subagents dispatched for specific tasks now skip the skill instead of activating the 1% rule and invoking full skill workflows.
 
 **Multi-platform improvements**
 
@@ -672,7 +672,7 @@ Added an `EnterPlanMode` intercept to the skill flow graph. When the model is ab
 
 **SessionStart hook now runs synchronously**
 
-Changed `async: true` to `async: false` in hooks.json. When async, the hook could fail to complete before the model's first turn, meaning using-superpowers instructions weren't in context for the first message.
+Changed `async: true` to `async: false` in hooks.json. When async, the hook could fail to complete before the model's first turn, meaning using-hyperpowers instructions weren't in context for the first message.
 
 ## v4.2.0 (2026-02-05)
 
@@ -794,7 +794,7 @@ Fix: hooks.json now calls session-start.sh directly. Claude Code 2.1.x handles t
 
 ### Improvements
 
-**Strengthened using-superpowers skill for explicit skill requests**
+**Strengthened using-hyperpowers skill for explicit skill requests**
 
 Addressed a failure mode where Claude would skip invoking a skill even when the user explicitly requested it by name (e.g., "subagent-driven-development, please"). Claude would think "I know what that means" and start working directly instead of loading the skill.
 
@@ -824,9 +824,9 @@ The underlying skills (`hyperpowers:brainstorming`, `hyperpowers:executing-plans
 
 **Clarified how to access skills in Claude Code**
 
-Fixed a confusing pattern where Claude would invoke a skill via the Skill tool, then try to Read the skill file separately. The `using-superpowers` skill now explicitly states that the Skill tool loads skill content directly—no need to read files.
+Fixed a confusing pattern where Claude would invoke a skill via the Skill tool, then try to Read the skill file separately. The `using-hyperpowers` skill now explicitly states that the Skill tool loads skill content directly—no need to read files.
 
-- Added "How to Access Skills" section to `using-superpowers`
+- Added "How to Access Skills" section to `using-hyperpowers`
 - Changed "read the skill" → "invoke the skill" in instructions
 - Updated slash commands to use fully qualified skill names (e.g., `hyperpowers:brainstorming`)
 
@@ -900,7 +900,7 @@ Rewrote key skills using DOT/GraphViz flowcharts as the authoritative process de
 
 **The Description Trap** (documented in `writing-skills`): Discovered that skill descriptions override flowchart content when descriptions contain workflow summaries. Claude follows the short description instead of reading the detailed flowchart. Fix: descriptions must be trigger-only ("Use when X") with no process details.
 
-**Skill priority in using-superpowers**
+**Skill priority in using-hyperpowers**
 
 When multiple skills apply, process skills (brainstorming, debugging) now explicitly come before implementation skills. "Build X" triggers brainstorming first, then domain skills.
 
@@ -919,7 +919,7 @@ Description changed to imperative: "You MUST use this before any creative work�
 ### Other Improvements
 
 - **render-graphs.js** - Tool to extract DOT diagrams from skills and render to SVG
-- **Rationalizations table** in using-superpowers - Scannable format including new entries: "I need more context first", "Let me explore first", "This feels productive"
+- **Rationalizations table** in using-hyperpowers - Scannable format including new entries: "I need more context first", "Let me explore first", "This feels productive"
 - **docs/testing.md** - Guide to testing skills with Claude Code integration tests
 
 ---
@@ -941,7 +941,7 @@ Description changed to imperative: "You MUST use this before any creative work�
 
 - **OpenCode Bootstrap Refactor**: Switched from `chat.message` hook to `session.created` event for bootstrap injection
   - Bootstrap now injects at session creation via `session.prompt()` with `noReply: true`
-  - Explicitly tells the model that using-superpowers is already loaded to prevent redundant skill loading
+  - Explicitly tells the model that using-hyperpowers is already loaded to prevent redundant skill loading
   - Consolidated bootstrap content generation into shared `getBootstrapContent()` helper
   - Cleaner single-implementation approach (removed fallback pattern)
 
@@ -981,7 +981,7 @@ Description changed to imperative: "You MUST use this before any creative work�
 
 ### Improvements
 
-- Optimized superpowers bootstrap to eliminate redundant skill execution. The `using-superpowers` skill content is now provided directly in session context, with clear guidance to use the Skill tool only for other skills. This reduces overhead and prevents the confusing loop where agents would execute `using-superpowers` manually despite already having the content from session start.
+- Optimized superpowers bootstrap to eliminate redundant skill execution. The `using-hyperpowers` skill content is now provided directly in session context, with clear guidance to use the Skill tool only for other skills. This reduces overhead and prevents the confusing loop where agents would execute `using-hyperpowers` manually despite already having the content from session start.
 
 ## v3.4.0 (2025-10-30)
 
@@ -1032,7 +1032,7 @@ Description changed to imperative: "You MUST use this before any creative work�
 
 ### Improvements
 
-**Updated using-superpowers skill to use Skill tool instead of Read tool**
+**Updated using-hyperpowers skill to use Skill tool instead of Read tool**
 - Changed skill invocation instructions from Read tool to Skill tool
 - Updated description: "using Read tool" → "using Skill tool"
 - Updated step 3: "Use the Read tool" → "Use the Skill tool to read and run"
@@ -1041,13 +1041,13 @@ Description changed to imperative: "You MUST use this before any creative work�
 The Skill tool is the proper mechanism for invoking skills in Claude Code. This update corrects the bootstrap instructions to guide agents toward the correct tool.
 
 ### Files Changed
-- Updated: `skills/using-superpowers/SKILL.md` - Changed tool references from Read to Skill
+- Updated: `skills/using-hyperpowers/SKILL.md` - Changed tool references from Read to Skill
 
 ## v3.2.2 (2025-10-21)
 
 ### Improvements
 
-**Strengthened using-superpowers skill against agent rationalization**
+**Strengthened using-hyperpowers skill against agent rationalization**
 - Added EXTREMELY-IMPORTANT block with absolute language about mandatory skill checking
   - "If even 1% chance a skill applies, you MUST read it"
   - "You do not have a choice. You cannot rationalize your way out."
@@ -1063,7 +1063,7 @@ The Skill tool is the proper mechanism for invoking skills in Claude Code. This 
 These changes address observed agent behavior where they rationalize around skill usage despite clear instructions. The forceful language and pre-emptive counter-arguments aim to make non-compliance harder.
 
 ### Files Changed
-- Updated: `skills/using-superpowers/SKILL.md` - Added three layers of enforcement to prevent skill-skipping rationalization
+- Updated: `skills/using-hyperpowers/SKILL.md` - Added three layers of enforcement to prevent skill-skipping rationalization
 
 ## v3.2.1 (2025-10-20)
 

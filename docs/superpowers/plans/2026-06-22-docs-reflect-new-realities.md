@@ -263,12 +263,12 @@ Expected: `diff -q` prints nothing (identical) and `MIRROR_OK`.
 
 In `GEMINI.md`, replace this exact line:
 
-`@./skills/using-superpowers/references/gemini-tools.md`
+`@./skills/using-hyperpowers/references/gemini-tools.md`
 
 with:
 
 ```
-@./skills/using-superpowers/references/gemini-tools.md
+@./skills/using-hyperpowers/references/gemini-tools.md
 @./CLAUDE.md
 ```
 

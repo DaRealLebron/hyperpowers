@@ -663,9 +663,9 @@ After the tools array, add:
 
 ```javascript
     'session.started': async () => {
-      // Read using-superpowers skill content
+      // Read using-hyperpowers skill content
       const usingSuperpowersPath = skillsCore.resolveSkillPath(
-        'using-superpowers',
+        'using-hyperpowers',
         superpowersSkillsDir,
         personalSkillsDir
       );
@@ -731,7 +731,7 @@ When skills reference tools you don't have, substitute OpenCode equivalents:
         context: `<EXTREMELY_IMPORTANT>
 You have superpowers.
 
-**Below is the full content of your 'hyperpowers:using-superpowers' skill - your introduction to using skills. For all other skills, use the 'use_skill' tool:**
+**Below is the full content of your 'hyperpowers:using-hyperpowers' skill - your introduction to using skills. For all other skills, use the 'use_skill' tool:**
 
 ${usingSuperpowersContent}
 

@@ -88,7 +88,7 @@ check "subagent-driven: shell-first mechanical lane"   "$SDD" "shell/script with
 
 # 11. BMAD absorption — skill-router (scale-adaptive front door)
 SR="skills/skill-router/SKILL.md"
-US="skills/using-superpowers/SKILL.md"
+US="skills/using-hyperpowers/SKILL.md"
 check "skill-router: scale-adaptive routing section" "$SR" "## Scale-Adaptive Routing"
 check "skill-router: route-by-signals wording"       "$SR" "Route by signals, not by habit"
 check "using-hyperpowers: routes via skill-router"   "$US" "skill-router"

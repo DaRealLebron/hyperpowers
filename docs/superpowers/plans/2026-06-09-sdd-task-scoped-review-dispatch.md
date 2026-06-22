@@ -730,7 +730,7 @@ Expected: all PASS (we added `setup.sh` only inside the evals submodule, which h
 
 - [ ] **Step 3: Cross-platform tool tables still coherent**
 
-Run: `grep -n "code-quality-reviewer" skills/using-superpowers/references/antigravity-tools.md skills/using-superpowers/references/gemini-tools.md`
+Run: `grep -n "code-quality-reviewer" skills/using-hyperpowers/references/antigravity-tools.md skills/using-hyperpowers/references/gemini-tools.md`
 Expected: both tables still list `code-quality-reviewer` as a reviewer template (the new prompt's "If you cannot run commands in this environment, name the test you would run" line keeps the read-only `research` mapping valid — no table edits needed).
 
 ---

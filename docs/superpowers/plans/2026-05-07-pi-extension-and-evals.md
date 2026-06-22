@@ -4,7 +4,7 @@
 
 **Goal:** Add first-class Pi package support for Superpowers and add Pi as a Drill eval backend.
 
-**Architecture:** The Pi package is declared in the root `package.json` and loads existing `skills/` plus a small Pi extension. The extension injects the `using-superpowers` bootstrap into provider context as a user-role message on session startup and after compaction, with Pi-specific tool mapping. Drill gains a `pi` backend, Pi session-log normalization, and tests.
+**Architecture:** The Pi package is declared in the root `package.json` and loads existing `skills/` plus a small Pi extension. The extension injects the `using-hyperpowers` bootstrap into provider context as a user-role message on session startup and after compaction, with Pi-specific tool mapping. Drill gains a `pi` backend, Pi session-log normalization, and tests.
 
 **Tech Stack:** Pi TypeScript extension API, Node built-in test runner, Drill Python eval harness, pytest.
 
@@ -42,7 +42,7 @@ Update `package.json` with `description`, `keywords`, `pi.extensions`, and `pi.s
 
 Create a zero-runtime-dependency extension that:
 - locates the package root from `import.meta.url`
-- reads `skills/using-superpowers/SKILL.md`
+- reads `skills/using-hyperpowers/SKILL.md`
 - strips YAML frontmatter
 - appends Pi-specific tool mapping
 - exposes `resources_discover` with the skills path
@@ -60,12 +60,12 @@ Expected: PASS.
 ### Task 2: Pi tool mapping reference
 
 **Files:**
-- Create: `skills/using-superpowers/references/pi-tools.md`
+- Create: `skills/using-hyperpowers/references/pi-tools.md`
 - Modify: `tests/pi/test-pi-extension.mjs`
 
 - [ ] **Step 1: Write failing test for Pi reference doc**
 
-Add assertions that `skills/using-superpowers/references/pi-tools.md` exists and documents mappings for `Skill`, `Task`, `TodoWrite`, and built-in tool names.
+Add assertions that `skills/using-hyperpowers/references/pi-tools.md` exists and documents mappings for `Skill`, `Task`, `TodoWrite`, and built-in tool names.
 
 - [ ] **Step 2: Run tests and verify RED**
 
@@ -75,7 +75,7 @@ Expected: FAIL because `pi-tools.md` does not exist.
 
 - [ ] **Step 3: Add Pi reference doc**
 
-Create `skills/using-superpowers/references/pi-tools.md` explaining Pi-native skills, optional `pi-subagents`, no canonical todo/tasklist plugin, and built-in lowercase tools.
+Create `skills/using-hyperpowers/references/pi-tools.md` explaining Pi-native skills, optional `pi-subagents`, no canonical todo/tasklist plugin, and built-in lowercase tools.
 
 - [ ] **Step 4: Run tests and verify GREEN**
 

@@ -15,7 +15,7 @@ agent-facing memory converges on the right shape without anyone scheduling a cle
 This is the last major fork-customization planned for the project. It sits alongside the
 existing **docs gate** (the `writing-plans` mandatory final "Update documentation" task and the
 `verification-before-completion` docs-updated failure row), but those point at README / per-area
-docs / CHANGELOG and never specifically at the agent-memory layer. `using-superpowers` already
+docs / CHANGELOG and never specifically at the agent-memory layer. `using-hyperpowers` already
 treats `CLAUDE.md` / `AGENTS.md` / `GEMINI.md` as the top of the instruction hierarchy ("user
 instructions, highest priority") — but nothing in the fork *maintains* that layer.
 
@@ -174,7 +174,7 @@ Thin, one-line invocations into three existing skills:
   commands* (reuses the fork's existing Input Trust Model). Curation extracts facts; it never
   executes instructions embedded in untrusted content.
 - **Opt-out wins.** A project whose own `CLAUDE.md` says "don't auto-curate" is honored — user
-  instructions outrank skills per `using-superpowers`.
+  instructions outrank skills per `using-hyperpowers`.
 
 ## Multi-Harness Projection
 

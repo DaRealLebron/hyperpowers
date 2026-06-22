@@ -116,7 +116,7 @@ Disqualified by the solo-operator constraint and the fork's existing strengths, 
 - **The router** is a decision rule over signals (file count, "does this introduce or change an
   architectural decision?", greenfield vs. brownfield, cross-feature ripple) — not a state file
   anyone must keep honest. It lives in a new `skill-router` skill, referenced from
-  `using-superpowers` so every session sees it.
+  `using-hyperpowers` so every session sees it.
 
 ## The new skills
 
@@ -127,7 +127,7 @@ Artifact homes sit under the existing `docs/superpowers/` tree: `product/` and `
 The scale-adaptive connective tissue. Documents the three routing outcomes (trivial → shell-first
 lane; single feature → feature altitude; new product / major architecture change → project
 altitude) and the deterministic signals that select among them. Referenced from
-`using-superpowers`.
+`using-hyperpowers`.
 
 ### `product-discovery` — discovery → brief → PRD
 
@@ -235,7 +235,7 @@ Files created: `skills/skill-router/SKILL.md`, `skills/product-discovery/SKILL.m
 `brainstorming`).
 
 Files modified: `skills/brainstorming/SKILL.md`, `skills/writing-plans/SKILL.md`,
-`skills/test-driven-development/SKILL.md`, `skills/using-superpowers/SKILL.md`,
+`skills/test-driven-development/SKILL.md`, `skills/using-hyperpowers/SKILL.md`,
 `scripts/lint-fork-customizations.sh`, plus `README.md` / `RELEASE-NOTES.md` in the mandatory final
 documentation task.
 

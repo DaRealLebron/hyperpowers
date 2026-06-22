@@ -20,7 +20,7 @@
 | `skills/finishing-a-development-branch/SKILL.md` | Branch finishing workflow | Add Step 1.5 detection + cleanup guard |
 | `skills/subagent-driven-development/SKILL.md` | Plan execution with subagents | Update Integration description |
 | `skills/executing-plans/SKILL.md` | Plan execution inline | Update Integration description |
-| `skills/using-superpowers/references/codex-tools.md` | Codex platform reference | Add detection + finishing docs |
+| `skills/using-hyperpowers/references/codex-tools.md` | Codex platform reference | Add detection + finishing docs |
 
 ---
 
@@ -326,11 +326,11 @@ always creating one."
 ### Task 6: Add environment detection docs to `codex-tools.md`
 
 **Files:**
-- Modify: `skills/using-superpowers/references/codex-tools.md:25` (append at end)
+- Modify: `skills/using-hyperpowers/references/codex-tools.md:25` (append at end)
 
 - [ ] **Step 1: Read the current file**
 
-Read `skills/using-superpowers/references/codex-tools.md` in full. Confirm it ends at line 25-26 after the multi_agent section.
+Read `skills/using-hyperpowers/references/codex-tools.md` in full. Confirm it ends at line 25-26 after the multi_agent section.
 
 - [ ] **Step 2: Append two new sections**
 
@@ -378,7 +378,7 @@ Read the full file. Confirm:
 - [ ] **Step 4: Commit**
 
 ```bash
-git add skills/using-superpowers/references/codex-tools.md
+git add skills/using-hyperpowers/references/codex-tools.md
 git commit -m "docs(codex-tools): add environment detection and App finishing docs (PRI-823)
 
 Document the git-dir vs git-common-dir detection pattern and the Codex
@@ -540,7 +540,7 @@ Read each file end-to-end:
 - `skills/finishing-a-development-branch/SKILL.md` — Step 1.5 present, cleanup guard present, rest unchanged
 - `skills/subagent-driven-development/SKILL.md` — line 268 updated
 - `skills/executing-plans/SKILL.md` — line 68 updated
-- `skills/using-superpowers/references/codex-tools.md` — two new sections at end
+- `skills/using-hyperpowers/references/codex-tools.md` — two new sections at end
 
 - [ ] **Step 3: Verify no unintended changes**
 

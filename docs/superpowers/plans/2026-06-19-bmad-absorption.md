@@ -23,22 +23,22 @@
 
 - `bash scripts/lint-fork-customizations.sh` — prints `40 passed, 0 failed` and exits 0 (was `24 passed, 0 failed`), proving all 16 new markers are present in the files they guard.
 - `ls skills/skill-router/SKILL.md skills/product-discovery/SKILL.md skills/product-discovery/elicitation-methods.md skills/architecture-design/SKILL.md skills/reevaluation/SKILL.md` — all five new files exist; none existed before this plan.
-- `grep -c skill-router skills/using-superpowers/SKILL.md` — returns ≥1 (was 0), proving the router is wired into the always-loaded entry skill.
+- `grep -c skill-router skills/using-hyperpowers/SKILL.md` — returns ≥1 (was 0), proving the router is wired into the always-loaded entry skill.
 - `grep -F 'acceptance criteria become Verification Artifacts' skills/writing-plans/SKILL.md` — matches (absent before), proving the anti-duplication consumption seam is documented.
 - `grep -F 'Completed work is immutable' skills/reevaluation/SKILL.md` — matches, proving the supersede-not-rewrite rule (the fix for BMAD's known bug) is present.
 - `grep -F '40 checks' README.md` — matches (the README said `24 checks` before this plan), proving the doc check-count was advanced; and `grep -F 'BMAD absorption' RELEASE-NOTES.md` — matches, proving the release entry was added.
 
 ---
 
-### Task 1: `skill-router` skill + wire into `using-superpowers`
+### Task 1: `skill-router` skill + wire into `using-hyperpowers`
 
 **Files:**
 - Create: `skills/skill-router/SKILL.md`
-- Modify: `skills/using-superpowers/SKILL.md` (insert one subsection after `## Skill Priority`)
+- Modify: `skills/using-hyperpowers/SKILL.md` (insert one subsection after `## Skill Priority`)
 - Modify: `scripts/lint-fork-customizations.sh` (append check block)
 
 **Interfaces:**
-- Produces: the `skill-router` skill (scale-adaptive altitude routing) that later tasks reference from `writing-plans`, `product-discovery`, and `reevaluation`. The marker strings `## Scale-Adaptive Routing`, `Route by signals, not by habit`, and (in `using-superpowers`) `skill-router`.
+- Produces: the `skill-router` skill (scale-adaptive altitude routing) that later tasks reference from `writing-plans`, `product-discovery`, and `reevaluation`. The marker strings `## Scale-Adaptive Routing`, `Route by signals, not by habit`, and (in `using-hyperpowers`) `skill-router`.
 
 - [ ] **Step 1: Add the failing lint checks**
 
@@ -47,7 +47,7 @@ In `scripts/lint-fork-customizations.sh`, after the existing `# 10.` block (the 
 ```bash
 # 11. BMAD absorption — skill-router (scale-adaptive front door)
 SR="skills/skill-router/SKILL.md"
-US="skills/using-superpowers/SKILL.md"
+US="skills/using-hyperpowers/SKILL.md"
 check "skill-router: scale-adaptive routing section" "$SR" "## Scale-Adaptive Routing"
 check "skill-router: route-by-signals wording"       "$SR" "Route by signals, not by habit"
 check "using-hyperpowers: routes via skill-router"   "$US" "skill-router"
@@ -108,9 +108,9 @@ Once the project altitude has produced `docs/superpowers/product/prd.md` and
 re-runs discovery or re-authors product-level content for a feature an epic already covers.
 ```
 
-- [ ] **Step 4: Wire the router into `using-superpowers`**
+- [ ] **Step 4: Wire the router into `using-hyperpowers`**
 
-In `skills/using-superpowers/SKILL.md`, immediately after the `## Skill Priority` section (after the line ``"Fix this bug" → systematic-debugging first, then domain-specific skills.``), insert:
+In `skills/using-hyperpowers/SKILL.md`, immediately after the `## Skill Priority` section (after the line ``"Fix this bug" → systematic-debugging first, then domain-specific skills.``), insert:
 
 ```markdown
 
@@ -128,7 +128,7 @@ Expected: `27 passed, 0 failed`, `EXIT=0`.
 - [ ] **Step 6: Commit**
 
 ```bash
-wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/skill-router/SKILL.md skills/using-superpowers/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): add scale-adaptive skill-router + wire into using-superpowers"'
+wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/skill-router/SKILL.md skills/using-hyperpowers/SKILL.md scripts/lint-fork-customizations.sh && git commit -q -m "feat(skills): add scale-adaptive skill-router + wire into using-hyperpowers"'
 ```
 
 ---

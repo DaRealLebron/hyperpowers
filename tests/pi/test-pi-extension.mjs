@@ -9,7 +9,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, '../..');
 const packageJsonPath = resolve(repoRoot, 'package.json');
 const extensionPath = resolve(repoRoot, '.pi/extensions/superpowers.ts');
-const piToolsPath = resolve(repoRoot, 'skills/using-superpowers/references/pi-tools.md');
+const piToolsPath = resolve(repoRoot, 'skills/using-hyperpowers/references/pi-tools.md');
 
 async function readPackageJson() {
   return JSON.parse(await readFile(packageJsonPath, 'utf8'));

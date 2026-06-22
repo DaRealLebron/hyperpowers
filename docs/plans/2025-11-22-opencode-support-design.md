@@ -120,8 +120,8 @@ Lists all available skills with metadata.
 
 When a new session starts (`session.started` event):
 
-1. **Inject using-superpowers content**
-   - Full content of the using-superpowers skill
+1. **Inject using-hyperpowers content**
+   - Full content of the using-hyperpowers skill
    - Establishes mandatory workflows
 
 2. **Run find_skills automatically**
@@ -162,7 +162,7 @@ export const SuperpowersPlugin = async ({ client, directory, $ }) => {
 
   return {
     'session.started': async () => {
-      const usingSuperpowers = await readSkill('using-superpowers');
+      const usingSuperpowers = await readSkill('using-hyperpowers');
       const skillsList = await findAllSkills();
       const toolMapping = getToolMappingInstructions();
 

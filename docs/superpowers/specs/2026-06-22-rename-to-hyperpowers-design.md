@@ -18,13 +18,13 @@ Recon established the magnitude and the hazards:
   references across 22 files.
 - The hits are **not interchangeable**. Some point at obra's *official* plugin and must not be
   renamed; some are behavior-critical identifiers; some are frozen historical prose.
-- The bootstrap skill `using-superpowers` is wired into hooks and bootstrap injection across every
+- The bootstrap skill `using-hyperpowers` is wired into hooks and bootstrap injection across every
   harness — it is what makes skills auto-trigger. Renaming it wrong silently breaks the core value.
 
 ## Goals
 
 1. Rebrand the project to **Hyperpowers** in every category: branding prose, plugin/package/
-   marketplace identifiers, the `hyperpowers:` skill namespace, the `using-superpowers` bootstrap
+   marketplace identifiers, the `hyperpowers:` skill namespace, the `using-hyperpowers` bootstrap
    skill, the `docs/superpowers/` path, and plugin entry filenames.
 2. Make the project **fully independent** of `obra/superpowers`: drop the upstream git remote, remove
    the README sections that document installing obra's *official* plugin, and keep only the
@@ -70,7 +70,7 @@ Every text-replace phase runs against this preserve-list, including the rewrite 
 | Marketplace name (`marketplace.json`) | `superpowers-dev` | `hyperpowers` |
 | Install command | `superpowers@superpowers-dev` (from `DaRealLebron/superpowers`) | `hyperpowers@hyperpowers` (from `DaRealLebron/hyperpowers`) |
 | Skill namespace (cross-refs in skills, hooks, docs) | `hyperpowers:` | `hyperpowers:` |
-| Bootstrap skill (dir, frontmatter `name:`, and **all** hook/extension references) | `using-superpowers` | `using-hyperpowers` |
+| Bootstrap skill (dir, frontmatter `name:`, and **all** hook/extension references) | `using-hyperpowers` | `using-hyperpowers` |
 | Docs path (`git mv` + every reference) | `docs/superpowers/` | `docs/hyperpowers/` |
 | Plugin entry files (+ their internal refs and any config pointing at them) | `.opencode/plugins/superpowers.js`, `.pi/extensions/superpowers.ts` | `…/hyperpowers.{js,ts}` |
 | Manifest URLs (`homepage`, `repository`) | `github.com/obra/superpowers` | `github.com/DaRealLebron/hyperpowers` |
@@ -90,12 +90,12 @@ Every text-replace phase runs against this preserve-list, including the rewrite 
 
 ## Risk Containment
 
-- **Bootstrap rename in lockstep.** Renaming `skills/using-superpowers/` → `skills/using-hyperpowers/`
+- **Bootstrap rename in lockstep.** Renaming `skills/using-hyperpowers/` → `skills/using-hyperpowers/`
   happens together with updating every reference: `hooks/session-start`, `hooks/session-start-codex`,
   the SessionStart content, `.opencode/plugins/*.js`, `.pi/extensions/*.ts`, the Kimi inline manifest,
   and `scripts/lint-fork-customizations.sh` (`US=…`). Acceptance includes a per-harness check that the
   bootstrap still names the skill.
-- **Lint stays green.** The lint references renamed paths (`US="skills/using-superpowers/SKILL.md"`)
+- **Lint stays green.** The lint references renamed paths (`US="skills/using-hyperpowers/SKILL.md"`)
   and contains "superpowers" in comments; both are updated and the lint re-run must print
   `49 passed, 0 failed` after each phase that could affect it.
 - **Tests updated in-phase.** Branding/manifest tests that assert the old names
@@ -111,7 +111,7 @@ Every text-replace phase runs against this preserve-list, including the rewrite 
 1. **Hard identifiers** — manifests, `package.json`, `marketplace.json` (name + plugin + owner +
    author + URLs), `LICENSE` attribution.
 2. **Namespace** — `hyperpowers:` → `hyperpowers:` across skills, hooks, docs (preserve-list applied).
-3. **Bootstrap** — `using-superpowers` → `using-hyperpowers` dir + frontmatter + **all** hook/
+3. **Bootstrap** — `using-hyperpowers` → `using-hyperpowers` dir + frontmatter + **all** hook/
    extension/lint references, in lockstep.
 4. **Docs path** — `git mv docs/superpowers docs/hyperpowers` + update every `docs/superpowers/`
    reference (including `CLAUDE.md`'s Documentation index and the skills that write to
@@ -132,7 +132,7 @@ Every text-replace phase runs against this preserve-list, including the rewrite 
   old-namespace cross-references (only the deferred sync file, if anything).
 - `grep -rni 'obra/superpowers' .` returns **only** the single MIT attribution note (and the deferred
   sync file).
-- `ls skills/using-hyperpowers/SKILL.md` exists; `ls skills/using-superpowers` is gone.
+- `ls skills/using-hyperpowers/SKILL.md` exists; `ls skills/using-hyperpowers` is gone.
 - `ls docs/hyperpowers` exists; `ls docs/superpowers` is gone.
 - Each harness's bootstrap script/extension names `using-hyperpowers`.
 - Final: `git remote -v` shows no `upstream`; `origin` → `DaRealLebron/hyperpowers`.
