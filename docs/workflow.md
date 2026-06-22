@@ -91,10 +91,10 @@ The charts above are the day-to-day **feature** pipeline. Two later arcs extend 
   / cross-cutting work runs `product-discovery` → `architecture-design` → an
   implementation-readiness gate, then drops per-epic into the feature pipeline above, which *reads*
   those project artifacts instead of re-deriving them. Full diagram and "what came from where":
-  [`docs/superpowers/bmad-absorption-happy-path.md`](superpowers/bmad-absorption-happy-path.md).
+  [`docs/hyperpowers/bmad-absorption-happy-path.md`](superpowers/bmad-absorption-happy-path.md).
 - **Project-memory curation.** At completion, `finishing-a-development-branch` runs a
   `curating-project-memory` pass that drifts the project's `CLAUDE.md` (canonical) / generated
   `AGENTS.md` / scoped `.claude/rules/` / `docs/` toward an optimal, well-linked state;
   `writing-plans`' final documentation task now names `CLAUDE.md` / `AGENTS.md`, and
   `verification-before-completion` checks that project memory is current. Design:
-  [`docs/superpowers/specs/2026-06-22-project-memory-curation-design.md`](superpowers/specs/2026-06-22-project-memory-curation-design.md).
+  [`docs/hyperpowers/specs/2026-06-22-project-memory-curation-design.md`](superpowers/specs/2026-06-22-project-memory-curation-design.md).

@@ -4,7 +4,7 @@
 
 **Goal:** Finish PR #1720's final hardening fixup with test-first changes, clean rebase state, and reviewer-ready evidence.
 
-**Spec:** `docs/superpowers/specs/2026-06-11-visual-companion-final-hardening-fixup-design.md`
+**Spec:** `docs/hyperpowers/specs/2026-06-11-visual-companion-final-hardening-fixup-design.md`
 
 **Architecture:** Keep the companion zero-dependency and local-first. Add focused guards to the existing server and shell scripts: root screen selection reuses the `/files/*` containment guard, fallback token handling tracks token source, and lifecycle shutdown uses a per-start command-line instance id for ownership proof.
 
@@ -43,7 +43,7 @@
   - Add Windows fake-node assertion for the id argv.
 - Modify: `skills/brainstorming/visual-companion.md`
   - Add `--open` to platform commands that should preserve auto-open behavior.
-- Modify: `docs/superpowers/plans/2026-06-09-visual-companion-issues.md`
+- Modify: `docs/hyperpowers/plans/2026-06-09-visual-companion-issues.md`
   - Reconcile shipped scope, WS Origin wording, default timeout, and deferred feature items.
 - Update outside tracked files: PR #1720 body
   - Record post-rebase diff state, RED/GREEN evidence, macOS/Windows verification, manual browser smoke, and external eval evidence.
@@ -921,7 +921,7 @@ git commit -m "Harden companion platform tests"
 
 **Files:**
 - Modify: `skills/brainstorming/visual-companion.md`
-- Modify: `docs/superpowers/plans/2026-06-09-visual-companion-issues.md`
+- Modify: `docs/hyperpowers/plans/2026-06-09-visual-companion-issues.md`
 - Update: PR #1720 body through `gh pr edit`
 
 - [ ] **Step 1: Keep platform start commands aligned with auto-open behavior**
@@ -940,7 +940,7 @@ Do not add `--open` to remote bind examples where auto-open is intentionally ski
 
 - [ ] **Step 2: Reconcile issue catalog disposition rows**
 
-In `docs/superpowers/plans/2026-06-09-visual-companion-issues.md`, replace the disposition rows for A2, D1, D2, D3, and D4 with:
+In `docs/hyperpowers/plans/2026-06-09-visual-companion-issues.md`, replace the disposition rows for A2, D1, D2, D3, and D4 with:
 
 ```markdown
 | A2 | Host allowlist; browser WS Origin check | PRs #1110/#1553 | Host allowlist dropped; WS Origin check retained after auth for browser confused-deputy defense |
@@ -983,7 +983,7 @@ In the suggested grouping section, replace item 4 with:
 Run:
 
 ```bash
-git diff -- skills/brainstorming/visual-companion.md docs/superpowers/plans/2026-06-09-visual-companion-issues.md
+git diff -- skills/brainstorming/visual-companion.md docs/hyperpowers/plans/2026-06-09-visual-companion-issues.md
 ```
 
 Expected: diff only updates auto-open command consistency, shipped/deferred dispositions, WS Origin wording, and the 4 hour timeout statement.
@@ -993,7 +993,7 @@ Expected: diff only updates auto-open command consistency, shipped/deferred disp
 Run:
 
 ```bash
-git add skills/brainstorming/visual-companion.md docs/superpowers/plans/2026-06-09-visual-companion-issues.md
+git add skills/brainstorming/visual-companion.md docs/hyperpowers/plans/2026-06-09-visual-companion-issues.md
 git commit -m "Align visual companion docs with shipped scope"
 ```
 
@@ -1119,7 +1119,7 @@ Expected: PR points at the pushed head SHA, merge state is no longer conflict-bl
 
 ## Self-Review Checklist
 
-- [ ] Every requirement in `docs/superpowers/specs/2026-06-11-visual-companion-final-hardening-fixup-design.md` maps to one of the tasks above.
+- [ ] Every requirement in `docs/hyperpowers/specs/2026-06-11-visual-companion-final-hardening-fixup-design.md` maps to one of the tasks above.
 - [ ] The plan contains no vague or incomplete steps.
 - [ ] Tests are added before production fixes in Tasks 1, 2, and 3.
 - [ ] The docs task does not add deferred features.

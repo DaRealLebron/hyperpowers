@@ -1,7 +1,7 @@
 # Happy Path — Unified Planning OS (Superpowers + absorbed BMAD)
 
 This fork absorbed BMAD's effective **project-altitude** capabilities as native skills instead of
-integrating a second tool (design: `docs/superpowers/specs/2026-06-19-bmad-absorption-design.md`).
+integrating a second tool (design: `docs/hyperpowers/specs/2026-06-19-bmad-absorption-design.md`).
 Below is the *happy path*: a greenfield product flowing all the way to merge with every gate
 passing. Nodes are colored by origin —
 **🟦 Superpowers-native** (upstream + this fork's prior customizations) vs
@@ -61,7 +61,7 @@ re-enters the project altitude through `reevaluation`).
 Since 2026-06-22 the merge step also runs a `curating-project-memory` pass: project memory
 (`CLAUDE.md` canonical → generated `AGENTS.md`, scoped `.claude/rules/`, and `docs/`) drifts toward
 an optimal, well-linked state as a side effect of finishing work. Design:
-`docs/superpowers/specs/2026-06-22-project-memory-curation-design.md`.
+`docs/hyperpowers/specs/2026-06-22-project-memory-curation-design.md`.
 
 ## What came from where
 

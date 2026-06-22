@@ -16,8 +16,8 @@ feature uses `brainstorming` instead.
 2. Run a discovery dialogue, one question at a time (like `brainstorming`). For a shallow or
    high-stakes answer, offer a named method from
    [elicitation-methods.md](elicitation-methods.md).
-3. Write `docs/superpowers/product/brief.md` — vision, audience, value, scope.
-4. Write `docs/superpowers/product/prd.md` — functional requirements, non-functional requirements,
+3. Write `docs/hyperpowers/product/brief.md` — vision, audience, value, scope.
+4. Write `docs/hyperpowers/product/prd.md` — functional requirements, non-functional requirements,
    epics, success metrics, MVP.
 
 Carry findings forward — never re-elicit. Everything the brief established flows into the PRD by

@@ -120,7 +120,7 @@ Disqualified by the solo-operator constraint and the fork's existing strengths, 
 
 ## The new skills
 
-Artifact homes sit under the existing `docs/superpowers/` tree: `product/` and `architecture/`.
+Artifact homes sit under the existing `docs/hyperpowers/` tree: `product/` and `architecture/`.
 
 ### `skill-router`
 
@@ -135,8 +135,8 @@ altitude) and the deterministic signals that select among them. Referenced from
   features with no PRD yet.
 - **Reads:** the operator's idea; existing repo state first if brownfield (a lightweight
   "document the current system before planning" pass).
-- **Writes:** `docs/superpowers/product/brief.md` (vision, audience, value, scope), then
-  `docs/superpowers/product/prd.md` (functional requirements, non-functional requirements, epics,
+- **Writes:** `docs/hyperpowers/product/brief.md` (vision, audience, value, scope), then
+  `docs/hyperpowers/product/prd.md` (functional requirements, non-functional requirements, epics,
   success metrics, MVP). Acceptance criteria are **risk-tiered (P0–P3) Gherkin** — strong,
   testable ACs at the source (Finding A starts here).
 - **Core mechanic:** a scale-adaptive discovery dialogue plus the advanced-elicitation menu, and a
@@ -150,8 +150,8 @@ altitude) and the deterministic signals that select among them. Referenced from
 
 - **Trigger:** PRD approved, or a real architectural decision is needed.
 - **Reads:** `prd.md`; the existing codebase/architecture.
-- **Writes:** `docs/superpowers/architecture/architecture.md` (components, interfaces, data model,
-  tech choices) + `docs/superpowers/architecture/adr/NNN-<slug>.md` (one ADR per significant
+- **Writes:** `docs/hyperpowers/architecture/architecture.md` (components, interfaces, data model,
+  tech choices) + `docs/hyperpowers/architecture/adr/NNN-<slug>.md` (one ADR per significant
   decision: context / decision / consequences) + a recorded **implementation-readiness verdict
   (PASS / CONCERNS / FAIL)**.
 - **Core mechanic:** the readiness gate is the existing **adversarial multi-lens review panel

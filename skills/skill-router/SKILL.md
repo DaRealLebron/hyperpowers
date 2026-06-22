@@ -37,6 +37,6 @@ feature pipeline escalate upward if it hits an architectural surprise.
 
 ## Project artifacts are read, not re-derived
 
-Once the project altitude has produced `docs/superpowers/product/prd.md` and
-`docs/superpowers/architecture/architecture.md`, the feature altitude **reads** them — it never
+Once the project altitude has produced `docs/hyperpowers/product/prd.md` and
+`docs/hyperpowers/architecture/architecture.md`, the feature altitude **reads** them — it never
 re-runs discovery or re-authors product-level content for a feature an epic already covers.

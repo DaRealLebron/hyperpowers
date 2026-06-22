@@ -25,7 +25,7 @@ Recon established the magnitude and the hazards:
 
 1. Rebrand the project to **Hyperpowers** in every category: branding prose, plugin/package/
    marketplace identifiers, the `hyperpowers:` skill namespace, the `using-hyperpowers` bootstrap
-   skill, the `docs/superpowers/` path, and plugin entry filenames.
+   skill, the `docs/hyperpowers/` path, and plugin entry filenames.
 2. Make the project **fully independent** of `obra/superpowers`: drop the upstream git remote, remove
    the README sections that document installing obra's *official* plugin, and keep only the
    Hyperpowers install path — while preserving the MIT fork-attribution required by the license.
@@ -71,7 +71,7 @@ Every text-replace phase runs against this preserve-list, including the rewrite 
 | Install command | `superpowers@superpowers-dev` (from `DaRealLebron/superpowers`) | `hyperpowers@hyperpowers` (from `DaRealLebron/hyperpowers`) |
 | Skill namespace (cross-refs in skills, hooks, docs) | `hyperpowers:` | `hyperpowers:` |
 | Bootstrap skill (dir, frontmatter `name:`, and **all** hook/extension references) | `using-hyperpowers` | `using-hyperpowers` |
-| Docs path (`git mv` + every reference) | `docs/superpowers/` | `docs/hyperpowers/` |
+| Docs path (`git mv` + every reference) | `docs/hyperpowers/` | `docs/hyperpowers/` |
 | Plugin entry files (+ their internal refs and any config pointing at them) | `.opencode/plugins/superpowers.js`, `.pi/extensions/superpowers.ts` | `…/hyperpowers.{js,ts}` |
 | Manifest URLs (`homepage`, `repository`) | `github.com/obra/superpowers` | `github.com/DaRealLebron/hyperpowers` |
 | Manifest author/owner | `Jesse Vincent <jesse@fsck.com>` | `DaRealLebron <stephpangas@gmail.com>` |
@@ -113,7 +113,7 @@ Every text-replace phase runs against this preserve-list, including the rewrite 
 2. **Namespace** — `hyperpowers:` → `hyperpowers:` across skills, hooks, docs (preserve-list applied).
 3. **Bootstrap** — `using-hyperpowers` → `using-hyperpowers` dir + frontmatter + **all** hook/
    extension/lint references, in lockstep.
-4. **Docs path** — `git mv docs/superpowers docs/hyperpowers` + update every `docs/superpowers/`
+4. **Docs path** — `git mv docs/hyperpowers docs/hyperpowers` + update every `docs/hyperpowers/`
    reference (including `CLAUDE.md`'s Documentation index and the skills that write to
    `docs/.../specs|plans`).
 5. **Plugin filenames** — rename `.opencode/plugins/superpowers.js`, `.pi/extensions/superpowers.ts`
@@ -133,7 +133,7 @@ Every text-replace phase runs against this preserve-list, including the rewrite 
 - `grep -rni 'obra/superpowers' .` returns **only** the single MIT attribution note (and the deferred
   sync file).
 - `ls skills/using-hyperpowers/SKILL.md` exists; `ls skills/using-hyperpowers` is gone.
-- `ls docs/hyperpowers` exists; `ls docs/superpowers` is gone.
+- `ls docs/hyperpowers` exists; `ls docs/hyperpowers` is gone.
 - Each harness's bootstrap script/extension names `using-hyperpowers`.
 - Final: `git remote -v` shows no `upstream`; `origin` → `DaRealLebron/hyperpowers`.
 

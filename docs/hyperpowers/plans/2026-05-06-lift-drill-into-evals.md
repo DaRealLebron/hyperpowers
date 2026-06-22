@@ -8,7 +8,7 @@
 
 **Tech Stack:** Python 3.11 + uv (drill's existing toolchain, unchanged); rsync; bash; git.
 
-**Spec:** `docs/superpowers/specs/2026-05-06-lift-drill-into-evals-design.md` — read this first.
+**Spec:** `docs/hyperpowers/specs/2026-05-06-lift-drill-into-evals-design.md` — read this first.
 
 **Drill source location:** `/Users/jesse/Documents/GitHub/superpowers/drill/` (sibling to `superpowers/`).
 
@@ -963,7 +963,7 @@ test behavior, not description. No drill coverage; kept by design."
 
 **Files:**
 - Possibly modify: `docs/testing.md`, `README.md`, `CLAUDE.md`, `lefthook.yml`, `.opencode/INSTALL.md`, `.codex-plugin/INSTALL.md`, `.github/*`, `scripts/*`
-- Annotate (do not rewrite): `RELEASE-NOTES.md`, `docs/superpowers/plans/*.md`
+- Annotate (do not rewrite): `RELEASE-NOTES.md`, `docs/hyperpowers/plans/*.md`
 
 - [ ] **Step 1: Build list of deleted-file paths**
 
@@ -1005,7 +1005,7 @@ This finds every reference to a deleted file. Categorize each hit:
 | `.opencode/INSTALL.md`, `.codex-plugin/INSTALL.md` | Update if they reference deleted tests |
 | `lefthook.yml` | Update if hooks invoke deleted tests |
 | `RELEASE-NOTES.md` | Annotate, don't rewrite (dated artifact) |
-| `docs/superpowers/plans/*.md` | Annotate, don't rewrite (dated artifact) |
+| `docs/hyperpowers/plans/*.md` | Annotate, don't rewrite (dated artifact) |
 
 - [ ] **Step 3: Update active references**
 
@@ -1015,7 +1015,7 @@ For each "Update" hit, edit the file to either:
 
 - [ ] **Step 4: Annotate dated artifacts**
 
-For each `RELEASE-NOTES.md` or `docs/superpowers/plans/*.md` hit, add an inline annotation at the *first* hit per file:
+For each `RELEASE-NOTES.md` or `docs/hyperpowers/plans/*.md` hit, add an inline annotation at the *first* hit per file:
 
 ```markdown
 > Note: this section references `tests/skill-triggering/run-all.sh` and
@@ -1055,7 +1055,7 @@ git commit -m "docs: update references to lifted-and-deleted bash tests
 
 Active references in docs/testing.md, README.md, CI workflows, etc.
 now point at drill scenarios. Historical references in RELEASE-NOTES.md
-and docs/superpowers/plans/*.md are annotated as dated artifacts,
+and docs/hyperpowers/plans/*.md are annotated as dated artifacts,
 not rewritten."
 ```
 
@@ -1221,7 +1221,7 @@ assigned the identical task.
 
 **Branch:** f/evals-lift, in /Users/jesse/Documents/GitHub/superpowers/superpowers
 **Base:** dev (currently b4363df)
-**Spec:** docs/superpowers/specs/2026-05-06-lift-drill-into-evals-design.md
+**Spec:** docs/hyperpowers/specs/2026-05-06-lift-drill-into-evals-design.md
 
 This branch lifts the obra/drill repo into superpowers/evals/ and
 deletes redundant bash tests that drill scenarios cover. Two prior
@@ -1327,7 +1327,7 @@ Drill's own pytest suite passes from the new location. `triggering-test-driven-d
 
 ## Evaluation
 
-- Initial prompt: see linked spec (`docs/superpowers/specs/2026-05-06-lift-drill-into-evals-design.md`).
+- Initial prompt: see linked spec (`docs/hyperpowers/specs/2026-05-06-lift-drill-into-evals-design.md`).
 - Drill's own pytest suite passes.
 - One drill scenario re-run from the new location end-to-end (proves the SUPERPOWERS_ROOT default works).
 - Per-deleted-file subagent verification recorded in each deletion commit's message.
@@ -1369,6 +1369,6 @@ Expected: browser opens to the new PR. Take a screenshot or note the URL for fol
 - [ ] `cd evals && unset SUPERPOWERS_ROOT && uv run drill list` returns scenarios
 - [ ] `cd evals && unset SUPERPOWERS_ROOT && uv run drill run triggering-test-driven-development -b claude` passes
 - [ ] `tests/brainstorm-server/server.test.js` still passes (regression gate for non-LLM tests)
-- [ ] `git diff dev..HEAD docs/superpowers/plans/2026-04-06-worktree-rototill.md docs/superpowers/plans/2026-03-23-codex-app-compatibility.md RELEASE-NOTES.md` shows annotations only, no path rewrites
+- [ ] `git diff dev..HEAD docs/hyperpowers/plans/2026-04-06-worktree-rototill.md docs/hyperpowers/plans/2026-03-23-codex-app-compatibility.md RELEASE-NOTES.md` shows annotations only, no path rewrites
 - [ ] `cd ../drill && git log --oneline -1` shows obra/drill is unchanged from the source SHA recorded in the lift commit
 - [ ] PR body lists the post-merge archival action item

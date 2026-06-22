@@ -4,7 +4,7 @@
 
 **Goal:** Update this repo's living docs to reflect two shipped arcs (BMAD project-altitude absorption + project-memory curation), and dogfood the new `curating-project-memory` model on the repo's own memory files (`CLAUDE.md` / `AGENTS.md` / `GEMINI.md`).
 
-**Architecture:** Pure documentation + memory-file edits — no skill text, no new lint marker. `docs/workflow.md` and `docs/superpowers/bmad-absorption-happy-path.md` are brought current (the stale `18 checks` → `49 checks`, the project altitude cross-linked, the curation checkpoint added). The repo's own `CLAUDE.md` gains the two missing 3-layer sections (`## Context`, `## Documentation index`) **additively** — its tuned contributor-rule content is preserved verbatim — and `AGENTS.md` is regenerated as a real full mirror of `CLAUDE.md` (it is currently a useless 1-line stub). The structural lint must remain `49 passed` (regression only).
+**Architecture:** Pure documentation + memory-file edits — no skill text, no new lint marker. `docs/workflow.md` and `docs/hyperpowers/bmad-absorption-happy-path.md` are brought current (the stale `18 checks` → `49 checks`, the project altitude cross-linked, the curation checkpoint added). The repo's own `CLAUDE.md` gains the two missing 3-layer sections (`## Context`, `## Documentation index`) **additively** — its tuned contributor-rule content is preserved verbatim — and `AGENTS.md` is regenerated as a real full mirror of `CLAUDE.md` (it is currently a useless 1-line stub). The structural lint must remain `49 passed` (regression only).
 
 **Tech Stack:** Markdown docs; Bash via the Bash tool (verification greps + `cp` for the mirror).
 
@@ -13,7 +13,7 @@
 - **Environment.** Commands run via the Bash tool; `bash` works on this Windows host directly. The lint runs as plain `bash scripts/lint-fork-customizations.sh` (no WSL).
 - **Explicit-path staging.** Stage every commit by **explicit path** — never `git add -A`.
 - **No new lint marker.** This is a docs/dogfood change. The structural lint stays at **49 checks**; every task (and the final gate) re-runs it only as a **regression check** (`49 passed, 0 failed`).
-- **Do NOT touch frozen records.** Never edit anything under `docs/superpowers/plans/` or `docs/superpowers/specs/` (except this plan file). Those are point-in-time records and their old counts (`18`, `24`, `40`) are historical and correct.
+- **Do NOT touch frozen records.** Never edit anything under `docs/hyperpowers/plans/` or `docs/hyperpowers/specs/` (except this plan file). Those are point-in-time records and their old counts (`18`, `24`, `40`) are historical and correct.
 - **`CLAUDE.md` edits are additive only.** Preserve every existing section and its exact wording (the contributor guidelines are deliberately tuned). Only *add* the two new sections. Changes to `CLAUDE.md` should be shown as a diff for operator approval before committing (per the repo's own curation autonomy: structural changes are confirmed first).
 - **`AGENTS.md` is generated, never hand-written.** It is a verbatim `cp` of the finalized `CLAUDE.md`. Task 4 must run **after** Task 3 so the mirror is current.
 - **No `RELEASE-NOTES.md` entry.** This is doc reconciliation + repo hygiene, not a new user-facing behavior; the curation feature already has its release entry.
@@ -25,7 +25,7 @@ Each is an observable delta (false before this plan, true after):
 
 - `grep -c '49 checks' docs/workflow.md` → `1`, and `grep -c '18 checks' docs/workflow.md` → `0` (the stale count is gone).
 - `grep -F 'Two newer arcs' docs/workflow.md` matches, and `grep -F 'superpowers/bmad-absorption-happy-path.md' docs/workflow.md` matches (the project altitude is narrated and cross-linked, not duplicated).
-- `grep -F 'curate project memory' docs/superpowers/bmad-absorption-happy-path.md` matches (the merge node now shows the curation pass).
+- `grep -F 'curate project memory' docs/hyperpowers/bmad-absorption-happy-path.md` matches (the merge node now shows the curation pass).
 - `grep -c '## Context' CLAUDE.md` → `1` and `grep -c '## Documentation index' CLAUDE.md` → `1` (the two missing layers added), while `grep -F '## What We Will Not Accept' CLAUDE.md` still matches (existing tuned content preserved).
 - `diff -q CLAUDE.md AGENTS.md` prints nothing and exits 0 (AGENTS.md is now an exact mirror — it was a 1-line stub before), and `grep -F '## Pull Request Requirements' AGENTS.md` matches.
 - `grep -F '@./CLAUDE.md' GEMINI.md` matches (Gemini now loads the guidelines too).
@@ -38,7 +38,7 @@ Each is an observable delta (false before this plan, true after):
 **Files:**
 - Modify: `docs/workflow.md`
 
-**Interfaces:** Adds a `## Two newer arcs` section that cross-links `docs/superpowers/bmad-absorption-happy-path.md` (consumed by readers; not by code).
+**Interfaces:** Adds a `## Two newer arcs` section that cross-links `docs/hyperpowers/bmad-absorption-happy-path.md` (consumed by readers; not by code).
 
 - [ ] **Step 1: Fix the stale lint count**
 
@@ -63,13 +63,13 @@ The charts above are the day-to-day **feature** pipeline. Two later arcs extend 
   / cross-cutting work runs `product-discovery` → `architecture-design` → an
   implementation-readiness gate, then drops per-epic into the feature pipeline above, which *reads*
   those project artifacts instead of re-deriving them. Full diagram and "what came from where":
-  [`docs/superpowers/bmad-absorption-happy-path.md`](superpowers/bmad-absorption-happy-path.md).
+  [`docs/hyperpowers/bmad-absorption-happy-path.md`](superpowers/bmad-absorption-happy-path.md).
 - **Project-memory curation.** At completion, `finishing-a-development-branch` runs a
   `curating-project-memory` pass that drifts the project's `CLAUDE.md` (canonical) / generated
   `AGENTS.md` / scoped `.claude/rules/` / `docs/` toward an optimal, well-linked state;
   `writing-plans`' final documentation task now names `CLAUDE.md` / `AGENTS.md`, and
   `verification-before-completion` checks that project memory is current. Design:
-  [`docs/superpowers/specs/2026-06-22-project-memory-curation-design.md`](superpowers/specs/2026-06-22-project-memory-curation-design.md).
+  [`docs/hyperpowers/specs/2026-06-22-project-memory-curation-design.md`](superpowers/specs/2026-06-22-project-memory-curation-design.md).
 ```
 
 - [ ] **Step 3: Verify the deltas**
@@ -95,11 +95,11 @@ git commit -m "docs(workflow): refresh count, add project altitude + memory cura
 ### Task 2: Add the curation checkpoint to `bmad-absorption-happy-path.md`
 
 **Files:**
-- Modify: `docs/superpowers/bmad-absorption-happy-path.md`
+- Modify: `docs/hyperpowers/bmad-absorption-happy-path.md`
 
 - [ ] **Step 1: Show curation on the merge node**
 
-In `docs/superpowers/bmad-absorption-happy-path.md`, replace the exact string:
+In `docs/hyperpowers/bmad-absorption-happy-path.md`, replace the exact string:
 
 `Finish(["finishing-a-development-branch → merge"])`
 
@@ -123,7 +123,7 @@ re-enters the project altitude through `reevaluation`.
 Since 2026-06-22 the merge step also runs a `curating-project-memory` pass: project memory
 (`CLAUDE.md` canonical → generated `AGENTS.md`, scoped `.claude/rules/`, and `docs/`) drifts toward
 an optimal, well-linked state as a side effect of finishing work. Design:
-`docs/superpowers/specs/2026-06-22-project-memory-curation-design.md`.
+`docs/hyperpowers/specs/2026-06-22-project-memory-curation-design.md`.
 ```
 
 (If the exact string is not found verbatim, STOP and report NEEDS_CONTEXT with what you see — do not guess.)
@@ -133,7 +133,7 @@ an optimal, well-linked state as a side effect of finishing work. Design:
 Run:
 ```
 cd /c/Users/12026/.config/superpowers/worktrees/hyperpowers/feat-docs-reflect-new-realities
-grep -F 'curate project memory' docs/superpowers/bmad-absorption-happy-path.md >/dev/null && grep -F 'curating-project-memory` pass' docs/superpowers/bmad-absorption-happy-path.md >/dev/null && echo CURATION_OK
+grep -F 'curate project memory' docs/hyperpowers/bmad-absorption-happy-path.md >/dev/null && grep -F 'curating-project-memory` pass' docs/hyperpowers/bmad-absorption-happy-path.md >/dev/null && echo CURATION_OK
 ```
 Expected: `CURATION_OK`.
 
@@ -141,7 +141,7 @@ Expected: `CURATION_OK`.
 
 ```bash
 cd /c/Users/12026/.config/superpowers/worktrees/hyperpowers/feat-docs-reflect-new-realities
-git add docs/superpowers/bmad-absorption-happy-path.md
+git add docs/hyperpowers/bmad-absorption-happy-path.md
 git commit -m "docs(happy-path): note the curating-project-memory pass at merge"
 ```
 
@@ -204,10 +204,10 @@ Replace it with:
 ## Documentation index
 
 - [`docs/workflow.md`](docs/workflow.md) — the fork's happy-path pipeline (upstream vs. this fork).
-- [`docs/superpowers/bmad-absorption-happy-path.md`](docs/superpowers/bmad-absorption-happy-path.md) — the unified planning-OS altitude routing (Superpowers + absorbed BMAD).
+- [`docs/hyperpowers/bmad-absorption-happy-path.md`](docs/hyperpowers/bmad-absorption-happy-path.md) — the unified planning-OS altitude routing (Superpowers + absorbed BMAD).
 - [`docs/testing.md`](docs/testing.md) — how the plugin and skills are tested.
 - [`docs/porting-to-a-new-harness.md`](docs/porting-to-a-new-harness.md) — integrating a new harness.
-- `docs/superpowers/specs/` and `docs/superpowers/plans/` — dated design specs and implementation plans (point-in-time records).
+- `docs/hyperpowers/specs/` and `docs/hyperpowers/plans/` — dated design specs and implementation plans (point-in-time records).
 ```
 
 (If either exact anchor is not found verbatim, STOP and report NEEDS_CONTEXT — do not guess.)
@@ -302,7 +302,7 @@ Run:
 ```
 cd /c/Users/12026/.config/superpowers/worktrees/hyperpowers/feat-docs-reflect-new-realities
 echo "== workflow ==" && echo "49:$(grep -c '49 checks' docs/workflow.md) 18:$(grep -c '18 checks' docs/workflow.md)" && grep -F 'superpowers/bmad-absorption-happy-path.md' docs/workflow.md >/dev/null && echo xref_ok
-echo "== happy-path ==" && grep -F 'curate project memory' docs/superpowers/bmad-absorption-happy-path.md >/dev/null && echo curation_ok
+echo "== happy-path ==" && grep -F 'curate project memory' docs/hyperpowers/bmad-absorption-happy-path.md >/dev/null && echo curation_ok
 echo "== CLAUDE.md ==" && echo "Context:$(grep -c '## Context' CLAUDE.md) DocIndex:$(grep -c '## Documentation index' CLAUDE.md)" && grep -qF '## What We Will Not Accept' CLAUDE.md && echo preserved_ok
 echo "== AGENTS mirror ==" && diff -q CLAUDE.md AGENTS.md && echo mirror_ok
 echo "== GEMINI ==" && grep -F '@./CLAUDE.md' GEMINI.md >/dev/null && echo gemini_ok

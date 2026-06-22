@@ -10,8 +10,8 @@ implementation readiness. Project altitude; runs once per product or on reevalua
 
 ## Artifacts
 
-- `docs/superpowers/architecture/architecture.md` — components, interfaces, data model, tech choices.
-- `docs/superpowers/architecture/adr/NNN-<slug>.md` — one ADR per significant decision: context,
+- `docs/hyperpowers/architecture/architecture.md` — components, interfaces, data model, tech choices.
+- `docs/hyperpowers/architecture/adr/NNN-<slug>.md` — one ADR per significant decision: context,
   decision, consequences.
 
 ## Implementation-Readiness Gate

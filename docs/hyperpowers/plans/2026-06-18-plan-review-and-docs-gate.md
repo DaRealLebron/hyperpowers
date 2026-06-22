@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Spec: `docs/superpowers/specs/2026-06-17-plan-review-and-docs-gate-design.md` (this fork).
+- Spec: `docs/hyperpowers/specs/2026-06-17-plan-review-and-docs-gate-design.md` (this fork).
 - Repo root for all paths below: `/root/projects/superpowers` (the fork). Work on branch `feat/plan-review-and-docs-gate`.
 - Edits touch ONLY: `skills/writing-plans/SKILL.md`, `skills/writing-plans/plan-document-reviewer-prompt.md`, `skills/verification-before-completion/SKILL.md`, plus this fork's docs in the final task.
 - Gates are **advisory**: refuse to *claim* ready/done, but allow an explicit operator override note. Never hard-block.

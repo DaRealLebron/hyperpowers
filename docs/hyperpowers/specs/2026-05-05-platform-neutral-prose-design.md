@@ -22,7 +22,7 @@ Plus one coined-term rename: **Claude Search Optimization (CSO) → Skill Discov
 - **Config-file references** — CLAUDE.md, AGENTS.md, GEMINI.md priority lists and "where to put project conventions" callouts. (Phase B.)
 - **Tool-name references** — `Skill`, `Bash`, `Read`, `Task`, `TodoWrite`. Skills are written in Claude Code's tool vocabulary; the existing `references/{codex,copilot,gemini}-tools.md` files map them. (At the time this spec was written, the plan was to defer or skip these. Phase E ended up doing them — replacing tool names with action language across active skills and unifying the platform-tools refs around the same vocabulary.)
 - **Marketing copy** in README — "Superpowers for Claude Code", platform-named install sections. (Phase C.)
-- **Historical artifacts** — `docs/plans/*.md`, `docs/superpowers/specs/*.md`, `CREATION-LOG.md`. These are dated, point-in-time documents; rewriting them rewrites history.
+- **Historical artifacts** — `docs/plans/*.md`, `docs/hyperpowers/specs/*.md`, `CREATION-LOG.md`. These are dated, point-in-time documents; rewriting them rewrites history.
 - **Model identifiers** — Claude Haiku / Sonnet / Opus. These are real product names.
 - **Filename / URL references** — `CLAUDE.md`, `claude.com`, `claude-plugin/`, paths under `~/.claude/`.
 - **`anthropic-best-practices.md` filename** — the file remains named after its source even though we rewrite the prose inside it.

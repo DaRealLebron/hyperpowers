@@ -8,7 +8,7 @@
 
 **Tech Stack:** Markdown skill files; Python setup helper + bash checks + story.md for the quorum eval.
 
-**Spec:** `docs/superpowers/specs/2026-06-09-sdd-task-scoped-review-dispatch-design.md` — read it before starting. Decisions already settled there: full re-reviews stay; the two review stages stay separate; coordinator keeps model judgment; `requesting-code-review/` stays broad.
+**Spec:** `docs/hyperpowers/specs/2026-06-09-sdd-task-scoped-review-dispatch-design.md` — read it before starting. Decisions already settled there: full re-reviews stay; the two review stages stay separate; coordinator keeps model judgment; `requesting-code-review/` stays broad.
 
 **These are behavior-shaping prose files, not code.** There are no unit tests for them. Each task's verification steps are exact `grep` checks that the edit landed; behavioral verification is Task 6 (static) and Task 7 (live evals, maintainer-gated).
 
@@ -602,7 +602,7 @@ tags: subagent-driven-development
 quorum_max_time: 90m
 ---
 
-You have a small plan at docs/superpowers/plans/report-plan.md — two report
+You have a small plan at docs/hyperpowers/plans/report-plan.md — two report
 formatting functions. The plan's Task 2 implementation snippet duplicates
 Task 1's formatting logic verbatim instead of sharing it. The duplication is
 spec-compliant (the requirements only describe behavior), so the spec
@@ -612,7 +612,7 @@ the gate under test. You are spec-aware — name the skill.
 When the agent is ready for input, tell it to execute the plan with SDD. Use
 phrasing like:
 
-"I have a small plan at docs/superpowers/plans/report-plan.md — two report
+"I have a small plan at docs/hyperpowers/plans/report-plan.md — two report
 formatting functions. Use the hyperpowers:subagent-driven-development skill
 to execute it end-to-end — dispatch fresh subagents per task and run the
 two-stage review after each."
@@ -671,9 +671,9 @@ pre() {
     git-repo
     git-branch main
     requires-tool npm
-    file-exists 'docs/superpowers/plans/report-plan.md'
-    file-contains 'docs/superpowers/plans/report-plan.md' 'formatAdminReport'
-    file-contains 'docs/superpowers/plans/report-plan.md' 'repeat\(40\)'
+    file-exists 'docs/hyperpowers/plans/report-plan.md'
+    file-contains 'docs/hyperpowers/plans/report-plan.md' 'formatAdminReport'
+    file-contains 'docs/hyperpowers/plans/report-plan.md' 'repeat\(40\)'
 }
 
 post() {

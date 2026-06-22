@@ -12,7 +12,7 @@
 
 These bind every task. Copy them verbatim into any reviewer dispatch.
 
-- **Spec:** `docs/superpowers/specs/2026-06-19-evidence-grounded-planning-design.md`. The plan implements that spec and nothing beyond it (YAGNI).
+- **Spec:** `docs/hyperpowers/specs/2026-06-19-evidence-grounded-planning-design.md`. The plan implements that spec and nothing beyond it (YAGNI).
 - **Branch:** all work lands on `feat/evidence-grounded-planning`. The fork's `main` is protected (direct push blocked); publishing is a PR against the fork's own `main`, never upstream `obra/superpowers`.
 - **Staging is by explicit path, NEVER `git add -A`.** The working tree carries pre-existing line-ending/mode churn on dozens of unrelated files. Each commit stages only the files that task changed.
 - **Run environment.** The fork is in WSL. From this Windows host every shell command is wrapped. Two canonical forms (use these exact shapes):

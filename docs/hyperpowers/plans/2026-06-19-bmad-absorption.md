@@ -103,8 +103,8 @@ feature pipeline escalate upward if it hits an architectural surprise.
 
 ## Project artifacts are read, not re-derived
 
-Once the project altitude has produced `docs/superpowers/product/prd.md` and
-`docs/superpowers/architecture/architecture.md`, the feature altitude **reads** them — it never
+Once the project altitude has produced `docs/hyperpowers/product/prd.md` and
+`docs/hyperpowers/architecture/architecture.md`, the feature altitude **reads** them — it never
 re-runs discovery or re-authors product-level content for a feature an epic already covers.
 ```
 
@@ -142,7 +142,7 @@ wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/skill-route
 
 **Interfaces:**
 - Consumes: `skill-router` (referenced as the gate that decides project altitude).
-- Produces: the `product-discovery` skill and the shared `elicitation-methods.md` (referenced by `brainstorming` in Task 5). Markers `## Discovery to PRD`, `Carry findings forward` (dash-free substring of the in-skill sentence, to avoid em-dash fragility), `## Elicitation Methods`. Writes `docs/superpowers/product/{brief,prd}.md` at runtime with risk-tiered Gherkin acceptance criteria.
+- Produces: the `product-discovery` skill and the shared `elicitation-methods.md` (referenced by `brainstorming` in Task 5). Markers `## Discovery to PRD`, `Carry findings forward` (dash-free substring of the in-skill sentence, to avoid em-dash fragility), `## Elicitation Methods`. Writes `docs/hyperpowers/product/{brief,prd}.md` at runtime with risk-tiered Gherkin acceptance criteria.
 
 - [ ] **Step 1: Add the failing lint checks**
 
@@ -185,8 +185,8 @@ feature uses `brainstorming` instead.
 2. Run a discovery dialogue, one question at a time (like `brainstorming`). For a shallow or
    high-stakes answer, offer a named method from
    [elicitation-methods.md](elicitation-methods.md).
-3. Write `docs/superpowers/product/brief.md` — vision, audience, value, scope.
-4. Write `docs/superpowers/product/prd.md` — functional requirements, non-functional requirements,
+3. Write `docs/hyperpowers/product/brief.md` — vision, audience, value, scope.
+4. Write `docs/hyperpowers/product/prd.md` — functional requirements, non-functional requirements,
    epics, success metrics, MVP.
 
 Carry findings forward — never re-elicit. Everything the brief established flows into the PRD by
@@ -256,7 +256,7 @@ wsl.exe -e bash -lc 'cd /root/projects/superpowers && git add skills/product-dis
 
 **Interfaces:**
 - Consumes: the PRD produced by `product-discovery`; the existing `writing-plans` → Adversarial Plan Review panel (reused as the readiness gate).
-- Produces: the `architecture-design` skill. Markers `## Implementation-Readiness Gate`, `PASS / CONCERNS / FAIL`. Writes `docs/superpowers/architecture/architecture.md` and `adr/NNN-<slug>.md` at runtime.
+- Produces: the `architecture-design` skill. Markers `## Implementation-Readiness Gate`, `PASS / CONCERNS / FAIL`. Writes `docs/hyperpowers/architecture/architecture.md` and `adr/NNN-<slug>.md` at runtime.
 
 - [ ] **Step 1: Add the failing lint checks**
 
@@ -291,8 +291,8 @@ implementation readiness. Project altitude; runs once per product or on reevalua
 
 ## Artifacts
 
-- `docs/superpowers/architecture/architecture.md` — components, interfaces, data model, tech choices.
-- `docs/superpowers/architecture/adr/NNN-<slug>.md` — one ADR per significant decision: context,
+- `docs/hyperpowers/architecture/architecture.md` — components, interfaces, data model, tech choices.
+- `docs/hyperpowers/architecture/adr/NNN-<slug>.md` — one ADR per significant decision: context,
   decision, consequences.
 
 ## Implementation-Readiness Gate

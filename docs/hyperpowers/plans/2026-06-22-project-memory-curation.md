@@ -4,7 +4,7 @@
 
 **Goal:** Build the `curating-project-memory` skill and graft it into three checkpoint skills so any project using the fork slowly drifts its `CLAUDE.md` (canonical), generated `AGENTS.md` mirror, scoped `.claude/rules/`, and `docs/` toward an optimal, well-linked state — all guarded by the deterministic structural lint.
 
-**Architecture:** Pure advisory skill text + a `grep -qF` structural lint, matching the fork's established pattern. One new skill is created; three existing skills are grafted; the lint grows from 40 to 49 checks. No runtime code. Each behavior is added RED-first (lint check before the text it guards). Source spec: `docs/superpowers/specs/2026-06-22-project-memory-curation-design.md`.
+**Architecture:** Pure advisory skill text + a `grep -qF` structural lint, matching the fork's established pattern. One new skill is created; three existing skills are grafted; the lint grows from 40 to 49 checks. No runtime code. Each behavior is added RED-first (lint check before the text it guards). Source spec: `docs/hyperpowers/specs/2026-06-22-project-memory-curation-design.md`.
 
 **Tech Stack:** Markdown skill files; Bash structural lint (`scripts/lint-fork-customizations.sh`).
 

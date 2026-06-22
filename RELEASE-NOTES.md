@@ -538,8 +538,8 @@ Dramatically reduces token usage and speeds up spec and plan reviews by eliminat
 
 **Specs and plans directory restructured**
 
-- Specs (brainstorming output) now save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`
-- Plans (writing-plans output) now save to `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`
+- Specs (brainstorming output) now save to `docs/hyperpowers/specs/YYYY-MM-DD-<topic>-design.md`
+- Plans (writing-plans output) now save to `docs/hyperpowers/plans/YYYY-MM-DD-<feature-name>.md`
 - User preferences for spec/plan locations override these defaults
 - All internal skill references, test files, and example paths updated to match
 - Migration: move existing files from `docs/plans/` to new locations if desired
@@ -578,7 +578,7 @@ Automated review loops for spec and plan documents using subagent dispatch:
 - Writing-plans includes chunk-based plan review loop after each section
 - Review loops repeat until approved or escalate after 5 iterations
 - End-to-end tests in `tests/claude-code/test-document-review-system.sh`
-- Design spec and implementation plan in `docs/superpowers/`
+- Design spec and implementation plan in `docs/hyperpowers/`
 
 **Architecture guidance across the skill pipeline**
 

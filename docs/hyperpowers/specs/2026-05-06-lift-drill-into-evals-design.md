@@ -108,7 +108,7 @@ Every change in the implementation plan gets cross-checked by an independent sub
 | Each bash-test deletion | Dispatch a subagent with: (a) the bash test file content, (b) the candidate drill scenario YAML, (c) the prompt: *"List every assertion the bash test makes. List every verify entry in the drill scenario. For each bash assertion, find a matching drill check or report it as unmatched. Output a per-assertion table."* The subagent's output is the gate — only delete if every bash assertion has a match. |
 | Initial `evals/` copy | Subagent verifies: (a) drill SHA being copied is recorded in the lift commit message so provenance is auditable; (b) **per-file SHA-256 checksum** matches drill repo for every file (not just file count); (c) excluded paths (`.git/`, `.venv/`, `results/`, `.env`, `__pycache__/`, `*.egg-info/`, any `.private-journal/`) are absent from `evals/`; (d) all backend YAMLs reference paths that exist post-move; (e) `pyproject.toml`, `uv.lock`, `.gitignore` are intact. |
 | Drill's own pytest suite | Subagent runs `cd evals && uv run pytest` after the path-default change. Drill ships its own pytest suite at `evals/tests/` including `test_backend.py` which exercises `SUPERPOWERS_ROOT` env-var behavior — these tests must update to match the helper and continue to pass. |
-| Reference scrubbing after deletion | Subagent greps the entire superpowers tree (excluding `node_modules/`, `.venv/`, and `evals/`) for references to deleted bash test paths. Search targets: `docs/`, `docs/superpowers/plans/`, `RELEASE-NOTES.md`, `CLAUDE.md`, `GEMINI.md`, `AGENTS.md`, `README.md`, `.github/`, `scripts/`, `.opencode/INSTALL.md`, `.codex-plugin/INSTALL.md`, `lefthook.yml`. Any hit is either updated or surfaces a missed dependency. |
+| Reference scrubbing after deletion | Subagent greps the entire superpowers tree (excluding `node_modules/`, `.venv/`, and `evals/`) for references to deleted bash test paths. Search targets: `docs/`, `docs/hyperpowers/plans/`, `RELEASE-NOTES.md`, `CLAUDE.md`, `GEMINI.md`, `AGENTS.md`, `README.md`, `.github/`, `scripts/`, `.opencode/INSTALL.md`, `.codex-plugin/INSTALL.md`, `lefthook.yml`. Any hit is either updated or surfaces a missed dependency. |
 | Path defaults change (`SUPERPOWERS_ROOT` default) | Subagent runs at least one cheap drill scenario after the path changes (e.g., `triggering-test-driven-development`) and confirms it still passes. Real validation, not just code review. |
 | Final pre-PR adversarial review | Two subagents in parallel, "5 points to whoever finds the most legitimate issues" framing — same protocol used on the cross-platform PR. Verify both source code and behavior. |
 
@@ -186,11 +186,11 @@ Each step is a separate commit (or small group of commits). Step 2 is the bigges
 6. Stale-reference scrub
    ├─ Subagent greps the superpowers tree (excluding node_modules/, .venv/,
    │  evals/) for deleted file paths
-   ├─ Search targets: docs/, docs/superpowers/plans/, RELEASE-NOTES.md,
+   ├─ Search targets: docs/, docs/hyperpowers/plans/, RELEASE-NOTES.md,
    │  CLAUDE.md, GEMINI.md, AGENTS.md, README.md, .github/, scripts/,
    │  .opencode/INSTALL.md, .codex-plugin/INSTALL.md, lefthook.yml
    ├─ Update active references (e.g., docs/testing.md, README.md install)
-   └─ Historical references in docs/superpowers/plans/*.md and
+   └─ Historical references in docs/hyperpowers/plans/*.md and
       RELEASE-NOTES.md are PRESERVED with a brief annotation
       ("(test removed; behavior covered by drill scenario X)") rather
       than rewritten — these are dated artifacts, not living docs.
@@ -226,7 +226,7 @@ The implementation plan must show:
 - `cd evals && uv run drill list` returns the same scenario count as the standalone drill repo at the recorded SHA.
 - `cd evals && uv run drill run triggering-test-driven-development -b claude` passes (proves path defaults work end-to-end).
 - For each deleted bash test: subagent verification table in the commit message showing every assertion mapped to a drill check.
-- Grep for deleted file paths returns zero hits across living superpowers docs (post step 6); historical refs in `docs/superpowers/plans/*.md` and `RELEASE-NOTES.md` are annotated, not rewritten.
+- Grep for deleted file paths returns zero hits across living superpowers docs (post step 6); historical refs in `docs/hyperpowers/plans/*.md` and `RELEASE-NOTES.md` are annotated, not rewritten.
 - `docs/testing.md` has both "Plugin tests" and "Skill behavior evals" sections.
 - The drill repo's history is untouched; `obra/drill` is unaffected by this PR.
 - PR description names the action item to archive `obra/drill` after merge.
