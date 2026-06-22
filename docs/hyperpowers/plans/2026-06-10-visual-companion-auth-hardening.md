@@ -35,7 +35,7 @@
 - Modify: `skills/brainstorming/scripts/stop-server.sh`
   - Fix shell lint.
 - Modify: `.gitignore`
-  - Add `.superpowers/`.
+  - Add `.hyperpowers/`.
 - Optional docs update: `skills/brainstorming/visual-companion.md`
   - Mention bootstrap URL stripping and trusted same-origin screen JS if the code behavior changes need operator-facing explanation.
 
@@ -651,7 +651,7 @@ Run:
 
 ```bash
 cd /Users/drewritter/prime-rad/superpowers
-git check-ignore .superpowers/brainstorm/.last-token || true
+git check-ignore .hyperpowers/brainstorm/.last-token || true
 ```
 
 Expected current output: no matching ignore rule.
@@ -661,7 +661,7 @@ Expected current output: no matching ignore rule.
 Add this line to `.gitignore`:
 
 ```gitignore
-.superpowers/
+.hyperpowers/
 ```
 
 - [ ] **Step 3: Verify GREEN**
@@ -670,13 +670,13 @@ Run:
 
 ```bash
 cd /Users/drewritter/prime-rad/superpowers
-git check-ignore .superpowers/brainstorm/.last-token
+git check-ignore .hyperpowers/brainstorm/.last-token
 ```
 
 Expected output:
 
 ```text
-.superpowers/brainstorm/.last-token
+.hyperpowers/brainstorm/.last-token
 ```
 
 ## Task 9: Full Automated Verification

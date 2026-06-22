@@ -743,18 +743,18 @@ Live quorum runs launch agent CLIs in permissive modes — **trusted-maintainer 
 
 ```bash
 cd evals
-export SUPERPOWERS_ROOT=/Users/jesse/git/superpowers/superpowers
+export HYPERPOWERS_ROOT=/Users/jesse/git/superpowers/superpowers
 uv run quorum run scenarios/sdd-rejects-extra-features --coding-agent claude
 uv run quorum run scenarios/sdd-go-fractals --coding-agent claude
 uv run quorum run scenarios/sdd-svelte-todo --coding-agent claude
 uv run quorum run scenarios/spec-reviewer-catches-planted-flaws --coding-agent claude
 ```
 
-- [ ] **Step 2: After (this branch's skills)** — point `SUPERPOWERS_ROOT` at this worktree:
+- [ ] **Step 2: After (this branch's skills)** — point `HYPERPOWERS_ROOT` at this worktree:
 
 ```bash
 cd evals
-export SUPERPOWERS_ROOT=/Users/jesse/git/superpowers/superpowers/.claude/worktrees/sdd-review-dispatch
+export HYPERPOWERS_ROOT=/Users/jesse/git/superpowers/superpowers/.claude/worktrees/sdd-review-dispatch
 uv run quorum run scenarios/sdd-rejects-extra-features --coding-agent claude
 uv run quorum run scenarios/sdd-go-fractals --coding-agent claude
 uv run quorum run scenarios/sdd-svelte-todo --coding-agent claude

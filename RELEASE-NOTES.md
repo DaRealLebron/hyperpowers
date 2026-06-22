@@ -1309,7 +1309,7 @@ If you have an existing installation:
 - Moved "skills behind" warning to end of output
 
 **Environment Variables**
-- `SUPERPOWERS_SKILLS_ROOT` set to `~/.config/superpowers/skills`
+- `HYPERPOWERS_SKILLS_ROOT` set to `~/.config/superpowers/skills`
 - Used consistently throughout all paths
 
 ## Bug Fixes
@@ -1349,9 +1349,9 @@ If you have an existing installation:
 
 **Modified:**
 - `hooks/session-start.sh` - Use skills from ~/.config/superpowers/skills
-- `commands/brainstorm.md` - Updated paths to SUPERPOWERS_SKILLS_ROOT
-- `commands/write-plan.md` - Updated paths to SUPERPOWERS_SKILLS_ROOT
-- `commands/execute-plan.md` - Updated paths to SUPERPOWERS_SKILLS_ROOT
+- `commands/brainstorm.md` - Updated paths to HYPERPOWERS_SKILLS_ROOT
+- `commands/write-plan.md` - Updated paths to HYPERPOWERS_SKILLS_ROOT
+- `commands/execute-plan.md` - Updated paths to HYPERPOWERS_SKILLS_ROOT
 - `README.md` - Complete rewrite for new architecture
 
 ### Commit History

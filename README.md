@@ -225,8 +225,6 @@ The Pi package loads the skills and a small extension that injects the `using-hy
 - **Complexity reduction** - Simplicity as primary goal
 - **Evidence over claims** - Verify before declaring success
 
-Read [the original release announcement](https://blog.fsck.com/2025/10/09/superpowers/).
-
 ## Contributing
 
 The general contribution process is below. Keep in mind that we don't generally accept contributions of new skills and that any updates to skills must work across all of the coding agents we support.
@@ -251,9 +249,8 @@ MIT License - see LICENSE file for details
 
 ## Visual companion telemetry
 
-Because skills and plugins don't provide any feedback to creators, we have no idea how many of you are using this. By default, the Prime Radiant logo on brainstorming's optional visual companion feature is loaded from our website. It includes the version in use. It does not include any details about your project, prompt, or coding agent. We don't see your clicks or anything about what you're building. It's 100% optional. To disable this, set the environment variable `SUPERPOWERS_DISABLE_TELEMETRY` to any true value. This also honors Claude Code's `DISABLE_TELEMETRY` and `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` opt-outs.
+Because skills and plugins don't provide any feedback to creators, we have no idea how many of you are using this. By default, the Prime Radiant logo on brainstorming's optional visual companion feature is loaded from our website. It includes the version in use. It does not include any details about your project, prompt, or coding agent. We don't see your clicks or anything about what you're building. It's 100% optional. To disable this, set the environment variable `HYPERPOWERS_DISABLE_TELEMETRY` to any true value. This also honors Claude Code's `DISABLE_TELEMETRY` and `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` opt-outs.
 
 ## Community
 
 - **Issues**: https://github.com/DaRealLebron/hyperpowers/issues
-- **Release announcements**: [Sign up](https://primeradiant.com/superpowers/) to get notified about new versions

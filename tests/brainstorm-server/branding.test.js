@@ -15,6 +15,7 @@ const PACKAGE_VERSION = JSON.parse(
 ).version;
 const TOKEN = 'testtoken-branding-0123456789abcdef';
 const ASSET_URL = 'https://primeradiant.com/brand/superpowers-visual-brainstorming-logo.png';
+const CUSTOM_LOGO_URL = 'https://example.com/brand/hyperpowers-logo.png';
 
 function cleanup(dir) {
   if (fs.existsSync(dir)) {
@@ -119,14 +120,41 @@ async function test(name, fn) {
   }
 }
 
-function assertBrandedWithLogo(html, version = PACKAGE_VERSION) {
+function assertBrandedNoLogo(html, version = PACKAGE_VERSION) {
   assert(
     html.includes(`Hyperpowers v${version}`),
     'branding text should include dynamic package version'
   );
   assert(
-    !html.includes(`Hyperpowers v${version} by`),
-    'branding text should not include "by" when the logo is visible'
+    !/<img class="brand-logo"/.test(html),
+    'default branding should not render a logo image when no brand URL is configured'
+  );
+  assert(
+    /\.brand a\s*\{[^}]*line-height:\s*1/i.test(html),
+    'brand row should align the logo and version text by their visual height'
+  );
+  assert(
+    /\.brand a\s*\{[^}]*gap:\s*0\.5rem/i.test(html),
+    'brand row should keep the logo and version text close together'
+  );
+  assert(
+    /\.brand a\s*\{[^}]*max-width:\s*100%/i.test(html),
+    'brand link should be constrained so it cannot overlap the status column'
+  );
+  assert(
+    /\.brand\s*\{[^}]*line-height:\s*1/i.test(html),
+    'brand wrapper should not inherit the page line height'
+  );
+  assert(
+    /\.brand\s*\{[^}]*overflow:\s*hidden/i.test(html),
+    'brand wrapper should clip before it reaches the status column'
+  );
+}
+
+function assertBrandedWithLogo(html, logoUrl, version = PACKAGE_VERSION) {
+  assert(
+    html.includes(`Hyperpowers v${version}`),
+    'branding text should include dynamic package version'
   );
   assert(
     /<img class="brand-logo"[^>]*>\s*<span class="brand-copy">Hyperpowers v/.test(html),
@@ -161,9 +189,9 @@ function assertBrandedFallbackText(html, version = PACKAGE_VERSION) {
   );
 }
 
-function assertTelemetryImage(html, version = PACKAGE_VERSION) {
-  const expectedUrl = `${ASSET_URL}?v=${encodeURIComponent(version)}`;
-  assert(html.includes(`src="${expectedUrl}"`), 'remote image should use the dedicated main-domain asset with only v=');
+function assertTelemetryImage(html, logoUrl, version = PACKAGE_VERSION) {
+  const expectedUrl = `${logoUrl}?v=${encodeURIComponent(version)}`;
+  assert(html.includes(`src="${expectedUrl}"`), 'remote image should use the configured brand URL with only v=');
   assert(!html.includes('event='), 'remote image URL must not include event=');
   assert(!html.includes('surface='), 'remote image URL must not include surface=');
   assert(!html.includes('launch_id='), 'remote image URL must not include launch_id=');
@@ -212,9 +240,11 @@ function assertFramedLogoSupportsDarkTheme(html) {
   );
 }
 
-function assertFramedScreenUsesBrandHeader(html) {
-  const logoCount = (html.match(/class="brand-logo"/g) || []).length;
-  assert.strictEqual(logoCount, 1, 'framed screens should render the logo only in the header');
+function assertFramedScreenUsesBrandHeader(html, { expectLogo = false } = {}) {
+  if (expectLogo) {
+    const logoCount = (html.match(/class="brand-logo"/g) || []).length;
+    assert.strictEqual(logoCount, 1, 'framed screens should render the logo only in the header');
+  }
   assert(!html.includes('<div class="indicator-bar">'), 'framed screens should not render footer chrome');
   assert(
     /<div class="header">[\s\S]*<div class="brand">[\s\S]*<div class="status">Connecting…<\/div>/.test(html),
@@ -242,31 +272,45 @@ function assertHeaderAvoidsNarrowOverlap(html) {
 async function main() {
   console.log('\n--- Visual Companion Branding ---');
 
-  await test('framed screens render versioned Prime Radiant logo by default', async () => {
+  await test('framed screens render version text without upstream logo by default', async () => {
     const port = 3451;
     const dir = '/tmp/brainstorm-branding-default';
     await withServer({ port, dir }, async () => {
       writeFragment(dir);
       await sleep(300);
       const html = await fetchHtml(port);
-      assertBrandedWithLogo(html);
-      assertTelemetryImage(html);
-      assertLogoKeepsTransparentBackground(html);
+      assertBrandedNoLogo(html);
+      assert(!html.includes(ASSET_URL), 'default branding must not load the upstream primeradiant asset');
       assertFramedLogoSupportsDarkTheme(html);
       assertFramedScreenUsesBrandHeader(html);
       assertHeaderAvoidsNarrowOverlap(html);
     });
   });
 
-  await test('waiting screen renders versioned Prime Radiant logo by default', async () => {
+  await test('waiting screen renders version text without upstream logo by default', async () => {
     const port = 3452;
     const dir = '/tmp/brainstorm-branding-waiting';
     await withServer({ port, dir }, async () => {
       const html = await fetchHtml(port);
       assert(html.includes('Waiting for the agent'), 'waiting page should still render');
-      assertBrandedWithLogo(html);
-      assertTelemetryImage(html);
+      assertBrandedNoLogo(html);
+      assert(!html.includes(ASSET_URL), 'default branding must not load the upstream primeradiant asset');
+    });
+  });
+
+  await test('HYPERPOWERS_BRAND_IMAGE_URL env var enables custom logo', async () => {
+    const port = 3458;
+    const dir = '/tmp/brainstorm-branding-custom-logo';
+    await withServer({ port, dir, env: { HYPERPOWERS_BRAND_IMAGE_URL: CUSTOM_LOGO_URL } }, async () => {
+      writeFragment(dir);
+      await sleep(300);
+      const html = await fetchHtml(port);
+      assertBrandedWithLogo(html, CUSTOM_LOGO_URL);
+      assertTelemetryImage(html, CUSTOM_LOGO_URL);
       assertLogoKeepsTransparentBackground(html);
+      assertFramedLogoSupportsDarkTheme(html);
+      assertFramedScreenUsesBrandHeader(html, { expectLogo: true });
+      assertHeaderAvoidsNarrowOverlap(html);
     });
   });
 
@@ -281,8 +325,7 @@ async function main() {
         writeFragment(dir);
         await sleep(300);
         const html = await fetchHtml(port);
-        assertBrandedWithLogo(html, packagedVersion);
-        assertTelemetryImage(html, packagedVersion);
+        assertBrandedNoLogo(html, packagedVersion);
         assert(!html.includes('Hyperpowers vunknown'), 'packaged plugin should not fall back to unknown version');
       });
     } finally {
@@ -290,10 +333,10 @@ async function main() {
     }
   });
 
-  await test('SUPERPOWERS_DISABLE_TELEMETRY=true omits remote image but keeps local branding', async () => {
+  await test('HYPERPOWERS_DISABLE_TELEMETRY=true omits remote image but keeps local branding', async () => {
     const port = 3453;
     const dir = '/tmp/brainstorm-branding-disabled';
-    await withServer({ port, dir, env: { SUPERPOWERS_DISABLE_TELEMETRY: 'true' } }, async () => {
+    await withServer({ port, dir, env: { HYPERPOWERS_DISABLE_TELEMETRY: 'true' } }, async () => {
       writeFragment(dir);
       await sleep(300);
       const html = await fetchHtml(port);
@@ -302,10 +345,10 @@ async function main() {
     });
   });
 
-  await test('SUPERPOWERS_DISABLE_TELEMETRY=yes also omits the remote image on the waiting screen', async () => {
+  await test('HYPERPOWERS_DISABLE_TELEMETRY=yes also omits the remote image on the waiting screen', async () => {
     const port = 3454;
     const dir = '/tmp/brainstorm-branding-disabled-waiting';
-    await withServer({ port, dir, env: { SUPERPOWERS_DISABLE_TELEMETRY: 'yes' } }, async () => {
+    await withServer({ port, dir, env: { HYPERPOWERS_DISABLE_TELEMETRY: 'yes' } }, async () => {
       const html = await fetchHtml(port);
       assertBrandedFallbackText(html);
       assert(!html.includes(ASSET_URL), 'disabled telemetry should omit the remote image');

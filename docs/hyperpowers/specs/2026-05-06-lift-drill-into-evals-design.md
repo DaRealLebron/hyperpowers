@@ -107,27 +107,27 @@ Every change in the implementation plan gets cross-checked by an independent sub
 |----------------|----------------------|
 | Each bash-test deletion | Dispatch a subagent with: (a) the bash test file content, (b) the candidate drill scenario YAML, (c) the prompt: *"List every assertion the bash test makes. List every verify entry in the drill scenario. For each bash assertion, find a matching drill check or report it as unmatched. Output a per-assertion table."* The subagent's output is the gate — only delete if every bash assertion has a match. |
 | Initial `evals/` copy | Subagent verifies: (a) drill SHA being copied is recorded in the lift commit message so provenance is auditable; (b) **per-file SHA-256 checksum** matches drill repo for every file (not just file count); (c) excluded paths (`.git/`, `.venv/`, `results/`, `.env`, `__pycache__/`, `*.egg-info/`, any `.private-journal/`) are absent from `evals/`; (d) all backend YAMLs reference paths that exist post-move; (e) `pyproject.toml`, `uv.lock`, `.gitignore` are intact. |
-| Drill's own pytest suite | Subagent runs `cd evals && uv run pytest` after the path-default change. Drill ships its own pytest suite at `evals/tests/` including `test_backend.py` which exercises `SUPERPOWERS_ROOT` env-var behavior — these tests must update to match the helper and continue to pass. |
+| Drill's own pytest suite | Subagent runs `cd evals && uv run pytest` after the path-default change. Drill ships its own pytest suite at `evals/tests/` including `test_backend.py` which exercises `HYPERPOWERS_ROOT` env-var behavior — these tests must update to match the helper and continue to pass. |
 | Reference scrubbing after deletion | Subagent greps the entire superpowers tree (excluding `node_modules/`, `.venv/`, and `evals/`) for references to deleted bash test paths. Search targets: `docs/`, `docs/hyperpowers/plans/`, `RELEASE-NOTES.md`, `CLAUDE.md`, `GEMINI.md`, `AGENTS.md`, `README.md`, `.github/`, `scripts/`, `.opencode/INSTALL.md`, `.codex-plugin/INSTALL.md`, `lefthook.yml`. Any hit is either updated or surfaces a missed dependency. |
-| Path defaults change (`SUPERPOWERS_ROOT` default) | Subagent runs at least one cheap drill scenario after the path changes (e.g., `triggering-test-driven-development`) and confirms it still passes. Real validation, not just code review. |
+| Path defaults change (`HYPERPOWERS_ROOT` default) | Subagent runs at least one cheap drill scenario after the path changes (e.g., `triggering-test-driven-development`) and confirms it still passes. Real validation, not just code review. |
 | Final pre-PR adversarial review | Two subagents in parallel, "5 points to whoever finds the most legitimate issues" framing — same protocol used on the cross-platform PR. Verify both source code and behavior. |
 
 Each subagent task gets its own bullet in the implementation plan with explicit inputs and pass criteria. The subagent's output is summarized in the relevant commit message ("Subagent verification: …") so the trail is auditable.
 
 ## Concrete path/config edits
 
-**Verified prior to writing this spec.** `drill/cli.py` defines `PROJECT_ROOT = Path(__file__).parent.parent`. After the move, `cli.py` lives at `evals/drill/cli.py`, so `PROJECT_ROOT` resolves to `evals/` and `PROJECT_ROOT.parent` resolves to the superpowers repo root. That's the value `SUPERPOWERS_ROOT` should take by default.
+**Verified prior to writing this spec.** `drill/cli.py` defines `PROJECT_ROOT = Path(__file__).parent.parent`. After the move, `cli.py` lives at `evals/drill/cli.py`, so `PROJECT_ROOT` resolves to `evals/` and `PROJECT_ROOT.parent` resolves to the superpowers repo root. That's the value `HYPERPOWERS_ROOT` should take by default.
 
-**YAML substitution audit.** Only the four `claude*.yaml` backend configs interpolate `${SUPERPOWERS_ROOT}` into `args` (for the `--plugin-dir` flag); `codex.yaml` and `gemini.yaml` only list `SUPERPOWERS_ROOT` in `required_env` (consumed by `engine.py:233` / `setup.py:25`'s `os.environ["SUPERPOWERS_ROOT"]` lookups in pre/post-run hooks). The helper's `os.environ` mutation covers both code paths.
+**YAML substitution audit.** Only the four `claude*.yaml` backend configs interpolate `${HYPERPOWERS_ROOT}` into `args` (for the `--plugin-dir` flag); `codex.yaml` and `gemini.yaml` only list `HYPERPOWERS_ROOT` in `required_env` (consumed by `engine.py:233` / `setup.py:25`'s `os.environ["HYPERPOWERS_ROOT"]` lookups in pre/post-run hooks). The helper's `os.environ` mutation covers both code paths.
 
 | File | Current | After |
 |------|---------|-------|
-| `drill/cli.py` | `load_dotenv(PROJECT_ROOT / ".env")` at module import; nothing about `SUPERPOWERS_ROOT` | After `load_dotenv`, call new helper `_set_superpowers_root_default()` that sets `os.environ["SUPERPOWERS_ROOT"]` to `str(PROJECT_ROOT.parent)` if and only if not already set. Order: `load_dotenv` → set default → click group definitions. |
-| `drill/engine.py:233`, `drill/setup.py:25` | Direct `os.environ["SUPERPOWERS_ROOT"]` access (KeyError if unset) | Unchanged. The CLI startup hook guarantees the env var is set by the time the engine/setup execute. |
-| `backends/claude*.yaml` (5 files) | `${SUPERPOWERS_ROOT}` substituted in `args` for `--plugin-dir` | Unchanged. YAML substitution reads `os.environ` at backend-load time, which is after CLI startup. |
-| `backends/codex.yaml`, `backends/gemini.yaml` | `SUPERPOWERS_ROOT` in `required_env` only | Drop from `required_env` (the helper supplies it). `claude*.yaml` keep `required_env` for backward compat (env var works as override). |
-| `evals/tests/test_backend.py` | Tests assert `SUPERPOWERS_ROOT` is in `required_env` lists, plus path-resolution tests | Update tests to match the new contract: helper-supplied default, env override still works, `required_env` no longer required for codex/gemini. |
-| `evals/README.md` | "export SUPERPOWERS_ROOT=/path/to/superpowers" | Drop the export line; note that the env var auto-defaults to the parent of `evals/`; mention the only required setup is `ANTHROPIC_API_KEY` (or `OPENAI_API_KEY` / Gemini auth). |
+| `drill/cli.py` | `load_dotenv(PROJECT_ROOT / ".env")` at module import; nothing about `HYPERPOWERS_ROOT` | After `load_dotenv`, call new helper `_set_superpowers_root_default()` that sets `os.environ["HYPERPOWERS_ROOT"]` to `str(PROJECT_ROOT.parent)` if and only if not already set. Order: `load_dotenv` → set default → click group definitions. |
+| `drill/engine.py:233`, `drill/setup.py:25` | Direct `os.environ["HYPERPOWERS_ROOT"]` access (KeyError if unset) | Unchanged. The CLI startup hook guarantees the env var is set by the time the engine/setup execute. |
+| `backends/claude*.yaml` (5 files) | `${HYPERPOWERS_ROOT}` substituted in `args` for `--plugin-dir` | Unchanged. YAML substitution reads `os.environ` at backend-load time, which is after CLI startup. |
+| `backends/codex.yaml`, `backends/gemini.yaml` | `HYPERPOWERS_ROOT` in `required_env` only | Drop from `required_env` (the helper supplies it). `claude*.yaml` keep `required_env` for backward compat (env var works as override). |
+| `evals/tests/test_backend.py` | Tests assert `HYPERPOWERS_ROOT` is in `required_env` lists, plus path-resolution tests | Update tests to match the new contract: helper-supplied default, env override still works, `required_env` no longer required for codex/gemini. |
+| `evals/README.md` | "export HYPERPOWERS_ROOT=/path/to/superpowers" | Drop the export line; note that the env var auto-defaults to the parent of `evals/`; mention the only required setup is `ANTHROPIC_API_KEY` (or `OPENAI_API_KEY` / Gemini auth). |
 | `evals/CLAUDE.md` | Same | Same |
 | `evals/.gitignore` | drill's existing patterns (`results/`, `.venv/`, `__pycache__/`, `.env`, `*.pyc`, `*.egg-info/`, `dist/`, `build/`, `.claude/`) | Copied verbatim. Patterns are relative to file location, so they apply correctly under `evals/`. |
 | `evals/lefthook.yml` | drill ships `lefthook.yml` defining `pre-commit: uv run ruff check && uv run ty check` | Move to `evals/lefthook.yml`. Either (a) install lefthook at the superpowers root and have it federate to `evals/lefthook.yml`, or (b) document that contributors run `cd evals && lefthook run pre-commit` manually. **Decision in implementation: option (b) for simplicity** — superpowers' top-level workflow doesn't change. |
@@ -163,8 +163,8 @@ Each step is a separate commit (or small group of commits). Step 2 is the bigges
 3. Update path defaults
    ├─ Add _set_superpowers_root_default() helper to drill/cli.py
    ├─ Wire it after load_dotenv, before click group definition
-   ├─ Update evals/README.md and evals/CLAUDE.md (drop SUPERPOWERS_ROOT install step)
-   ├─ Drop SUPERPOWERS_ROOT from required_env in codex.yaml/gemini.yaml
+   ├─ Update evals/README.md and evals/CLAUDE.md (drop HYPERPOWERS_ROOT install step)
+   ├─ Drop HYPERPOWERS_ROOT from required_env in codex.yaml/gemini.yaml
    │  (keep in claude*.yaml as override)
    └─ Update evals/tests/test_backend.py to match new contract
 
@@ -221,7 +221,7 @@ The implementation plan must show:
 - All non-excluded drill source files present at `evals/` after step 2 (subagent **per-file SHA-256 checksum diff** vs `obra/drill@<recorded-sha>`).
 - Excluded paths (`.git/`, `.venv/`, `results/`, `.env`, `__pycache__/`, `*.egg-info/`, `.private-journal/`) absent from `evals/`.
 - The step-2 commit message records the drill source SHA.
-- `cd evals && uv sync` succeeds without `SUPERPOWERS_ROOT` set.
+- `cd evals && uv sync` succeeds without `HYPERPOWERS_ROOT` set.
 - `cd evals && uv run pytest` passes (drill's own pytest suite).
 - `cd evals && uv run drill list` returns the same scenario count as the standalone drill repo at the recorded SHA.
 - `cd evals && uv run drill run triggering-test-driven-development -b claude` passes (proves path defaults work end-to-end).

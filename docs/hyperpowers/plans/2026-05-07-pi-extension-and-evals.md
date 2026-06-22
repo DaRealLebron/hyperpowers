@@ -97,7 +97,7 @@ Expected: PASS.
 
 Add pytest coverage for:
 - `load_backend("pi")` returns `family == "pi"`
-- Pi backend command starts with `pi` and includes `-e ${SUPERPOWERS_ROOT}`
+- Pi backend command starts with `pi` and includes `-e ${HYPERPOWERS_ROOT}`
 - `_resolve_log_dir()` for Pi points under `~/.pi/agent/sessions`
 - `filter_pi_logs_by_cwd()` keeps only session files whose header `cwd` matches the scenario workdir
 - `normalize_pi_logs()` extracts `toolCall` blocks from Pi assistant session entries and maps built-in lowercase tools to canonical names
@@ -110,7 +110,7 @@ Expected: FAIL because the Pi backend and normalizer do not exist.
 
 - [ ] **Step 3: Add `evals/backends/pi.yaml`**
 
-Configure the backend to run `pi -e ${SUPERPOWERS_ROOT}`, use permissive TUI readiness, `/quit` shutdown, and Pi session log location.
+Configure the backend to run `pi -e ${HYPERPOWERS_ROOT}`, use permissive TUI readiness, `/quit` shutdown, and Pi session log location.
 
 - [ ] **Step 4: Implement Pi family support**
 

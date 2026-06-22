@@ -4,7 +4,7 @@
 
 **Goal:** Move the standalone `obra/drill` skill-compliance benchmark into superpowers as a top-level `evals/` directory, delete redundant bash tests under `superpowers/tests/` after per-file subagent verification of drill scenario coverage, and update top-level docs so contributors land on the new structure.
 
-**Architecture:** Single PR against `dev` on a new branch `f/evals-lift`. Drill source is copied verbatim with explicit rsync excludes to keep `.git/`, `.venv/`, etc. out of the new dir. A small helper in `drill/cli.py` defaults `SUPERPOWERS_ROOT` to the parent of the `evals/` directory, so contributors don't have to set the env var. Each bash-test deletion is gated by a subagent that compares the bash test's assertions to its claimed drill scenario's verify block. Historical references in plan docs and release notes are annotated, not rewritten.
+**Architecture:** Single PR against `dev` on a new branch `f/evals-lift`. Drill source is copied verbatim with explicit rsync excludes to keep `.git/`, `.venv/`, etc. out of the new dir. A small helper in `drill/cli.py` defaults `HYPERPOWERS_ROOT` to the parent of the `evals/` directory, so contributors don't have to set the env var. Each bash-test deletion is gated by a subagent that compares the bash test's assertions to its claimed drill scenario's verify block. Historical references in plan docs and release notes are annotated, not rewritten.
 
 **Tech Stack:** Python 3.11 + uv (drill's existing toolchain, unchanged); rsync; bash; git.
 
@@ -235,7 +235,7 @@ cd /Users/jesse/Documents/GitHub/superpowers/superpowers/evals
 uv run drill list 2>&1 | head -5
 ```
 
-Expected: starts with scenario names. (Will likely error or warn about missing SUPERPOWERS_ROOT — that's fine, fixed in next task.)
+Expected: starts with scenario names. (Will likely error or warn about missing HYPERPOWERS_ROOT — that's fine, fixed in next task.)
 
 - [ ] **Step 7: Dispatch verification subagent**
 
@@ -269,7 +269,7 @@ If the subagent reports any FAIL, fix the underlying issue (delete the leaked fi
 
 ---
 
-## Task 5: Add `SUPERPOWERS_ROOT` default helper
+## Task 5: Add `HYPERPOWERS_ROOT` default helper
 
 **Files:**
 - Modify: `evals/drill/cli.py:11-14`
@@ -304,25 +304,25 @@ Open `evals/tests/test_cli.py` and add this test at the end:
 
 ```python
 def test_set_superpowers_root_default_when_unset(monkeypatch, tmp_path):
-    """When SUPERPOWERS_ROOT is unset, helper sets it to PROJECT_ROOT.parent."""
-    monkeypatch.delenv("SUPERPOWERS_ROOT", raising=False)
+    """When HYPERPOWERS_ROOT is unset, helper sets it to PROJECT_ROOT.parent."""
+    monkeypatch.delenv("HYPERPOWERS_ROOT", raising=False)
     from drill.cli import _set_superpowers_root_default, PROJECT_ROOT
 
     _set_superpowers_root_default()
 
     import os
-    assert os.environ["SUPERPOWERS_ROOT"] == str(PROJECT_ROOT.parent)
+    assert os.environ["HYPERPOWERS_ROOT"] == str(PROJECT_ROOT.parent)
 
 
 def test_set_superpowers_root_default_respects_existing(monkeypatch):
-    """When SUPERPOWERS_ROOT is already set, helper does not override."""
-    monkeypatch.setenv("SUPERPOWERS_ROOT", "/custom/path")
+    """When HYPERPOWERS_ROOT is already set, helper does not override."""
+    monkeypatch.setenv("HYPERPOWERS_ROOT", "/custom/path")
     from drill.cli import _set_superpowers_root_default
 
     _set_superpowers_root_default()
 
     import os
-    assert os.environ["SUPERPOWERS_ROOT"] == "/custom/path"
+    assert os.environ["HYPERPOWERS_ROOT"] == "/custom/path"
 ```
 
 - [ ] **Step 3: Run the test and watch it fail**
@@ -356,22 +356,22 @@ load_dotenv(PROJECT_ROOT / ".env")
 
 
 def _set_superpowers_root_default() -> None:
-    """Default SUPERPOWERS_ROOT to the parent of evals/ if not already set.
+    """Default HYPERPOWERS_ROOT to the parent of evals/ if not already set.
 
-    Drill historically required contributors to export SUPERPOWERS_ROOT
+    Drill historically required contributors to export HYPERPOWERS_ROOT
     pointing at the superpowers checkout. After lifting drill into
     superpowers/evals/, the parent of PROJECT_ROOT is always the
     superpowers root, so we can supply this default automatically.
 
-    Existing SUPERPOWERS_ROOT environment values are respected as overrides.
+    Existing HYPERPOWERS_ROOT environment values are respected as overrides.
     """
-    os.environ.setdefault("SUPERPOWERS_ROOT", str(PROJECT_ROOT.parent))
+    os.environ.setdefault("HYPERPOWERS_ROOT", str(PROJECT_ROOT.parent))
 
 
 _set_superpowers_root_default()
 ```
 
-The bottom-of-module call to `_set_superpowers_root_default()` runs at import time, immediately after `load_dotenv()`. This ensures both `engine.py` and `setup.py` (which read `os.environ["SUPERPOWERS_ROOT"]` directly) and the YAML interpolation (which reads `os.environ` when the backend YAML is loaded) all see the value.
+The bottom-of-module call to `_set_superpowers_root_default()` runs at import time, immediately after `load_dotenv()`. This ensures both `engine.py` and `setup.py` (which read `os.environ["HYPERPOWERS_ROOT"]` directly) and the YAML interpolation (which reads `os.environ` when the backend YAML is loaded) all see the value.
 
 - [ ] **Step 5: Run the test and watch it pass**
 
@@ -387,12 +387,12 @@ Expected: 2 tests pass.
 ```bash
 cd /Users/jesse/Documents/GitHub/superpowers/superpowers
 git add evals/drill/cli.py evals/tests/test_cli.py
-git commit -m "evals: default SUPERPOWERS_ROOT to parent of evals/ if unset
+git commit -m "evals: default HYPERPOWERS_ROOT to parent of evals/ if unset
 
 Adds _set_superpowers_root_default() to drill/cli.py, called at
 module import after load_dotenv(). PROJECT_ROOT resolves to evals/
 post-lift; its parent is the superpowers repo root, which is the
-correct value for SUPERPOWERS_ROOT.
+correct value for HYPERPOWERS_ROOT.
 
 Existing env values are respected as overrides via os.environ.setdefault.
 
@@ -406,10 +406,10 @@ Tests:
 ## Task 6: Update backend YAMLs to reflect the new env contract
 
 **Files:**
-- Modify: `evals/backends/codex.yaml` (drop `SUPERPOWERS_ROOT` from `required_env`)
-- Modify: `evals/backends/gemini.yaml` (drop `SUPERPOWERS_ROOT` from `required_env`)
+- Modify: `evals/backends/codex.yaml` (drop `HYPERPOWERS_ROOT` from `required_env`)
+- Modify: `evals/backends/gemini.yaml` (drop `HYPERPOWERS_ROOT` from `required_env`)
 
-The five `claude*.yaml` backend configs interpolate `${SUPERPOWERS_ROOT}` into `args` for the `--plugin-dir` flag — they keep `SUPERPOWERS_ROOT` in `required_env` because the interpolation needs it. The codex/gemini configs only listed it for engine.py/setup.py's `os.environ` reads, which the helper now satisfies.
+The five `claude*.yaml` backend configs interpolate `${HYPERPOWERS_ROOT}` into `args` for the `--plugin-dir` flag — they keep `HYPERPOWERS_ROOT` in `required_env` because the interpolation needs it. The codex/gemini configs only listed it for engine.py/setup.py's `os.environ` reads, which the helper now satisfies.
 
 - [ ] **Step 1: Confirm current state**
 
@@ -418,7 +418,7 @@ grep -A3 'required_env:' /Users/jesse/Documents/GitHub/superpowers/superpowers/e
 grep -A2 'required_env:' /Users/jesse/Documents/GitHub/superpowers/superpowers/evals/backends/gemini.yaml
 ```
 
-Expected outputs include `- SUPERPOWERS_ROOT` lines.
+Expected outputs include `- HYPERPOWERS_ROOT` lines.
 
 - [ ] **Step 2: Read codex.yaml fully**
 
@@ -426,14 +426,14 @@ Expected outputs include `- SUPERPOWERS_ROOT` lines.
 cat /Users/jesse/Documents/GitHub/superpowers/superpowers/evals/backends/codex.yaml
 ```
 
-- [ ] **Step 3: Edit codex.yaml — drop the `- SUPERPOWERS_ROOT` line under `required_env`**
+- [ ] **Step 3: Edit codex.yaml — drop the `- HYPERPOWERS_ROOT` line under `required_env`**
 
 Open `evals/backends/codex.yaml` and find:
 
 ```yaml
 required_env:
   - OPENAI_API_KEY
-  - SUPERPOWERS_ROOT
+  - HYPERPOWERS_ROOT
 ```
 
 Replace with:
@@ -443,13 +443,13 @@ required_env:
   - OPENAI_API_KEY
 ```
 
-- [ ] **Step 4: Edit gemini.yaml — drop the `- SUPERPOWERS_ROOT` line under `required_env`**
+- [ ] **Step 4: Edit gemini.yaml — drop the `- HYPERPOWERS_ROOT` line under `required_env`**
 
 Open `evals/backends/gemini.yaml` and find:
 
 ```yaml
 required_env:
-  - SUPERPOWERS_ROOT
+  - HYPERPOWERS_ROOT
 ```
 
 Replace with:
@@ -474,12 +474,12 @@ Expected: all tests pass. If `tests/test_backend.py` complains about `required_e
 ```bash
 cd /Users/jesse/Documents/GitHub/superpowers/superpowers
 git add evals/backends/codex.yaml evals/backends/gemini.yaml
-git commit -m "evals: drop SUPERPOWERS_ROOT from codex/gemini required_env
+git commit -m "evals: drop HYPERPOWERS_ROOT from codex/gemini required_env
 
-These backends only read SUPERPOWERS_ROOT via engine.py/setup.py's
+These backends only read HYPERPOWERS_ROOT via engine.py/setup.py's
 os.environ access, which the new cli.py default helper supplies
-automatically. claude*.yaml keep SUPERPOWERS_ROOT in required_env
-because they interpolate \${SUPERPOWERS_ROOT} into --plugin-dir args."
+automatically. claude*.yaml keep HYPERPOWERS_ROOT in required_env
+because they interpolate \${HYPERPOWERS_ROOT} into --plugin-dir args."
 ```
 
 ---
@@ -504,20 +504,20 @@ For each failure, open the test in `evals/tests/test_backend.py` and read the as
 
 - [ ] **Step 3: Update assertions**
 
-For tests that assert `SUPERPOWERS_ROOT` membership in `codex.yaml`'s or `gemini.yaml`'s `required_env`: invert the assertion to confirm absence. Example:
+For tests that assert `HYPERPOWERS_ROOT` membership in `codex.yaml`'s or `gemini.yaml`'s `required_env`: invert the assertion to confirm absence. Example:
 
 ```python
 # Before:
 def test_codex_requires_superpowers_root():
     backend = load_backend("codex")
-    assert "SUPERPOWERS_ROOT" in backend.required_env
+    assert "HYPERPOWERS_ROOT" in backend.required_env
 
 # After:
 def test_codex_does_not_require_superpowers_root():
-    """codex.yaml dropped SUPERPOWERS_ROOT from required_env;
+    """codex.yaml dropped HYPERPOWERS_ROOT from required_env;
     the cli.py helper supplies the default."""
     backend = load_backend("codex")
-    assert "SUPERPOWERS_ROOT" not in backend.required_env
+    assert "HYPERPOWERS_ROOT" not in backend.required_env
 ```
 
 - [ ] **Step 4: Re-run the test suite**
@@ -542,8 +542,8 @@ git commit -m "evals: update test_backend.py for relaxed required_env contract"
 ## Task 8: Update evals/README.md and evals/CLAUDE.md
 
 **Files:**
-- Modify: `evals/README.md` (drop SUPERPOWERS_ROOT setup step)
-- Modify: `evals/CLAUDE.md` (drop SUPERPOWERS_ROOT setup step)
+- Modify: `evals/README.md` (drop HYPERPOWERS_ROOT setup step)
+- Modify: `evals/CLAUDE.md` (drop HYPERPOWERS_ROOT setup step)
 
 - [ ] **Step 1: Edit evals/README.md**
 
@@ -552,7 +552,7 @@ Find the section that looks like:
 ```markdown
 Required environment:
 ```bash
-export SUPERPOWERS_ROOT=/path/to/superpowers
+export HYPERPOWERS_ROOT=/path/to/superpowers
 export ANTHROPIC_API_KEY=sk-...
 ```
 ```
@@ -565,7 +565,7 @@ Required environment:
 export ANTHROPIC_API_KEY=sk-...
 ```
 
-`SUPERPOWERS_ROOT` defaults to the parent of `evals/` (the superpowers repo root) and only needs to be set if you're running drill against a different superpowers checkout.
+`HYPERPOWERS_ROOT` defaults to the parent of `evals/` (the superpowers repo root) and only needs to be set if you're running drill against a different superpowers checkout.
 ```
 
 - [ ] **Step 2: Edit evals/CLAUDE.md**
@@ -576,7 +576,7 @@ Find the section:
 ## Required env
 
 ```
-SUPERPOWERS_ROOT=/path/to/superpowers
+HYPERPOWERS_ROOT=/path/to/superpowers
 ANTHROPIC_API_KEY=sk-...
 ```
 ```
@@ -590,7 +590,7 @@ Replace with:
 ANTHROPIC_API_KEY=sk-...
 ```
 
-`SUPERPOWERS_ROOT` defaults to the parent of `evals/` (the superpowers repo root). Override only if running drill against a different superpowers checkout.
+`HYPERPOWERS_ROOT` defaults to the parent of `evals/` (the superpowers repo root). Override only if running drill against a different superpowers checkout.
 ```
 
 - [ ] **Step 3: Commit**
@@ -598,7 +598,7 @@ ANTHROPIC_API_KEY=sk-...
 ```bash
 cd /Users/jesse/Documents/GitHub/superpowers/superpowers
 git add evals/README.md evals/CLAUDE.md
-git commit -m "evals: drop SUPERPOWERS_ROOT setup step from README/CLAUDE
+git commit -m "evals: drop HYPERPOWERS_ROOT setup step from README/CLAUDE
 
 The cli.py helper now defaults the env var. Mention as override only."
 ```
@@ -613,7 +613,7 @@ The cli.py helper now defaults the env var. Mention as override only."
 
 ```bash
 cd /Users/jesse/Documents/GitHub/superpowers/superpowers/evals
-unset SUPERPOWERS_ROOT
+unset HYPERPOWERS_ROOT
 uv run pytest 2>&1 | tail -5
 ```
 
@@ -623,11 +623,11 @@ Expected: all tests pass. The `unset` ensures we're testing the helper, not an i
 
 ```bash
 cd /Users/jesse/Documents/GitHub/superpowers/superpowers/evals
-unset SUPERPOWERS_ROOT
+unset HYPERPOWERS_ROOT
 uv run drill list 2>&1 | head -10
 ```
 
-Expected: scenario list, no error about missing SUPERPOWERS_ROOT.
+Expected: scenario list, no error about missing HYPERPOWERS_ROOT.
 
 - [ ] **Step 3: Source the env file**
 
@@ -644,13 +644,13 @@ Expected: `ANTHROPIC_API_KEY set: yes`.
 
 ```bash
 cd /Users/jesse/Documents/GitHub/superpowers/superpowers/evals
-unset SUPERPOWERS_ROOT
+unset HYPERPOWERS_ROOT
 uv run drill run triggering-test-driven-development -b claude 2>&1 | tail -3
 ```
 
 Expected: `claude: 1 passed, 0 failed, 0 errors`.
 
-If FAIL, debug before continuing. The path-defaults change is the most likely culprit; check that the helper actually fired by adding a `print(os.environ["SUPERPOWERS_ROOT"])` after the helper call temporarily.
+If FAIL, debug before continuing. The path-defaults change is the most likely culprit; check that the helper actually fired by adding a `print(os.environ["HYPERPOWERS_ROOT"])` after the helper call temporarily.
 
 ---
 
@@ -1166,7 +1166,7 @@ git commit -m "docs: introduce evals/ as the canonical skill-behavior eval harne
 
 ```bash
 cd /Users/jesse/Documents/GitHub/superpowers/superpowers/evals
-unset SUPERPOWERS_ROOT
+unset HYPERPOWERS_ROOT
 uv run pytest 2>&1 | tail -5
 ```
 
@@ -1179,7 +1179,7 @@ set -a
 source /Users/jesse/Documents/GitHub/prime-radiant-inc/sprout/.env
 set +a
 cd /Users/jesse/Documents/GitHub/superpowers/superpowers/evals
-unset SUPERPOWERS_ROOT
+unset HYPERPOWERS_ROOT
 uv run drill run triggering-test-driven-development -b claude 2>&1 | tail -3
 ```
 
@@ -1234,8 +1234,8 @@ Look hard at:
 1. Did the rsync-with-excludes actually exclude what it claimed?
    (find evals -name '.git' -type d should return nothing)
 2. Does the lift commit message point at a real commit in obra/drill?
-3. Does the SUPERPOWERS_ROOT helper actually default correctly when
-   the env var is unset? (cd evals && unset SUPERPOWERS_ROOT && uv
+3. Does the HYPERPOWERS_ROOT helper actually default correctly when
+   the env var is unset? (cd evals && unset HYPERPOWERS_ROOT && uv
    run drill list — does it work?)
 4. For each deleted bash test, does the corresponding drill scenario
    actually verify what the bash test asserted? Spot-check by reading
@@ -1287,13 +1287,13 @@ gh pr create \
   --body "$(cat <<'EOF'
 ## What problem are you trying to solve?
 
-Drill — the standalone Python skill-compliance benchmark at obra/drill — is already the de facto eval harness for superpowers. The PRI-1397 commit series lifted ~22 bash tests into drill scenarios, and the most recent superpowers commit (a2292c5) explicitly removed a redundant bash test with the message "replaced by drill behavioral coverage". Drill is a sibling repo today, requiring contributors to clone two checkouts and set SUPERPOWERS_ROOT manually. This PR completes the migration: drill becomes superpowers/evals/.
+Drill — the standalone Python skill-compliance benchmark at obra/drill — is already the de facto eval harness for superpowers. The PRI-1397 commit series lifted ~22 bash tests into drill scenarios, and the most recent superpowers commit (a2292c5) explicitly removed a redundant bash test with the message "replaced by drill behavioral coverage". Drill is a sibling repo today, requiring contributors to clone two checkouts and set HYPERPOWERS_ROOT manually. This PR completes the migration: drill becomes superpowers/evals/.
 
 ## What does this PR change?
 
 - Lifts the obra/drill repo into superpowers as `evals/`, with explicit rsync excludes (.git, .venv, results, .env, __pycache__, *.egg-info, .private-journal). The lift commit records the source SHA.
-- Adds a `_set_superpowers_root_default()` helper to drill/cli.py so SUPERPOWERS_ROOT defaults to the parent of evals/ — no manual env-var setup.
-- Drops SUPERPOWERS_ROOT from required_env in codex.yaml/gemini.yaml (the helper supplies it). Claude*.yaml keep it because they interpolate ${SUPERPOWERS_ROOT} into --plugin-dir args.
+- Adds a `_set_superpowers_root_default()` helper to drill/cli.py so HYPERPOWERS_ROOT defaults to the parent of evals/ — no manual env-var setup.
+- Drops HYPERPOWERS_ROOT from required_env in codex.yaml/gemini.yaml (the helper supplies it). Claude*.yaml keep it because they interpolate ${HYPERPOWERS_ROOT} into --plugin-dir args.
 - Deletes redundant bash tests under tests/skill-triggering/, tests/explicit-skill-requests/, tests/subagent-driven-dev/, and tests/claude-code/ — gated per-file by a subagent that compared each bash test's assertions to its drill scenario's verify block. Anything not 100% covered was kept.
 - docs/testing.md split into Plugin tests + Skill behavior evals.
 - README.md Contributing and CLAUDE.md gain pointers to evals/.
@@ -1329,7 +1329,7 @@ Drill's own pytest suite passes from the new location. `triggering-test-driven-d
 
 - Initial prompt: see linked spec (`docs/hyperpowers/specs/2026-05-06-lift-drill-into-evals-design.md`).
 - Drill's own pytest suite passes.
-- One drill scenario re-run from the new location end-to-end (proves the SUPERPOWERS_ROOT default works).
+- One drill scenario re-run from the new location end-to-end (proves the HYPERPOWERS_ROOT default works).
 - Per-deleted-file subagent verification recorded in each deletion commit's message.
 
 ## Rigor
@@ -1365,9 +1365,9 @@ Expected: browser opens to the new PR. Take a screenshot or note the URL for fol
 - [ ] `git log --oneline dev..HEAD` shows the expected commits in order
 - [ ] The lift commit message records the source SHA
 - [ ] `find evals -name '.git' -type d` returns no output
-- [ ] `cd evals && unset SUPERPOWERS_ROOT && uv run pytest` passes
-- [ ] `cd evals && unset SUPERPOWERS_ROOT && uv run drill list` returns scenarios
-- [ ] `cd evals && unset SUPERPOWERS_ROOT && uv run drill run triggering-test-driven-development -b claude` passes
+- [ ] `cd evals && unset HYPERPOWERS_ROOT && uv run pytest` passes
+- [ ] `cd evals && unset HYPERPOWERS_ROOT && uv run drill list` returns scenarios
+- [ ] `cd evals && unset HYPERPOWERS_ROOT && uv run drill run triggering-test-driven-development -b claude` passes
 - [ ] `tests/brainstorm-server/server.test.js` still passes (regression gate for non-LLM tests)
 - [ ] `git diff dev..HEAD docs/hyperpowers/plans/2026-04-06-worktree-rototill.md docs/hyperpowers/plans/2026-03-23-codex-app-compatibility.md RELEASE-NOTES.md` shows annotations only, no path rewrites
 - [ ] `cd ../drill && git log --oneline -1` shows obra/drill is unchanged from the source SHA recorded in the lift commit
