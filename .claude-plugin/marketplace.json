@@ -1,19 +1,19 @@
 {
-  "name": "superpowers-dev",
-  "description": "Development marketplace for Superpowers core skills library",
+  "name": "hyperpowers",
+  "description": "Marketplace for Hyperpowers core skills library",
   "owner": {
-    "name": "Jesse Vincent",
-    "email": "jesse@fsck.com"
+    "name": "DaRealLebron",
+    "email": "stephpangas@gmail.com"
   },
   "plugins": [
     {
-      "name": "superpowers",
+      "name": "hyperpowers",
       "description": "Core skills library for Claude Code: TDD, debugging, collaboration patterns, and proven techniques",
       "version": "6.0.2",
       "source": "./",
       "author": {
-        "name": "Jesse Vincent",
-        "email": "jesse@fsck.com"
+        "name": "DaRealLebron",
+        "email": "stephpangas@gmail.com"
       }
     }
   ]
