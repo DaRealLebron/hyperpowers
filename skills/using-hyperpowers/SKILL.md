@@ -108,10 +108,19 @@ When multiple skills could apply, use this order:
 "Let's build X" → brainstorming first, then implementation skills.
 "Fix this bug" → systematic-debugging first, then domain-specific skills.
 
-## Routing Build Work
+## Routing the Work
 
-For build tasks, route altitude first with skill-router (trivial → feature → project), then enter
-the matched skill. Don't default every task to the same depth — proportional effort is the point (NS2).
+Before you pick an implementation skill — or write any code — route the work to its altitude:
+
+- **Build or change behavior** → invoke `skill-router` FIRST. It picks the altitude
+  (trivial → feature → project); you then enter the matched skill. Don't default every task to the
+  same depth — proportional effort is the point (NS2).
+- **Bug, test failure, or unexpected behavior** → invoke `systematic-debugging` FIRST, before
+  proposing or attempting any fix.
+
+This routing is mandatory, not a suggestion. "Add X" and "Fix Y" route the same as any other build
+or bug task (see User Instructions below) — a terse request never licenses skipping the router and
+jumping straight to implementation.
 
 ## Skill Types
 

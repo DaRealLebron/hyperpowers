@@ -13,7 +13,7 @@ advisory customizations on upstream, guarded by a deterministic structural lint.
 guidelines.
 
 - **Verify the fork customizations:** `bash scripts/lint-fork-customizations.sh` (no LLM; structure
-  only — currently 49 checks).
+  only — currently 55 checks).
 - **Orientation & workflow:** see the Documentation index at the end of this file.
 
 ## If You Are an AI Agent

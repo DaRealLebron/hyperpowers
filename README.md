@@ -65,7 +65,7 @@ operator may override any gate by proceeding with an explicit statement of inten
   well-linked state at completion checkpoints (finishing a branch, the plan's final docs task, the
   completion gate); tiny additions auto-apply while structural changes are proposed first, and drift
   is bidirectional — a pass both records verified learnings and evicts bloat past a ~100-line budget.
-- **Grafts:** a shared elicitation-methods menu (offered from `brainstorming` and `product-discovery`), scale-adaptive planning depth, and Finding A (oracle-strengthening test assertions). `49 checks`.
+- **Grafts:** a shared elicitation-methods menu (offered from `brainstorming` and `product-discovery`), scale-adaptive planning depth, and Finding A (oracle-strengthening test assertions). `55 checks`.
 
 A deterministic structural check, `scripts/lint-fork-customizations.sh`, verifies these
 behaviors remain present in the skill files after edits (no LLM; structure only — it does not
@@ -83,7 +83,7 @@ To use it in Claude Code instead of upstream:
 
 Both plugins share skill names with upstream, so disable the upstream one to avoid a
 collision: open `/plugin`, toggle `superpowers@claude-plugins-official` **off**, then restart Claude
-Code. Verify the customizations are present with `bash scripts/lint-fork-customizations.sh` (49 checks
+Code. Verify the customizations are present with `bash scripts/lint-fork-customizations.sh` (55 checks
 should pass).
 
 See [`docs/workflow.md`](docs/workflow.md) for the happy-path flowcharts (upstream vs. this fork).

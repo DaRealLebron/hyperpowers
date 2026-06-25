@@ -47,6 +47,9 @@ Use for ANY technical issue:
 
 You MUST complete each phase before proceeding to the next.
 
+When the fix's risk warrants it, you MUST also pass the **Root-Cause Review Gate** (between Phase 3
+and Phase 4) before implementing.
+
 ### Phase 1: Root Cause Investigation
 
 **BEFORE attempting ANY fix:**
@@ -167,6 +170,59 @@ You MUST complete each phase before proceeding to the next.
    - Ask for help
    - Research more
 
+### Gate: Independent Root-Cause Review
+
+**Runs after Phase 3 confirms a hypothesis, before Phase 4 implements the fix.**
+
+This is the debugging analogue of `writing-plans`' Adversarial Plan Review and `brainstorming`'s
+design-approval gate: an independent check on the diagnosis before any fix lands. It is
+**advisory** — it refuses to let you *claim* the root cause is confirmed without a review, but you
+may override (step 4).
+
+**Scale the gate to risk (NS2).** Skip it for an obvious, self-contained fix (a one-line typo, a
+clear off-by-one with a tight reproduction). Run it when blast radius or uncertainty earns it:
+- the fix touches multiple files or a component other code depends on
+- the code is production / user-facing / hard to roll back
+- the root cause is non-obvious, or a previous fix attempt already failed
+
+**1. Required — in-session reviewer:** dispatch a fresh `general-purpose` subagent with the prompt
+template at `root-cause-reviewer-prompt.md`, filled with the symptom, the evidence you gathered,
+your stated root cause, and the single fix you propose. The reviewer's job is to *refute* the
+diagnosis — find the evidence gap, the alternative cause, the symptom you'd merely be masking. It
+is read-only and does not spawn its own subagents.
+
+**2. Best-effort — model diversity (NS5):** send the SAME filled prompt to other backends if
+available; each is optional and never blocks. Write the prompt to a temp file first, e.g.
+`/tmp/root-cause-review.md`.
+- Codex:
+  ```bash
+  if command -v codex >/dev/null 2>&1; then
+    codex exec - < /tmp/root-cause-review.md || echo "skipped (unavailable: codex)"
+  else
+    echo "skipped (unavailable: codex)"
+  fi
+  ```
+- Gemini (operator's `claude-or` wrapper, or any local Gemini CLI):
+  ```bash
+  if command -v claude-or >/dev/null 2>&1; then
+    claude-or -p "$(cat /tmp/root-cause-review.md)" || echo "skipped (unavailable: gemini)"
+  else
+    echo "skipped (unavailable: gemini)"
+  fi
+  ```
+
+**3. Summarize verdicts:** present each verdict attributed by reviewer (e.g. "Claude: proceed",
+"Codex: revise — evidence doesn't rule out a caching layer"). Don't collapse them into one pass/fail.
+
+**4. Act on the verdicts:**
+- All returned reviewers say `proceed` → continue to Phase 4.
+- Any reviewer says `revise` → return to Phase 1/3 and re-investigate. Proceeding anyway is allowed,
+  but you MUST state explicitly that you are overriding the review and why.
+
+**Where subagents and Codex are unavailable** (see the per-platform tool refs in
+`../using-hyperpowers/references/`), the gate degrades to a written self-review of the diagnosis +
+proposed fix that you present to your human partner for a sanity check before Phase 4.
+
 ### Phase 4: Implementation
 
 **Fix the root cause, not the symptom:**
@@ -282,6 +338,7 @@ These techniques are part of systematic debugging and available in this director
 - **`root-cause-tracing.md`** - Trace bugs backward through call stack to find original trigger
 - **`defense-in-depth.md`** - Add validation at multiple layers after finding root cause
 - **`condition-based-waiting.md`** - Replace arbitrary timeouts with condition polling
+- **`root-cause-reviewer-prompt.md`** - Review template for the Root-Cause Review Gate (before Phase 4)
 
 **Related skills:**
 - **hyperpowers:test-driven-development** - For creating failing test case (Phase 4, Step 1)

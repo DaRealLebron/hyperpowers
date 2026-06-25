@@ -141,6 +141,16 @@ check "finishing-a-branch: curation graft" "$FB" "curating-project-memory"
 check "writing-plans: memory in final docs task" "$WP" "CLAUDE.md / AGENTS.md"
 check "completion gate: project-memory-current row" "$VC" "Project memory current"
 
+# 21. Systematic-debugging supervision — Root-Cause Review Gate + stronger routing front door
+SDBG="skills/systematic-debugging/SKILL.md"
+RCR="skills/systematic-debugging/root-cause-reviewer-prompt.md"
+check "using-hyperpowers: routing is mandatory"        "$US"   "This routing is mandatory, not a suggestion"
+check "systematic-debugging: review-gate section"      "$SDBG" "### Gate: Independent Root-Cause Review"
+check "systematic-debugging: scale-to-risk"            "$SDBG" "Scale the gate to risk"
+check "systematic-debugging: advisory override"        "$SDBG" "overriding the review"
+check "systematic-debugging: best-effort codex review" "$SDBG" "codex exec - < /tmp/root-cause-review.md"
+check "root-cause-reviewer: proceed|revise verdict"    "$RCR"  "Root cause confirmed? proceed | revise"
+
 printf '\n%d passed, %d failed\n' "$pass" "$fail"
 if [[ "$fail" -gt 0 ]]; then
   exit 1

@@ -81,7 +81,7 @@ flowchart TD
 All fork additions are **advisory** (operator may override any gate) and **flat depth-2,
 read-only** where they fan out — matching the research finding that parallel read/review
 fan-out helps while nested subagents-calling-subagents does not. The deterministic structural
-lint `scripts/lint-fork-customizations.sh` (no LLM, 49 checks) guards these behaviors.
+lint `scripts/lint-fork-customizations.sh` (no LLM, 55 checks) guards these behaviors.
 
 ## Two newer arcs (layered on the pipeline above)
 
